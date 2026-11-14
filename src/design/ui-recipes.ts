@@ -23,6 +23,10 @@ export const CONTROL_SIZE_RECIPES = {
 export type ControlSize = keyof typeof CONTROL_SIZE_RECIPES;
 
 export const UI_RECIPE_TOKENS = {
+  pageHeading:
+    "max-w-full break-words text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.035em] text-[var(--surface-accent)] md:text-[2.25rem]",
+  pageDescription:
+    "max-w-full break-words text-base font-normal leading-[1.7] text-[var(--surface-fg-mid)] md:text-lg",
   actionLink:
     "focus-ring inline-flex font-mono text-[12px] uppercase tracking-[0.16em] transition-colors duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none hover:text-[var(--surface-accent)]",
   actionLinkMuted:

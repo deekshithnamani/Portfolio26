@@ -87,15 +87,13 @@ describe("content scaffolding", () => {
   it("provides the required work items", () => {
     const { WORK } = portfolioData;
 
-    expect(WORK).toHaveLength(3);
-    expect(WORK[0].slug).toBe("tbd-case-study-01");
+    expect(WORK).toHaveLength(4);
+    expect(WORK[0].slug).toBe("daosoft-ai-decision-intelligence");
     expect(WORK[0]).toMatchObject({
-      company: "AURORA OPS",
-      duration: "8 WEEKS",
-      tldr:
-        "A command-center concept for teams that need to scan work in progress, spot blocked handoffs, and decide what deserves attention first.",
+      company: "DAOSoft.AI",
+      duration: "Mar 2024 – Present",
     });
-    expect(WORK[2].body.some((block) => block.type === "video")).toBe(true);
+    expect(WORK[0].body.some((block) => block.type === "image")).toBe(true);
   });
 
   it("provides the required make content and tags", () => {
@@ -125,6 +123,6 @@ describe("content scaffolding", () => {
     const { PLACEHOLDER_IMAGE, WORK } = portfolioData;
 
     expect(PLACEHOLDER_IMAGE.startsWith("data:image/svg+xml")).toBe(true);
-    expect(WORK[0].cover).toBe(PLACEHOLDER_IMAGE);
+    expect(WORK[0].cover).not.toBe(PLACEHOLDER_IMAGE);
   });
 });

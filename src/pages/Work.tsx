@@ -88,7 +88,7 @@ function WorkBlock({ block }: { block: WorkBodyBlock }) {
 
   if (block.type === "text") {
     return (
-      <p className={clsx("max-w-[66ch]", UI_RECIPE_TOKENS.bodyProse)}>
+      <p className={clsx("max-w-full", UI_RECIPE_TOKENS.bodyProse)}>
         {block.content}
       </p>
     );
@@ -278,7 +278,7 @@ export function WorkIndex() {
                     <span className="h-px w-8 bg-[var(--surface-border-mid)] transition-colors duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none group-hover:bg-[var(--surface-accent)]" />
                   </div>
 
-                  <h2 className="max-w-[13ch] text-[1.6rem] font-normal leading-[1.05] tracking-[-0.04em] text-[var(--surface-fg)] md:text-[1.8rem]">
+                  <h2 className="max-w-full text-[1.6rem] font-normal leading-[1.05] tracking-[-0.04em] text-[var(--surface-fg)] md:text-[1.8rem]">
                     {item.title}
                   </h2>
 
@@ -385,7 +385,7 @@ export function WorkDetail() {
             {item.company} / {item.category} / {item.year}
           </p>
 
-          <p className={clsx("mt-4 max-w-[64ch] text-base leading-[1.9]", UI_RECIPE_TOKENS.bodyProse)}>
+          <p className={clsx("mt-4", UI_RECIPE_TOKENS.pageDescription)}>
             {item.tldr}
           </p>
         </section>

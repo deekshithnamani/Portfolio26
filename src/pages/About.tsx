@@ -1,98 +1,106 @@
 import clsx from "clsx";
 import { Link } from "react-router";
-import { MagneticButton } from "@/Layout";
 import { PageContainer, SectionHeader } from "@/components/ui";
-import {
-  SITE_EMAIL_HREF,
-  SITE_LINKEDIN_URL,
-} from "@/config/site";
+import { SITE_EMAIL_HREF, SITE_LINKEDIN_URL } from "@/config/site";
 import { ROUTE_PATHS } from "@/config/route-paths";
 import { PORTFOLIO_CONTENT } from "@/data/portfolio-content";
 import { UI_RECIPE_TOKENS } from "@/design";
 
+const STORY_HEADINGS = [
+  "Finding design",
+  "Taking ownership",
+  "Connecting the two",
+];
+
 export default function About() {
-  const ABOUT_CONTENT = PORTFOLIO_CONTENT.about;
+  const about = PORTFOLIO_CONTENT.about;
 
   return (
     <PageContainer variant="wide">
       <SectionHeader
         title="ABOUT"
-        description="Who I am, beyond the case studies — how I actually approach work, and what I'm focused on right now."
+        description="The path from engineering to design — and the product thinking that connects it all."
       />
 
-      <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_280px] md:items-start">
-        <article
-          className={clsx(
-            UI_RECIPE_TOKENS.cardFrame,
-            UI_RECIPE_TOKENS.panelPadding,
-            "space-y-4",
-            UI_RECIPE_TOKENS.bodyProse,
-          )}
-        >
-          <p>{ABOUT_CONTENT.bioParagraphs[0]}</p>
-          <p>{ABOUT_CONTENT.bioParagraphs[1]}</p>
-          <p>{ABOUT_CONTENT.bioParagraphs[2]}</p>
-          <p className={UI_RECIPE_TOKENS.bodySupport}>
+      <article aria-label="My background">
+        {about.bioParagraphs.map((paragraph, index) => (
+          <section
+            key={paragraph}
+            aria-labelledby={`about-story-${index}`}
+            className="grid gap-4 border-t border-[var(--surface-border)] py-7 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-10 md:py-9"
+          >
+            <h2
+              id={`about-story-${index}`}
+              className={clsx("pt-1", UI_RECIPE_TOKENS.metaText)}
+            >
+              {STORY_HEADINGS[index] ?? "Background"}
+            </h2>
+            <p className={clsx("max-w-[65ch]", UI_RECIPE_TOKENS.bodyProse)}>
+              {paragraph}
+            </p>
+          </section>
+        ))}
+      </article>
+
+      <section
+        aria-labelledby="about-now"
+        className="grid gap-4 border-t border-[var(--surface-border)] py-7 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-10 md:py-9"
+      >
+        <h2 id="about-now" className={clsx("pt-1", UI_RECIPE_TOKENS.metaText)}>
+          Now
+        </h2>
+        <div className="max-w-[65ch] space-y-6">
+          <p className={UI_RECIPE_TOKENS.bodyProse}>{about.nowBlock}</p>
+          <div className="flex flex-wrap gap-x-7 gap-y-2">
+            <Link
+              to={ROUTE_PATHS.work}
+              className={clsx(
+                "min-h-11 items-center gap-3",
+                UI_RECIPE_TOKENS.actionLinkMuted,
+              )}
+            >
+              Explore my work <span aria-hidden="true">→</span>
+            </Link>
             <a
               href={SITE_LINKEDIN_URL}
               target="_blank"
               rel="noreferrer"
-              className={UI_RECIPE_TOKENS.actionLink}
+              className={clsx(
+                "min-h-11 items-center gap-3",
+                UI_RECIPE_TOKENS.actionLinkMuted,
+              )}
             >
-              LINKEDIN ↗
+              LinkedIn <span aria-hidden="true">↗</span>
             </a>
-          </p>
+          </div>
+        </div>
+      </section>
 
-          <p>
-            This portfolio is organized to show both the shipped work in{" "}
-            <Link to={ROUTE_PATHS.work} className={UI_RECIPE_TOKENS.actionLink}>
-              WORK
-            </Link>
-            {" "}and the smaller explorations in{" "}
-            <Link to={ROUTE_PATHS.make} className={UI_RECIPE_TOKENS.actionLink}>
-              MAKE
-            </Link>
-            . For a more direct background, LinkedIn stays available too.
+      <section
+        aria-labelledby="about-contact"
+        className="grid gap-4 border-t border-[var(--surface-border)] pt-7 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-10 md:pt-9"
+      >
+        <h2
+          id="about-contact"
+          className={clsx("pt-1", UI_RECIPE_TOKENS.metaText)}
+        >
+          Contact
+        </h2>
+        <div className="max-w-[65ch]">
+          <p className="text-xl font-normal leading-[1.4] tracking-[-0.03em] text-[var(--surface-fg)] md:text-2xl">
+            Have a product worth thinking through together?
           </p>
-        </article>
-
-        <aside className="space-y-5">
-          <section
+          <a
+            href={SITE_EMAIL_HREF}
             className={clsx(
-              UI_RECIPE_TOKENS.cardFrame,
-              UI_RECIPE_TOKENS.panelPadding,
-              "space-y-3",
+              "mt-4 min-h-11 items-center gap-3",
+              UI_RECIPE_TOKENS.actionLinkMuted,
             )}
           >
-            <p className={UI_RECIPE_TOKENS.metaText}>NOW</p>
-            <p className={UI_RECIPE_TOKENS.bodySupport}>
-              {ABOUT_CONTENT.nowBlock}
-            </p>
-          </section>
-
-          <section
-            className={clsx(
-              UI_RECIPE_TOKENS.cardFrame,
-              UI_RECIPE_TOKENS.panelPadding,
-              "space-y-4",
-            )}
-          >
-            <p className={UI_RECIPE_TOKENS.metaText}>CONTACT</p>
-            <p className={UI_RECIPE_TOKENS.bodySupport}>
-              Open to product, systems, and interface work with a strong design
-              craft layer.
-            </p>
-            <MagneticButton>
-              <a
-                href={SITE_EMAIL_HREF}
-                className={UI_RECIPE_TOKENS.subtleScaleButton}
-              >
-                {ABOUT_CONTENT.contactCta.label} ↗
-              </a>
-            </MagneticButton>
-          </section>
-        </aside>
-      </div>
+            {about.contactCta.label} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
     </PageContainer>
   );
 }

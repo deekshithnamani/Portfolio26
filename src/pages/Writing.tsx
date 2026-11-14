@@ -140,7 +140,7 @@ export function PostDetail() {
 
       <article
         className={clsx(
-          "max-w-[66ch] space-y-4 md:space-y-5",
+          "max-w-full space-y-4 md:space-y-5",
           UI_RECIPE_TOKENS.bodyProse,
         )}
       >

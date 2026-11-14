@@ -1,5 +1,5 @@
-import logoBlack from "@/assests/logoblack.png";
-import logoWhite from "@/assests/logowhite.png";
+import logoBlack from "@/assets/logoblack.png";
+import logoWhite from "@/assets/logowhite.png";
 import { useTheme } from "./layout-context";
 
 export function BrandMark({

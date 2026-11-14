@@ -22,10 +22,10 @@ export function SectionHeader({ title, description }: SectionHeaderProps) {
 
   return (
     <header className="mb-10 space-y-2 md:mb-12">
-      <h1 className="text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.035em] text-[var(--surface-accent)] md:text-[1.625rem]">
+      <h1 className={UI_RECIPE_TOKENS.pageHeading}>
         {displayTitle}
       </h1>
-      <p className="max-w-[52ch] text-[0.8rem] font-normal leading-[1.6] text-[var(--surface-fg-mid)] md:text-[0.82rem]">
+      <p className={UI_RECIPE_TOKENS.pageDescription}>
         {description}
       </p>
     </header>

@@ -6,7 +6,7 @@ import { ROUTE_PATHS, buildWorkDetailPath } from "@/config/route-paths";
 import { WORK } from "@/data";
 import { UI_RECIPE_TOKENS } from "@/design";
 import { PORTFOLIO_CONTENT } from "@/data/portfolio-content";
-import heroLogo from "@/assests/logored.png";
+import heroLogo from "@/assets/logored.png";
 
 function PreviewRow({
   rowIndex,
