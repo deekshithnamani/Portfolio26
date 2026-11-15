@@ -32,7 +32,7 @@ describe("design system recipes", () => {
     expect(LAYOUT_TOKENS.pageShellPaddingX).toContain("xl:");
     expect(LAYOUT_TOKENS.pageShellPaddingY).toContain("lg:");
     expect(LAYOUT_TOKENS.pageShellPaddingY).toContain("xl:");
-    expect(LAYOUT_TOKENS.desktopShell).toContain("180px");
+    expect(LAYOUT_TOKENS.desktopShell).toContain("site-layout-shell");
   });
 
   it("uses readable sans chrome text for navigation and footer UI", () => {
@@ -92,14 +92,14 @@ describe("design system recipes", () => {
 
 describe("navigation metadata", () => {
   it("keeps nav items aligned with the top-level route paths", () => {
-    expect(NAV_ITEMS.map((item) => item.href)).toEqual([
-      ROUTE_PATHS.home,
-      ROUTE_PATHS.work,
-      (ROUTE_PATHS as Record<string, string>).make ?? "/make",
-      ROUTE_PATHS.concepts,
-      ROUTE_PATHS.practice,
-      ROUTE_PATHS.curations,
-      ROUTE_PATHS.about,
+    expect(NAV_ITEMS.map((item) => item.path)).toEqual([
+      "/",
+      "/work",
+      "/product-thinking",
+      "/beyond-work",
+      "/about",
+      "/make",
+      "#",
     ]);
   });
 

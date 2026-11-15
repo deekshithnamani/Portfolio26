@@ -6,7 +6,7 @@ export const LAYOUT_TOKENS = {
   pageShellPaddingY:
     "py-12 sm:py-14 md:py-[3.75rem] lg:py-16 xl:py-[4.25rem] 2xl:py-20",
   topBarOffset: "pt-12 md:pt-0",
-  desktopShell: "md:grid md:grid-cols-[180px_minmax(0,1fr)]",
+  desktopShell: "site-layout-shell",
   viewportFillMinusTopBar: "min-h-[calc(100vh-3rem)] md:min-h-screen",
   pageFooterSpacer: "py-3 md:py-4",
   pageFooterStack: "flex items-center",

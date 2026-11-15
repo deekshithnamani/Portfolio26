@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Theme } from "@/design";
-import { NAV_ITEMS, resolveDocumentTitle } from "@/config/navigation";
+import { resolveDocumentTitle } from "@/config/navigation";
 import { ROUTE_PATHS } from "@/config/route-paths";
-
-export { NAV_ITEMS };
 
 export function getDocumentTitle(pathname: string) {
   return resolveDocumentTitle(pathname);

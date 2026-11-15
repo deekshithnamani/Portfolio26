@@ -9,7 +9,7 @@ import {
   type MouseEvent,
   type PropsWithChildren,
 } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { DARK, LAYOUT_TOKENS, LIGHT, UI_ANIMATION_TOKENS } from "@/design";
 import { clamp } from "@/lib/math";
 import { CursorCtx, ThemeCtx, useCursor, useTheme } from "./layout-context";
@@ -95,11 +95,18 @@ export function MagneticButton({
 }
 
 function LayoutFrame() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const [sideCollapsed, setSideCollapsed] = useState(false);
+  const isCaseStudy = pathname.startsWith("/work/");
   const closeDrawer = useCallback(() => setOpen(false), []);
   const drawerId = useId();
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const mainRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!document.body.dataset.nav) document.body.dataset.nav = "top";
+  }, []);
 
   return (
     <>
@@ -119,8 +126,8 @@ function LayoutFrame() {
       <RouteEffects mainRef={mainRef} />
       <PageTransition />
       <CustomCursor />
-      <div className={LAYOUT_TOKENS.desktopShell}>
-        <SideRail />
+      <div className={LAYOUT_TOKENS.desktopShell} data-side-collapsed={sideCollapsed || undefined}>
+        <SideRail collapsible={isCaseStudy} collapsed={sideCollapsed} onToggle={() => setSideCollapsed((value) => !value)} />
         <main
           ref={mainRef}
           id="main-content"

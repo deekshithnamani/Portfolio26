@@ -160,6 +160,29 @@ a {
   text-decoration: none;
 }
 
+:root {
+  --nav-top-height: 4rem;
+  --nav-side-width: 11.25rem;
+  --nav-side-collapsed-width: 4rem;
+}
+
+.site-side-nav { display: none; }
+
+@media (min-width: 768px) {
+  .site-layout-shell { min-height: 100vh; }
+  body[data-nav="side"] .site-top-nav { display: none; }
+  body[data-nav="side"] .site-layout-shell {
+    display: grid;
+    grid-template-columns: var(--nav-side-width) minmax(0, 1fr);
+  }
+  body[data-nav="side"] .site-layout-shell[data-side-collapsed="true"] {
+    grid-template-columns: var(--nav-side-collapsed-width) minmax(0, 1fr);
+  }
+  body[data-nav="side"] .site-side-nav { display: block; }
+  body[data-nav="side"] .site-side-nav[data-collapsed="true"] .site-side-nav-links { display: none; }
+  body[data-nav="side"] footer { display: none; }
+}
+
 button {
   font: inherit;
 }

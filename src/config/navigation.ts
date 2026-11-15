@@ -1,10 +1,12 @@
 import { ROUTE_PATHS } from "./route-paths";
 
 export type NavItem = {
-  href: string;
   label: string;
+  path: string;
+  order: number;
+  visible: boolean;
+  group: "main" | "utility";
   description: string;
-  title: string;
 };
 
 export type DocumentTitleRule = {
@@ -28,37 +30,20 @@ export const DOCUMENT_TITLES = {
 } as const;
 
 export const NAV_ITEMS: NavItem[] = [
-  {
-    href: ROUTE_PATHS.home,
-    label: "Home",
-    description: "Start here",
-    title: DOCUMENT_TITLES.home,
-  },
-  {
-    href: ROUTE_PATHS.work,
-    label: "Work",
-    description: "Case studies from client and professional work",
-    title: DOCUMENT_TITLES.work,
-  },
-  {
-    href: ROUTE_PATHS.make,
-    label: "Built",
-    description: "Things I've built, plus raw experiments",
-    title: DOCUMENT_TITLES.make,
-  },
-  {
-    href: ROUTE_PATHS.concepts,
-    label: "Backlog",
-    description: "Half-built product and business ideas",
-    title: DOCUMENT_TITLES.concepts,
-  },
-  {
-    href: ROUTE_PATHS.about,
-    label: "About",
-    description: "Who I am and what I'm focused on now",
-    title: DOCUMENT_TITLES.about,
-  },
+  { label: "Home", path: "/", order: 1, visible: true, group: "main", description: "Start here" },
+  { label: "Work", path: "/work", order: 2, visible: true, group: "main", description: "Selected product design work" },
+  { label: "Product thinking", path: "/product-thinking", order: 3, visible: true, group: "main", description: "PRDs, teardowns, and product decisions" },
+  { label: "Beyond work", path: "/beyond-work", order: 4, visible: false, group: "main", description: "Photography and library" },
+  { label: "About", path: "/about", order: 5, visible: true, group: "main", description: "How I work" },
+  { label: "Side projects", path: "/make", order: 6, visible: false, group: "main", description: "Independent experiments" },
+  { label: "Resume", path: "#", order: 1, visible: true, group: "utility", description: "TODO: add resume PDF" },
 ];
+
+export function getVisibleNavItems(group: NavItem["group"]) {
+  return NAV_ITEMS.filter((item) => item.visible && item.group === group).sort(
+    (a, b) => a.order - b.order,
+  );
+}
 
 export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
   {
