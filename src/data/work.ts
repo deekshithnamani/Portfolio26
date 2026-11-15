@@ -1,5 +1,5 @@
 import type { WorkBodyBlock, WorkItem } from "./types";
-import { PORTFOLIO_CONTENT } from "./portfolio-content";
+import { PROJECTS } from "./projects";
 import { PLACEHOLDER_IMAGE } from "./constants";
 
 const normalizeMedia = (value: string) =>
@@ -21,6 +21,6 @@ const normalizeWork = (items: readonly WorkItem[]): WorkItem[] =>
     }),
   }));
 
-export const WORK: WorkItem[] = normalizeWork(PORTFOLIO_CONTENT.work);
+export const WORK: WorkItem[] = normalizeWork(PROJECTS);
 
 export type { WorkBodyBlock, WorkItem };

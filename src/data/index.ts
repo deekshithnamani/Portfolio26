@@ -1,4 +1,10 @@
 export { WORK, type WorkBodyBlock, type WorkItem } from "./work";
+export { PROJECTS, type Project } from "./projects";
+export { COMPANIES } from "./companies";
+export { PRODUCT_THINKING } from "./product-thinking";
+export { BOOKS, type Book } from "./books";
+export { PHOTOS, type Photo } from "./photos";
+export { SOCIALS } from "./socials";
 export { MAKE, MAKE_TAGS, type MakeItem } from "./make";
 export { POSTS, type Post } from "./writing";
 export { CURATIONS, type CurationItem } from "./curations";
