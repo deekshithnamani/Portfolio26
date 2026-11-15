@@ -5,6 +5,7 @@ export { PRODUCT_THINKING } from "./product-thinking";
 export { BOOKS, type Book } from "./books";
 export { PHOTOS, type Photo } from "./photos";
 export { SOCIALS } from "./socials";
+export { DAOSOFT_PROJECTS } from "./daosoft-projects";
 export { MAKE, MAKE_TAGS, type MakeItem } from "./make";
 export { POSTS, type Post } from "./writing";
 export { CURATIONS, type CurationItem } from "./curations";

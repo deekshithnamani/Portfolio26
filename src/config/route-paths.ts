@@ -11,6 +11,7 @@ export const ROUTE_SEGMENTS = {
   writing: "writing",
   interests: "interests",
   workDetail: "work/:slug",
+  daosoftProject: "work/daosoft-ai-decision-intelligence/:projectSlug",
   writingDetail: "writing/:slug",
   notFound: "*",
 } as const;
@@ -28,6 +29,7 @@ export const ROUTE_PATHS = {
   writing: "/writing",
   interests: "/interests",
   workDetail: "/work/:slug",
+  daosoftProject: "/work/daosoft-ai-decision-intelligence/:projectSlug",
   writingDetail: "/writing/:slug",
   notFound: "*",
 } as const;
@@ -41,6 +43,7 @@ export const ROUTE_IDS = {
   productThinking: "product-thinking",
   beyondWork: "beyond-work",
   workDetail: "work-detail",
+  daosoftProject: "daosoft-project",
   make: "make",
   curations: "curations",
   practice: "practice",
@@ -66,4 +69,8 @@ export function buildWorkDetailPath(slug: string) {
 
 export function buildWritingDetailPath(slug: string) {
   return `/writing/${slug}`;
+}
+
+export function buildDaosoftProjectPath(slug: string) {
+  return `/work/daosoft-ai-decision-intelligence/${slug}`;
 }

@@ -7,9 +7,10 @@ import {
   RevealPanel,
   SectionHeader,
 } from "@/components/ui";
-import { ROUTE_PATHS, buildWorkDetailPath } from "@/config/route-paths";
-import { COMPANIES, WORK, type WorkBodyBlock, type WorkItem } from "@/data";
+import { ROUTE_PATHS, buildDaosoftProjectPath, buildWorkDetailPath } from "@/config/route-paths";
+import { COMPANIES, DAOSOFT_PROJECTS, WORK, type WorkBodyBlock, type WorkItem } from "@/data";
 import { UI_RECIPE_TOKENS } from "@/design";
+import { ProjectPageTemplate, projectToTemplate } from "@/components/projects/project-page-template";
 
 function getYouTubeEmbedId(url: URL) {
   const hostname = url.hostname.replace(/^www\./, "");
@@ -335,7 +336,7 @@ export function WorkIndex() {
 export function WorkDetail() {
   const { slug = "" } = useParams();
   const itemIndex = WORK.findIndex((item) => item.slug === slug);
-  const item = itemIndex >= 0 ? WORK[itemIndex] : null;
+  const item = WORK[itemIndex] as WorkItem;
 
   if (!item) {
     return (
@@ -348,6 +349,9 @@ export function WorkDetail() {
     );
   }
 
+  return <ProjectPageTemplate project={projectToTemplate(item)}>{item.slug === "daosoft-ai-decision-intelligence" ? <section className="mt-10"><h2 className="text-2xl">Projects</h2><ul className="mt-4 space-y-2">{DAOSOFT_PROJECTS.map((project) => <li key={project.slug}><Link className={UI_RECIPE_TOKENS.actionLink} to={buildDaosoftProjectPath(project.slug)}>{project.title}</Link></li>)}</ul></section> : null}</ProjectPageTemplate>;
+
+  /* Legacy long-form renderer retained temporarily while content is migrated. */
   const next = WORK[(itemIndex + 1) % WORK.length];
 
   return (
@@ -456,4 +460,12 @@ export function WorkDetail() {
       <WorkDetailSecondaryNav sections={WORK_DETAIL_SECTIONS} />
     </PageContainer>
   );
+}
+
+export function DaosoftProjectDetail() {
+  const { projectSlug = "" } = useParams();
+  const child = DAOSOFT_PROJECTS.find(({ slug }) => slug === projectSlug);
+  const parent = WORK.find(({ slug }) => slug === "daosoft-ai-decision-intelligence");
+  if (!child || !parent) return <PageContainer compact><AsciiEmpty title="project not found —" subtitle="return to DAOSoft" /></PageContainer>;
+  return <ProjectPageTemplate project={{ ...projectToTemplate(parent), title: child.title }} />;
 }
