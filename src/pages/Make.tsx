@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { useCursor } from "@/Layout";
 import {
@@ -17,6 +17,13 @@ export default function Make() {
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
   const reducedMotion = useReducedMotion();
   const { setLabel } = useCursor();
+
+  useEffect(() => {
+    const robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]') ?? document.head.appendChild(Object.assign(document.createElement("meta"), { name: "robots" }));
+    const previous = robots.content;
+    robots.content = "noindex, nofollow";
+    return () => { robots.content = previous; };
+  }, []);
 
   const filtered =
     active === "All" ? MAKE : MAKE.filter((item) => item.type === active);

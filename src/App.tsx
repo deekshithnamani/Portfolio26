@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { Suspense, useEffect } from "react";
 import Layout from "@/Layout";
 import { ROUTES } from "@/config/routes";
+import { LEGACY_REDIRECTS } from "@/config/route-paths";
+import { LegacyRedirect } from "@/components/routing/legacy-redirect";
 
 function RouteLoadingFallback() {
   return (
@@ -27,6 +29,7 @@ export default function App() {
       <Suspense fallback={<RouteLoadingFallback />}>
         <Routes>
           <Route element={<Layout />}>
+            {Object.keys(LEGACY_REDIRECTS).map((path) => <Route key={path} path={path} element={<LegacyRedirect />} />)}
             {ROUTES.map((route) => {
               const RouteComponent = route.component;
 

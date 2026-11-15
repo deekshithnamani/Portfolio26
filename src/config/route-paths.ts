@@ -1,6 +1,8 @@
 export const ROUTE_SEGMENTS = {
   home: "",
   work: "work",
+  productThinking: "product-thinking",
+  beyondWork: "beyond-work",
   make: "make",
   curations: "curations",
   practice: "practice",
@@ -16,6 +18,8 @@ export const ROUTE_SEGMENTS = {
 export const ROUTE_PATHS = {
   home: "/",
   work: "/work",
+  productThinking: "/product-thinking",
+  beyondWork: "/beyond-work",
   make: "/make",
   curations: "/curations",
   practice: "/practice",
@@ -34,6 +38,8 @@ export type RoutePath = (typeof ROUTE_PATHS)[keyof typeof ROUTE_PATHS];
 export const ROUTE_IDS = {
   home: "home",
   work: "work",
+  productThinking: "product-thinking",
+  beyondWork: "beyond-work",
   workDetail: "work-detail",
   make: "make",
   curations: "curations",
@@ -47,6 +53,12 @@ export const ROUTE_IDS = {
 } as const;
 
 export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
+
+export const LEGACY_REDIRECTS = {
+  [ROUTE_PATHS.practice]: `${ROUTE_PATHS.beyondWork}#photography`,
+  [ROUTE_PATHS.curations]: `${ROUTE_PATHS.beyondWork}#library`,
+  [ROUTE_PATHS.concepts]: ROUTE_PATHS.home,
+} as const;
 
 export function buildWorkDetailPath(slug: string) {
   return `/work/${slug}`;

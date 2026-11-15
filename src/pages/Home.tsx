@@ -70,14 +70,14 @@ const HOME_SECTION_CARDS = [
     description: "Case studies across product, systems, and shipping.",
   },
   {
-    label: "Built",
-    href: ROUTE_PATHS.make,
-    description: "Small builds, experiments, and raw interface ideas.",
+    label: "Product thinking",
+    href: ROUTE_PATHS.productThinking,
+    description: "PRDs, teardowns, and product decisions.",
   },
   {
-    label: "Backlog",
-    href: ROUTE_PATHS.concepts,
-    description: "Early product thoughts and possible directions.",
+    label: "About",
+    href: ROUTE_PATHS.about,
+    description: "How I work and what I value.",
   },
 ] as const;
 

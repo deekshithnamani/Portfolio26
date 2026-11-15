@@ -46,28 +46,22 @@ export const ROUTES: RouteDefinition[] = [
     ),
   },
   {
+    id: ROUTE_IDS.productThinking,
+    path: ROUTE_SEGMENTS.productThinking,
+    pageShell: "standard",
+    component: lazy(() => import("@/pages/ProductThinking")),
+  },
+  {
+    id: ROUTE_IDS.beyondWork,
+    path: ROUTE_SEGMENTS.beyondWork,
+    pageShell: "standard",
+    component: lazy(() => import("@/pages/BeyondWork")),
+  },
+  {
     id: ROUTE_IDS.make,
     path: ROUTE_SEGMENTS.make,
     pageShell: "standard",
     component: lazy(() => import("@/pages/Make")),
-  },
-  {
-    id: ROUTE_IDS.curations,
-    path: ROUTE_SEGMENTS.curations,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/Curations")),
-  },
-  {
-    id: ROUTE_IDS.practice,
-    path: ROUTE_SEGMENTS.practice,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/Studies")),
-  },
-  {
-    id: ROUTE_IDS.concepts,
-    path: ROUTE_SEGMENTS.concepts,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/Drafts")),
   },
   {
     id: ROUTE_IDS.about,
