@@ -8,7 +8,7 @@ import {
   SectionHeader,
 } from "@/components/ui";
 import { ROUTE_PATHS, buildWorkDetailPath } from "@/config/route-paths";
-import { WORK, type WorkBodyBlock, type WorkItem } from "@/data";
+import { COMPANIES, WORK, type WorkBodyBlock, type WorkItem } from "@/data";
 import { UI_RECIPE_TOKENS } from "@/design";
 
 function getYouTubeEmbedId(url: URL) {
@@ -244,6 +244,7 @@ function WorkQuickFactsStrip({
 
 export function WorkIndex() {
   const { setLabel } = useCursor();
+  const sizes = ["large", "medium", "compact"] as const;
 
   return (
     <PageContainer variant="wide">
@@ -252,9 +253,17 @@ export function WorkIndex() {
         description="The problems I got paid to solve, and how I actually solved them — decisions and trade-offs included, not just the finished screens."
       />
 
-      {WORK.length > 0 ? (
-        <div className="grid gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3">
-          {WORK.map((item, index) => (
+      {COMPANIES.length > 0 ? (
+        <div className="space-y-10">
+          {COMPANIES.map((company, index) => {
+            const item = WORK.find(({ slug }) => company.projectSlugs.includes(slug as never));
+            if (!item) return null;
+            const size = sizes[index];
+            return <section key={company.id} data-testid={`company-${company.id}`} data-size={size} className="border-t border-[var(--surface-border)] pt-5">
+              <div className="mb-5 grid gap-2 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+                <div><h2 className="text-2xl tracking-[-0.03em] text-[var(--surface-fg)]">{company.name}</h2><p className={UI_RECIPE_TOKENS.bodySupport}>{company.description}</p></div>
+                <p className={clsx("text-left md:text-right", UI_RECIPE_TOKENS.monoMuted)}>{company.role}<br />{company.dates}</p>
+              </div>
             <RevealPanel
               key={item.slug}
               index={index}
@@ -263,7 +272,7 @@ export function WorkIndex() {
             >
               <Link
                 to={buildWorkDetailPath(item.slug)}
-                className="group flex h-full min-h-[260px] flex-col justify-between border border-[var(--surface-border)] bg-[var(--surface-card)] p-5 transition duration-[240ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none hover:-translate-y-1 hover:border-[var(--surface-accent)] hover:shadow-[0_24px_60px_rgba(52,38,28,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--surface-accent)] md:p-6"
+                className={clsx("group flex flex-col justify-between border border-[var(--surface-border)] bg-[var(--surface-card)] p-5 transition duration-[240ms] motion-reduce:transition-none hover:-translate-y-1 hover:border-[var(--surface-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--surface-accent)] md:p-6", size === "large" && "min-h-[360px]", size === "medium" && "min-h-[280px] md:max-w-[82%]", size === "compact" && "min-h-[180px] md:max-w-[68%]")}
               >
                 <div>
                   <div className="mb-8 flex items-center justify-between gap-4">
@@ -278,9 +287,9 @@ export function WorkIndex() {
                     <span className="h-px w-8 bg-[var(--surface-border-mid)] transition-colors duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none group-hover:bg-[var(--surface-accent)]" />
                   </div>
 
-                  <h2 className="max-w-full text-[1.6rem] font-normal leading-[1.05] tracking-[-0.04em] text-[var(--surface-fg)] md:text-[1.8rem]">
+                  <h3 className="max-w-full text-[1.6rem] font-normal leading-[1.05] tracking-[-0.04em] text-[var(--surface-fg)] md:text-[1.8rem]">
                     {item.title}
-                  </h2>
+                  </h3>
 
                   <p
                     className={clsx(
@@ -313,8 +322,8 @@ export function WorkIndex() {
                   </div>
                 </div>
               </Link>
-            </RevealPanel>
-          ))}
+            </RevealPanel></section>;
+          })}
         </div>
       ) : (
         <AsciiEmpty />
