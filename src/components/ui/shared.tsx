@@ -90,13 +90,11 @@ export function FilterPills<T extends string>({
 
 export function PageContainer({
   children,
-  compact = false,
-  variant,
   className,
 }: PageContainerProps) {
   return (
     <div
-      className={clsx(buildPageShellClassName({ compact, variant }), className)}
+      className={clsx(buildPageShellClassName(), className)}
     >
       {children}
     </div>

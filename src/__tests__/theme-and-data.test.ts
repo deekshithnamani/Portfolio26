@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DARK, LIGHT } from "@/design/tokens";
+import { readFileSync } from "node:fs";
 import * as portfolioData from "@/data";
 
 function relativeLuminance(hex: string) {
@@ -23,63 +23,45 @@ function contrastRatio(foreground: string, background: string) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-describe("theme tokens", () => {
-  it("keeps all small-text color tokens at WCAG AA contrast", () => {
-    for (const [name, theme] of Object.entries({ DARK, LIGHT })) {
-      for (const token of [
-        "fg",
-        "fgMid",
-        "fgDim",
-        "navMuted",
-        "accent",
-      ] as const) {
-        expect(
-          contrastRatio(theme[token], theme.bg),
-          `${name}.${token}`,
-        ).toBeGreaterThanOrEqual(4.5);
-      }
+describe("light theme tokens", () => {
+  const css = readFileSync("src/tokens.css", "utf8");
+  const color = (name: string) =>
+    css.match(new RegExp(`--${name}: (#[A-Fa-f0-9]{6});`))![1];
+
+  it("keeps both text colors at WCAG AA contrast", () => {
+    for (const name of ["text", "text-2"]) {
+      expect(contrastRatio(color(name), color("bg"))).toBeGreaterThanOrEqual(
+        4.5,
+      );
     }
   });
 
-  it("keeps interactive border tokens at WCAG non-text contrast", () => {
-    for (const [name, theme] of Object.entries({ DARK, LIGHT })) {
-      expect(
-        contrastRatio(theme.borderMid, theme.bg),
-        `${name}.borderMid`,
-      ).toBeGreaterThanOrEqual(3);
-    }
+  it("keeps the keyboard focus outline at WCAG non-text contrast", () => {
+    expect(readFileSync("src/index.css", "utf8")).toContain(
+      "outline: 2px solid var(--text)",
+    );
+    expect(contrastRatio(color("text"), color("bg"))).toBeGreaterThanOrEqual(3);
   });
 
-  it("exposes the required dark theme colors", () => {
-    expect(DARK).toEqual({
-      bg: "#050505",
-      fg: "#f2ede8",
-      fgMid: "#b6b6b6",
-      fgDim: "#817979",
-      navMuted: "#b1a8a1",
-      border: "#161212",
-      borderMid: "#726b65",
-      navBg: "rgba(5,5,5,0.97)",
-      sideNavBg: "#090909",
-      accent: "#1FBB68",
-      card: "#050505",
-    });
+  it("uses a single light scheme and exposes tokens to Tailwind", () => {
+    expect(css).toContain("color-scheme: light");
+    expect(css).toContain("@theme inline");
+    expect(css).toContain("--color-bg: var(--bg)");
   });
 
-  it("exposes the required light theme colors", () => {
-    expect(LIGHT).toEqual({
-      bg: "#fcfcfb",
-      fg: "#0d0a08",
-      fgMid: "#625b54",
-      fgDim: "#6f675f",
-      navMuted: "#786f68",
-      border: "#e8e0d4",
-      borderMid: "#8a817b",
-      navBg: "#fafaf9",
-      sideNavBg: "#fafaf9",
-      accent: "#0B6A3A",
-      card: "#fcfcfb",
-    });
+  it("exposes the specified light palette", () => {
+    expect(
+      ["bg", "text", "text-2", "line", "dither", "pen"].map((name) =>
+        color(name).toUpperCase(),
+      ),
+    ).toEqual([
+      "#F8F8F6",
+      "#111111",
+      "#5F5F5A",
+      "#E3E3DD",
+      "#CFCFC7",
+      "#E6128F",
+    ]);
   });
 });
 

@@ -5,22 +5,33 @@ import { SOCIALS } from "@/data/socials";
 describe("navigation configuration", () => {
   it("keeps launch navigation ordered and hides future sections", () => {
     expect(getVisibleNavItems("main").map(({ label }) => label)).toEqual([
-      "Home",
       "Work",
-      "Product thinking",
+      "Practice",
       "About",
     ]);
-    expect(NAV_ITEMS.find(({ label }) => label === "Beyond work")?.visible).toBe(false);
-    expect(NAV_ITEMS.find(({ label }) => label === "Side projects")?.visible).toBe(false);
+    expect(
+      NAV_ITEMS.find(({ label }) => label === "Beyond work")?.visible,
+    ).toBe(false);
+    expect(
+      NAV_ITEMS.find(({ label }) => label === "Side projects")?.visible,
+    ).toBe(false);
   });
 
-  it("keeps Resume separate as a utility item with a TODO path", () => {
+  it("keeps Resume separate as a utility item with its PDF path", () => {
     expect(getVisibleNavItems("utility")).toEqual([
-      expect.objectContaining({ label: "Resume", path: "#", group: "utility" }),
+      expect.objectContaining({
+        label: "Resume",
+        path: "/resume.pdf",
+        group: "utility",
+      }),
     ]);
   });
 
   it("stores socials separately from navigation", () => {
-    expect(SOCIALS.map(({ label }) => label)).toEqual(["LinkedIn", "GitHub", "Email"]);
+    expect(SOCIALS.map(({ label }) => label)).toEqual([
+      "LinkedIn",
+      "GitHub",
+      "Email",
+    ]);
   });
 });

@@ -6,6 +6,7 @@ export const ROUTE_SEGMENTS = {
   make: "make",
   curations: "curations",
   practice: "practice",
+  practiceSeries: "practice/:slug",
   concepts: "concepts",
   about: "about",
   writing: "writing",
@@ -24,6 +25,7 @@ export const ROUTE_PATHS = {
   make: "/make",
   curations: "/curations",
   practice: "/practice",
+  practiceSeries: "/practice/:slug",
   concepts: "/concepts",
   about: "/about",
   writing: "/writing",
@@ -47,6 +49,7 @@ export const ROUTE_IDS = {
   make: "make",
   curations: "curations",
   practice: "practice",
+  practiceSeries: "practice-series",
   concepts: "concepts",
   about: "about",
   writing: "writing",
@@ -58,13 +61,16 @@ export const ROUTE_IDS = {
 export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
 
 export const LEGACY_REDIRECTS = {
-  [ROUTE_PATHS.practice]: `${ROUTE_PATHS.beyondWork}#photography`,
   [ROUTE_PATHS.curations]: `${ROUTE_PATHS.beyondWork}#library`,
   [ROUTE_PATHS.concepts]: ROUTE_PATHS.home,
 } as const;
 
 export function buildWorkDetailPath(slug: string) {
   return `/work/${slug}`;
+}
+
+export function buildPracticeSeriesPath(slug: string) {
+  return `${ROUTE_PATHS.practice}/${slug}`;
 }
 
 export function buildWritingDetailPath(slug: string) {

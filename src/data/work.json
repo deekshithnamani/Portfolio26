@@ -1,0 +1,182 @@
+{
+  "label": "Work",
+  "description": "Selected work, with the decisions behind it.",
+  "newLabel": "New",
+  "home": {
+    "paragraphs": [
+      [
+        {
+          "text": "I'm Deekshith, a product designer in Hyderabad. For three years I've worked on AI and enterprise products, mostly as the only designer, on "
+        },
+        {
+          "link": "decisionProof"
+        },
+        {
+          "text": " and "
+        },
+        {
+          "link": "legalProof"
+        },
+        {
+          "text": "."
+        }
+      ],
+      [
+        {
+          "text": "When I'm not working I "
+        },
+        {
+          "link": "photograph"
+        },
+        {
+          "text": " things, and some of those photographs are the background of this page."
+        }
+      ],
+      [
+        {
+          "text": "You can find me on "
+        },
+        {
+          "link": "linkedin"
+        },
+        {
+          "text": " and "
+        },
+        {
+          "link": "github"
+        },
+        {
+          "text": ", or read my "
+        },
+        {
+          "link": "resume"
+        },
+        {
+          "text": "."
+        }
+      ]
+    ],
+    "placeholder": true
+  },
+  "entries": [
+    {
+      "year": "2023–24",
+      "title": "Property-document checker",
+      "status": "case study",
+      "slug": "property-document-checker",
+      "isNew": true,
+      "placeholder": true
+    },
+    {
+      "year": "2024–",
+      "title": "Decision workflow",
+      "status": "soon",
+      "placeholder": true
+    }
+  ],
+  "productThinking": {
+    "label": "Product thinking",
+    "entries": [
+      {
+        "year": "2025",
+        "link": "zomato",
+        "status": "fellowship",
+        "placeholder": true
+      },
+      {
+        "link": "nextLeap",
+        "status": "fellowship",
+        "placeholder": true
+      }
+    ],
+    "note": "Done during the NextLeap PM Fellowship, Feb–May 2025.",
+    "placeholder": true
+  },
+  "caseStudy": {
+    "label": "Case study",
+    "title": "Property-document checker",
+    "summary": "A legal workspace that helps surface issues in land documents before they become expensive problems.",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Product design",
+        "placeholder": true
+      },
+      {
+        "label": "Context",
+        "value": "Stealth AI startup, legal-tech",
+        "placeholder": true
+      },
+      {
+        "label": "Period",
+        "value": "Aug 2023 – Feb 2024",
+        "placeholder": true
+      }
+    ],
+    "sections": [
+      {
+        "id": "context",
+        "title": "Context",
+        "body": "An early-stage legal-tech startup was building an AI workspace for lawyers. I was the designer on the project, working directly with the founders.",
+        "caption": "",
+        "placeholder": true
+      },
+      {
+        "id": "user-and-problem",
+        "title": "User and problem",
+        "body": "Checking land documents for issues can take lawyers weeks. The idea was a checker that flags problems early, so a lawyer's time goes to judgment instead of searching.",
+        "caption": "",
+        "placeholder": true
+      },
+      {
+        "id": "options",
+        "title": "Options",
+        "body": "We looked at three directions: a general chat interface, a checklist-style review, and a document view with issues flagged in place.",
+        "caption": "",
+        "placeholder": true
+      },
+      {
+        "id": "what-i-cut",
+        "title": "What I cut",
+        "body": "The founders' feature list was long. I questioned each item against one question: does this help a lawyer decide faster? Most did not.",
+        "caption": "",
+        "note": "Why: a smaller first version was easier to test and easier to trust.",
+        "placeholder": true
+      },
+      {
+        "id": "tradeoffs",
+        "title": "Tradeoffs",
+        "body": "Fewer features at launch meant some requests had to wait. The check also had to be clear about what it was unsure of, because a wrong 'all clear' costs more than a missed flag.",
+        "caption": "",
+        "placeholder": true
+      },
+      {
+        "id": "outcome",
+        "title": "Outcome",
+        "body": "I don't have usage metrics for this feature. If I were measuring it, I would look at time to first review and how often flagged issues were accepted.",
+        "caption": "",
+        "placeholder": true
+      },
+      {
+        "id": "what-id-change",
+        "title": "What I'd change",
+        "body": "I'd put real documents in front of lawyers earlier, before settling the flow.",
+        "caption": "",
+        "placeholder": true
+      }
+    ],
+    "contact": [
+      {
+        "text": "Want to talk about this work? Find me on "
+      },
+      {
+        "link": "linkedin"
+      },
+      {
+        "text": "."
+      }
+    ],
+    "placeholder": true
+  },
+  "placeholder": true
+}

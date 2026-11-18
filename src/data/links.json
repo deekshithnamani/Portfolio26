@@ -1,0 +1,113 @@
+{
+  "updated": "Updated Nov 2026",
+  "items": {
+    "brand": {
+      "label": "Deekshith Namani",
+      "href": "/",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "work": {
+      "label": "Work",
+      "href": "/work",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "practice": {
+      "label": "Practice",
+      "href": "/practice",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "about": {
+      "label": "About",
+      "href": "/about",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "linkedin": {
+      "label": "LinkedIn ↗",
+      "href": "https://www.linkedin.com/in/deekshithnamani",
+      "appearsIn": ["footer", "home", "about", "caseStudy"],
+      "newTab": true,
+      "placeholder": true
+    },
+    "github": {
+      "label": "GitHub ↗",
+      "href": "https://github.com/deekshithnamani",
+      "appearsIn": ["footer", "home", "about"],
+      "newTab": true,
+      "comment": "Verify this GitHub profile URL before launch.",
+      "placeholder": true
+    },
+    "resume": {
+      "label": "Resume ↗",
+      "href": "/resume.pdf",
+      "appearsIn": ["header", "footer", "home", "about"],
+      "newTab": true,
+      "labels": {
+        "home": "resume ↗",
+        "about": "Resume (product design) ↗"
+      },
+      "placeholder": true
+    },
+    "resumePm": {
+      "label": "Resume (product management) ↗",
+      "href": "/resume-pm.pdf",
+      "appearsIn": ["about"],
+      "newTab": true,
+      "placeholder": true
+    },
+    "decisionProof": {
+      "label": "a decision platform for engineering teams →",
+      "href": "/work",
+      "appearsIn": ["home"],
+      "placeholder": true
+    },
+    "legalProof": {
+      "label": "a legal workspace where I cut the feature list down to what mattered →",
+      "href": "/work/property-document-checker",
+      "appearsIn": ["home"],
+      "placeholder": true
+    },
+    "photograph": {
+      "label": "photograph",
+      "href": "/practice",
+      "appearsIn": ["home"],
+      "placeholder": true
+    },
+    "morePractice": {
+      "label": "more in Practice →",
+      "href": "/practice",
+      "appearsIn": ["home"],
+      "placeholder": true
+    },
+    "zomato": {
+      "label": "Zomato eco-features PRD ↗",
+      "href": "https://nextleap.app/portfolio/n-deekshith",
+      "appearsIn": ["work"],
+      "newTab": true,
+      "placeholder": true
+    },
+    "nextLeap": {
+      "label": "NextLeap portfolio ↗",
+      "href": "https://nextleap.app/portfolio/n-deekshith",
+      "appearsIn": ["work"],
+      "newTab": true,
+      "placeholder": true
+    },
+    "backToWork": {
+      "label": "← Work",
+      "href": "/work",
+      "appearsIn": ["caseStudy"],
+      "placeholder": true
+    },
+    "backHome": {
+      "label": "← Home",
+      "href": "/",
+      "appearsIn": ["notFound"],
+      "placeholder": true
+    }
+  },
+  "placeholder": true
+}

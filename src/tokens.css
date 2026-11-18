@@ -1,0 +1,37 @@
+:root {
+  color-scheme: light;
+  --bg: #f8f8f6;
+  --text: #111111;
+  --text-2: #5f5f5a;
+  --line: #e3e3dd;
+  --dither: #cfcfc7;
+  --pen: #e6128f;
+  --case-image: #efefea;
+  --column-width: 640px;
+  --gutter: 24px;
+  --body-size: 17px;
+  --body-leading: 1.6;
+  --small-size: 14px;
+  --page-space: 48px;
+  --link-gap: 12px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-line: var(--line);
+  --color-dither: var(--dither);
+  --color-pen: var(--pen);
+  --color-case-image: var(--case-image);
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Inter", sans-serif;
+  --font-brand: "Inter", sans-serif;
+  --text-body: var(--body-size);
+  --text-body--line-height: var(--body-leading);
+  --text-small: var(--small-size);
+  --container-column: var(--column-width);
+  --spacing-gutter: var(--gutter);
+  --spacing-page: var(--page-space);
+  --spacing-link: var(--link-gap);
+}

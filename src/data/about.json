@@ -1,0 +1,38 @@
+{
+  "label": "About",
+  "sections": [
+    {
+      "title": "Who I am",
+      "body": "I'm a product designer in Hyderabad. I trained as a chemical engineer and worked at Tata Consulting Engineers before moving into design. I taught myself the rest through a mentor, courses and a lot of reading, and my first design role was at Univ.AI. In 2025 I completed the NextLeap PM Fellowship, which sharpened how I think about problems, metrics and prioritisation.",
+      "placeholder": true
+    },
+    {
+      "title": "How I work",
+      "body": "I start with the problem and the person who has it. I question long feature lists. I like seeing how a decision moves through a whole system, not just one screen.",
+      "placeholder": true
+    },
+    {
+      "title": "What I care about",
+      "body": "Products built for the long term and improved with real users, where I can see whether a decision worked.",
+      "placeholder": true
+    },
+    {
+      "title": "What I'd cut",
+      "body": "Features nobody asked for, documents nobody reads, and metrics nobody can act on.",
+      "placeholder": true
+    },
+    {
+      "title": "Get in touch",
+      "body": "I'm looking for a product team where design and product thinking go hand in hand.",
+      "links": ["linkedin", "github", "resume", "resumePm"],
+      "placeholder": true
+    }
+  ],
+  "languages": "Languages: Telugu, Hindi, English",
+  "notFound": {
+    "message": "That page doesn't exist.",
+    "link": "backHome",
+    "placeholder": true
+  },
+  "placeholder": true
+}

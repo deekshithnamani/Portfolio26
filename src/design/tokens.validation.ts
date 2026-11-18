@@ -1,13 +1,6 @@
 import { LAYOUT_TOKENS } from "./layout-system";
-import {
-  DARK,
-  LIGHT,
-  ROUTE_TRANSITION_TOKENS,
-  UI_ANIMATION_TOKENS,
-} from "./tokens";
+import { ROUTE_TRANSITION_TOKENS, UI_ANIMATION_TOKENS } from "./tokens";
 import { UI_RECIPE_TOKENS } from "./ui-recipes";
-
-import type { Theme } from "./tokens";
 
 function isNumber(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
@@ -29,40 +22,10 @@ function isEasing(value: unknown): boolean {
   return isNonEmptyString(value) || isNumberArray(value);
 }
 
-function assertTheme(theme: Theme, label: "DARK" | "LIGHT"): void {
-  const keys: (keyof Theme)[] = [
-    "bg",
-    "fg",
-    "fgMid",
-    "fgDim",
-    "navMuted",
-    "border",
-    "borderMid",
-    "navBg",
-    "sideNavBg",
-    "accent",
-    "card",
-  ];
-
-  for (const key of keys) {
-    const raw = theme[key];
-    if (!isNonEmptyString(raw)) {
-      throw new Error(
-        `Design token check failed: ${label}.${String(key)} must be a non-empty string`,
-      );
-    }
-  }
-}
-
 function assertLayoutTokens(): void {
   const tokenValues = [
-    LAYOUT_TOKENS.pageShellMaxWidth,
-    LAYOUT_TOKENS.pageShellMaxWidthCompact,
-    LAYOUT_TOKENS.pageShellMaxWidthWide,
     LAYOUT_TOKENS.pageShellPaddingX,
     LAYOUT_TOKENS.pageShellPaddingY,
-    LAYOUT_TOKENS.pageFooterSpacer,
-    LAYOUT_TOKENS.pageFooterStack,
   ];
 
   for (const token of tokenValues) {
@@ -180,8 +143,6 @@ export function validateDesignTokens(): void {
     return;
   }
 
-  assertTheme(DARK, "DARK");
-  assertTheme(LIGHT, "LIGHT");
   assertLayoutTokens();
   assertAnimationTokens();
   assertRouteTransitionTokens();

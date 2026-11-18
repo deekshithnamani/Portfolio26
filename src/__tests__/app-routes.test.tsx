@@ -7,16 +7,16 @@ import {
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import App from "@/App";
-import { PLACEHOLDER_IMAGE, POSTS, WORK } from "@/data";
+import { POSTS } from "@/data";
 import {
   ROUTE_PATHS,
   buildWorkDetailPath,
   buildWritingDetailPath,
 } from "@/config/route-paths";
 import { setMediaState } from "@/test/matchMedia";
+import { SITE_LINKS } from "@/data/site-links";
 
 const BASE_POSTS = structuredClone(POSTS);
-const BASE_WORK = structuredClone(WORK);
 const MAKE_PATH = (ROUTE_PATHS as Record<string, string>).make ?? "/make";
 
 beforeAll(() => {
@@ -38,7 +38,6 @@ beforeAll(() => {
 
 afterEach(() => {
   POSTS.splice(0, POSTS.length, ...structuredClone(BASE_POSTS));
-  WORK.splice(0, WORK.length, ...structuredClone(BASE_WORK));
   setMediaState({ reduce: false });
   vi.restoreAllMocks();
 });
@@ -68,36 +67,75 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
-  it("renders the home hero without duplicate CTA links", async () => {
+  it("renders the Home intro links and featured work list", async () => {
     await renderAt(ROUTE_PATHS.home);
-    const heroSection = screen
-      .getByRole("heading", { name: /i shape products/i })
-      .closest("section");
-
+    const main = within(screen.getByRole("main"));
+    for (const id of [
+      "decisionProof",
+      "legalProof",
+      "photograph",
+      "linkedin",
+      "github",
+      "resume",
+    ] as const) {
+      const link = SITE_LINKS[id];
+      expect(
+        main.getByRole("link", { name: link.labels?.home ?? link.label }),
+      ).toHaveAttribute("href", link.href);
+    }
     expect(
-      screen.getByRole("heading", { name: /i shape products/i }),
-    ).toBeInTheDocument();
+      main.getByRole("link", { name: /Property-document checker/ }),
+    ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
+    expect(main.getByText("Decision workflow")).toBeInTheDocument();
     expect(
-      within(heroSection as HTMLElement).queryByRole("link", {
-        name: /view work/i,
-      }),
-    ).not.toBeInTheDocument();
-    expect(heroSection).toBeTruthy();
-    expect(
-      within(heroSection as HTMLElement).queryByRole("link", { name: /about/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("heading", { name: /latest writing/i }),
-    ).not.toBeInTheDocument();
+      main.getByRole("link", { name: "more in Practice →" }),
+    ).toHaveAttribute("href", "/practice");
+    expect(screen.getByRole("main").querySelector("canvas")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+    expect(main.queryByRole("link", { name: "Decision workflow" })).toBeNull();
   });
 
-  it("renders the work detail route with a next link", async () => {
-    await renderAt(buildWorkDetailPath("tbd-case-study-01"));
-
+  it("renders the case study and its seven section links", async () => {
+    await renderAt(SITE_LINKS.legalProof.href);
+    const main = within(screen.getByRole("main"));
     expect(
-      screen.getByRole("heading", { name: "Operations Command Center" }),
+      main.getByRole("heading", {
+        name: "Property-document checker",
+        level: 1,
+      }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /^next/i })).toBeInTheDocument();
+    const titles = [
+      "Context",
+      "User and problem",
+      "Options",
+      "What I cut",
+      "Tradeoffs",
+      "Outcome",
+      "What I'd change",
+    ];
+    expect(
+      main
+        .getAllByRole("heading", { level: 2 })
+        .map((heading) => heading.textContent),
+    ).toEqual(titles);
+    const nav = within(
+      main.getByRole("navigation", { name: "Case study sections" }),
+    );
+    for (const title of titles) {
+      const id =
+        nav.getByRole("link", { name: title }).getAttribute("href")?.slice(1) ??
+        "";
+      expect(document.getElementById(id)).toContainElement(
+        main.getByRole("heading", { name: title }),
+      );
+    }
+    expect(main.getAllByRole("link", { name: "← Work" })).toHaveLength(2);
+    expect(main.getByRole("link", { name: "LinkedIn ↗" })).toHaveAttribute(
+      "href",
+      SITE_LINKS.linkedin.href,
+    );
   });
 
   it("filters make items by type", async () => {
@@ -146,45 +184,94 @@ describe("app routes", () => {
   it("renders the not-found page for unknown routes", async () => {
     await renderAt("/missing");
 
-    expect(screen.getByText(/this page wandered off/i)).toBeInTheDocument();
-  });
-
-  it("renders the work index heading and description", async () => {
-    await renderAt(ROUTE_PATHS.work);
-
-    expect(screen.getByRole("heading", { name: "WORK" })).toBeInTheDocument();
     expect(
-      screen.getByText(
-        "The problems I got paid to solve, and how I actually solved them — decisions and trade-offs included, not just the finished screens.",
-      ),
+      screen.getByRole("heading", { name: "That page doesn't exist." }),
     ).toBeInTheDocument();
-  });
-
-  it("renders the practice and concepts pages with updated descriptions", async () => {
-    await renderAt(ROUTE_PATHS.practice);
-
-    expect(screen.getByRole("heading", { name: "PRACTICE" })).toBeInTheDocument();
-    expect(
-      screen.getByText(/A camera, a sketchbook, a calligraphy pen/i),
-    ).toBeInTheDocument();
-
-    await renderAt(ROUTE_PATHS.concepts);
-
-    expect(screen.getByRole("heading", { name: "CONCEPTS" })).toBeInTheDocument();
-    expect(
-      screen.getByText(/Problems I noticed and couldn't let go of/i),
-    ).toBeInTheDocument();
-  });
-
-  it("renders the about route with a current-focus block and contact CTA", async () => {
-    await renderAt(ROUTE_PATHS.about);
-
-    expect(screen.getByRole("heading", { name: "ABOUT" })).toBeInTheDocument();
-    expect(screen.getByText("NOW")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /get in touch/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "← Home" })).toHaveAttribute(
       "href",
-      "mailto:hello@example.com",
+      "/",
     );
+  });
+
+  it("renders the Work index heading and description", async () => {
+    await renderAt(ROUTE_PATHS.work);
+    expect(
+      screen.getByRole("heading", { name: "Work", level: 1 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Selected work, with the decisions behind it."),
+    ).toBeInTheDocument();
+  });
+
+  it("renders the Practice index and opens the Evening skies series", async () => {
+    const user = userEvent.setup();
+    await renderAt(ROUTE_PATHS.practice);
+    expect(
+      screen.getByRole("heading", { name: "Practice", level: 1 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Photographs and studies I make to unwind."),
+    ).toBeInTheDocument();
+
+    const main = within(screen.getByRole("main"));
+    expect(
+      main.getAllByRole("link").map(({ textContent }) => textContent),
+    ).toEqual([
+      "City typefaces",
+      "Evening skies",
+      "Colors on walks",
+      "Live sketches",
+    ]);
+    const reveal = main.getByRole("button", { name: "Evening skies" });
+    expect(reveal).toHaveAttribute("aria-pressed", "false");
+    await user.click(reveal);
+    expect(reveal).toHaveAttribute("aria-pressed", "true");
+    expect(window.location.pathname).toBe("/practice");
+
+    const eveningSkies = main.getByRole("link", { name: "Evening skies" });
+    expect(eveningSkies).toHaveAttribute("href", "/practice/evening-skies");
+    await user.click(eveningSkies);
+    expect(
+      await screen.findByRole("heading", { name: "Evening skies" }),
+    ).toBeInTheDocument();
+    expect(document.title).toBe("Deekshith Namani · Evening skies");
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      "content",
+      "Photographs and studies I make to unwind.",
+    );
+  });
+
+  it("renders the approved About sections and contact links", async () => {
+    await renderAt(ROUTE_PATHS.about);
+    const main = within(screen.getByRole("main"));
+    expect(
+      main.getByRole("heading", { name: "About", level: 1 }),
+    ).toBeInTheDocument();
+    expect(
+      main
+        .getAllByRole("heading", { level: 2 })
+        .map(({ textContent }) => textContent),
+    ).toEqual([
+      "Who I am",
+      "How I work",
+      "What I care about",
+      "What I'd cut",
+      "Get in touch",
+    ]);
+    expect(
+      main.getByText("Languages: Telugu, Hindi, English"),
+    ).toBeInTheDocument();
+    for (const [label, href] of [
+      ["LinkedIn ↗", SITE_LINKS.linkedin.href],
+      ["GitHub ↗", SITE_LINKS.github.href],
+      ["Resume (product design) ↗", "/resume.pdf"],
+      ["Resume (product management) ↗", "/resume-pm.pdf"],
+    ]) {
+      const link = main.getByRole("link", { name: label });
+      expect(link).toHaveAttribute("href", href);
+      expect(link).toHaveAttribute("target", "_blank");
+    }
+    expect(main.queryByText(/TODO|placeholder/i)).toBeNull();
   });
 
   it("filters writing posts by tag", async () => {
@@ -202,7 +289,14 @@ describe("app routes", () => {
       buildWorkDetailPath("missing-case-study"),
     );
 
-    expect(screen.getByText("return to the index")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "That page doesn't exist." }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "← Home" })).toHaveAttribute(
+      "href",
+      "/",
+    );
+    expect(document.title).toBe("Deekshith Namani · Page Not Found");
     unmount();
 
     await renderAt(buildWritingDetailPath("missing-note"));
@@ -220,7 +314,10 @@ describe("app routes", () => {
     });
 
     await renderAt(ROUTE_PATHS.work);
-    await user.click(getLinkByHref(buildWorkDetailPath("tbd-case-study-01")));
+    await user.click(getLinkByHref(SITE_LINKS.legalProof.href));
+    expect(
+      await screen.findByRole("heading", { name: "Property-document checker" }),
+    ).toBeInTheDocument();
 
     expect(scrollTo).toHaveBeenCalledWith({
       top: 0,
@@ -229,32 +326,35 @@ describe("app routes", () => {
     });
   });
 
-  it("clears the custom cursor label after route navigation", async () => {
+  it("uses the native cursor across route navigation", async () => {
     const user = userEvent.setup();
-
-    await renderAt(ROUTE_PATHS.work);
-
-    const cursor = await screen.findByTestId("custom-cursor");
-    const firstCaseStudy = getLinkByHref(
-      buildWorkDetailPath("tbd-case-study-01"),
+    await renderAt(ROUTE_PATHS.home);
+    expect(screen.queryByTestId("custom-cursor")).not.toBeInTheDocument();
+    await user.click(
+      within(screen.getByRole("navigation")).getByRole("link", {
+        name: "Work",
+      }),
     );
-
-    await user.hover(firstCaseStudy);
-    expect(within(cursor).getByText("01")).toBeInTheDocument();
-
-    await user.click(firstCaseStudy);
-    expect(within(cursor).queryByText("01")).not.toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: "Work" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("custom-cursor")).not.toBeInTheDocument();
   });
 
-  it("keeps the footer shell empty for future content", async () => {
+  it("links to LinkedIn, GitHub, and Resume from the footer", async () => {
     await renderAt(ROUTE_PATHS.home);
-
-    const footer = document.querySelector("footer");
-
-    expect(footer?.firstElementChild?.className).toContain("h-11");
-    expect(footer?.textContent?.trim()).toBe("");
-    expect(footer?.querySelector("a")).toBeNull();
-    expect(screen.getAllByRole("link", { name: /linkedin/i }).length).toBe(1);
+    const footer = within(screen.getByRole("contentinfo"));
+    for (const [name, href] of [
+      ["LinkedIn ↗", "https://www.linkedin.com/in/deekshithnamani"],
+      ["GitHub ↗", SITE_LINKS.github.href],
+      ["Resume ↗", "/resume.pdf"],
+    ]) {
+      expect(footer.getByRole("link", { name })).toHaveAttribute("href", href);
+      expect(footer.getByRole("link", { name })).toHaveAttribute(
+        "target",
+        "_blank",
+      );
+    }
   });
 
   it("neutralizes page hover transforms for reduced-motion users", async () => {
@@ -275,42 +375,32 @@ describe("app routes", () => {
     );
   });
 
-  it("renders image, video, and embedded media blocks in work detail", async () => {
-    WORK[0].body = [
-      { type: "image", src: PLACEHOLDER_IMAGE, caption: "Still frame" },
-      { type: "video", src: "https://example.com/tbd.mp4", caption: "Clip" },
-      {
-        type: "video",
-        src: "https://www.youtube.com/shorts/abc123?feature=share",
-        caption: "Embed",
-      },
-    ];
-
-    await renderAt(buildWorkDetailPath("tbd-case-study-01"));
-
+  it("renders a 16:9 illustration block per section and skips empty captions", async () => {
+    await renderAt(SITE_LINKS.legalProof.href);
+    const main = screen.getByRole("main");
+    const blocks = main.querySelectorAll("figure .aspect-video");
+    expect(blocks).toHaveLength(7);
+    expect(main.querySelector("figcaption")).toBeNull();
     expect(
-      screen.getByRole("img", { name: "Still frame" }),
+      within(main).getByText(
+        "Why: a smaller first version was easier to test and easier to trust.",
+      ),
     ).toBeInTheDocument();
-    expect(
-      document.querySelector('video[src="https://example.com/tbd.mp4"]'),
-    ).toBeTruthy();
-    expect(screen.getByTitle("Embed")).toHaveAttribute(
-      "src",
-      "https://www.youtube.com/embed/abc123",
-    );
   });
 
-  it("renders company and duration metadata on work index and detail pages", async () => {
-    const { unmount } = await renderAt(ROUTE_PATHS.work);
-
-    expect(screen.getByText("AURORA OPS / 8 WEEKS")).toBeInTheDocument();
-    unmount();
-
-    await renderAt(buildWorkDetailPath("tbd-case-study-01"));
-
+  it("renders only the approved role, context, and period in the case study", async () => {
+    await renderAt(SITE_LINKS.legalProof.href);
+    const main = screen.getByRole("main");
     expect(
-      screen.getByText("AURORA OPS / Product Systems / 2026"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("8 WEEKS")).toBeInTheDocument();
+      Array.from(
+        main.querySelectorAll("dl dd"),
+        ({ textContent }) => textContent,
+      ),
+    ).toEqual([
+      "Product design",
+      "Stealth AI startup, legal-tech",
+      "Aug 2023 – Feb 2024",
+    ]);
+    expect(main).not.toHaveTextContent(/TODO|placeholder/i);
   });
 });

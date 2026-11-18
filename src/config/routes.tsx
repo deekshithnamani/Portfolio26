@@ -52,6 +52,22 @@ export const ROUTES: RouteDefinition[] = [
     component: lazy(() => import("@/pages/Work").then((module) => ({ default: module.DaosoftProjectDetail }))),
   },
   {
+    id: ROUTE_IDS.practice,
+    path: ROUTE_SEGMENTS.practice,
+    pageShell: "standard",
+    component: lazy(() => import("@/pages/Studies")),
+  },
+  {
+    id: ROUTE_IDS.practiceSeries,
+    path: ROUTE_SEGMENTS.practiceSeries,
+    pageShell: "standard",
+    component: lazy(() =>
+      import("@/pages/Studies").then((module) => ({
+        default: module.PracticeSeriesPage,
+      })),
+    ),
+  },
+  {
     id: ROUTE_IDS.productThinking,
     path: ROUTE_SEGMENTS.productThinking,
     pageShell: "standard",

@@ -27,12 +27,9 @@ describe("design system recipes", () => {
     });
   });
 
-  it("keeps responsive shell density in shared layout tokens", () => {
-    expect(LAYOUT_TOKENS.pageShellPaddingX).toContain("lg:");
-    expect(LAYOUT_TOKENS.pageShellPaddingX).toContain("xl:");
-    expect(LAYOUT_TOKENS.pageShellPaddingY).toContain("lg:");
-    expect(LAYOUT_TOKENS.pageShellPaddingY).toContain("xl:");
-    expect(LAYOUT_TOKENS.desktopShell).toContain("site-layout-shell");
+  it("uses the shared gutter and page spacing tokens", () => {
+    expect(LAYOUT_TOKENS.pageShellPaddingX).toBe("px-gutter");
+    expect(LAYOUT_TOKENS.pageShellPaddingY).toBe("py-page");
   });
 
   it("uses readable sans chrome text for navigation and footer UI", () => {
@@ -93,21 +90,20 @@ describe("design system recipes", () => {
 describe("navigation metadata", () => {
   it("keeps nav items aligned with the top-level route paths", () => {
     expect(NAV_ITEMS.map((item) => item.path)).toEqual([
-      "/",
       "/work",
-      "/product-thinking",
+      "/practice",
       "/beyond-work",
       "/about",
       "/make",
-      "#",
+      "/resume.pdf",
     ]);
   });
 
   it("resolves document titles from a single title source", () => {
     expect(resolveDocumentTitle(ROUTE_PATHS.home)).toBe(DOCUMENT_TITLES.home);
-    expect(resolveDocumentTitle(`${ROUTE_PATHS.work}/case-study`)).toBe(
-      DOCUMENT_TITLES.workDetail,
-    );
+    expect(
+      resolveDocumentTitle(`${ROUTE_PATHS.work}/property-document-checker`),
+    ).toBe(DOCUMENT_TITLES.propertyChecker);
     expect(resolveDocumentTitle("/make")).toBe(
       (DOCUMENT_TITLES as Record<string, string>).make ?? "Make | Dnamani",
     );

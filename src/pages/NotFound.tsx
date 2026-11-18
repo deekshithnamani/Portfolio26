@@ -1,38 +1,18 @@
 import { Link } from "react-router";
-import clsx from "clsx";
-import { MagneticButton } from "@/Layout";
-import { ROUTE_PATHS } from "@/config/route-paths";
-import { LAYOUT_TOKENS, UI_RECIPE_TOKENS } from "@/design";
+import { PageContainer } from "@/components/ui";
+import { ABOUT_CONTENT } from "@/data/about-content";
+import { SITE_LINKS } from "@/data/site-links";
 
 export default function NotFound() {
-  return (
-    <div
-      className={clsx(
-        "flex items-center justify-center",
-        LAYOUT_TOKENS.viewportFillMinusTopBar,
-        LAYOUT_TOKENS.pageShellPaddingX,
-        LAYOUT_TOKENS.pageShellPaddingY,
-      )}
-    >
-      <div className="space-y-5 text-center md:space-y-6">
-        <pre
-          className={clsx(
-            "m-0 text-sm text-[var(--surface-fg-mid)]",
-            UI_RECIPE_TOKENS.metaText,
-          )}
-        >
-          {`      ┌───┐
-      │ ?? │
-      └───┘
-   this page wandered off.`}
-        </pre>
+  const { message, link } = ABOUT_CONTENT.notFound;
+  const { href, label } = SITE_LINKS[link];
 
-        <MagneticButton>
-          <Link to={ROUTE_PATHS.home} className={UI_RECIPE_TOKENS.actionLink}>
-            BACK TO HOME →
-          </Link>
-        </MagneticButton>
-      </div>
-    </div>
+  return (
+    <PageContainer>
+      <h1>{message}</h1>
+      <p className="mt-link">
+        <Link to={href}>{label}</Link>
+      </p>
+    </PageContainer>
   );
 }

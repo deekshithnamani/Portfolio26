@@ -1,0 +1,50 @@
+{
+  "homeCaption": {
+    "text": "Evening sky, Hyderabad · ",
+    "link": "morePractice",
+    "placeholder": true
+  },
+  "images": [
+    {
+      "id": "sky",
+      "file": "/images/sky.webp",
+      "caption": "",
+      "place": "Hyderabad",
+      "date": "",
+      "placeholder": true
+    },
+    {
+      "id": "signage",
+      "file": "/images/signage.webp",
+      "caption": "",
+      "place": "",
+      "date": "",
+      "placeholder": true
+    },
+    {
+      "id": "skyline",
+      "file": "/images/skyline.webp",
+      "caption": "",
+      "place": "",
+      "date": "",
+      "placeholder": true
+    },
+    {
+      "id": "wall",
+      "file": "/images/wall.webp",
+      "caption": "",
+      "place": "",
+      "date": "",
+      "placeholder": true
+    },
+    {
+      "id": "street",
+      "file": "/images/street.webp",
+      "caption": "",
+      "place": "",
+      "date": "",
+      "placeholder": true
+    }
+  ],
+  "placeholder": true
+}

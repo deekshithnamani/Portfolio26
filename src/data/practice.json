@@ -1,0 +1,32 @@
+{
+  "label": "Practice",
+  "description": "Photographs and studies I make to unwind.",
+  "series": [
+    {
+      "slug": "city-typefaces",
+      "title": "City typefaces",
+      "description": "I started noticing lettering on shopfronts and signs, and began photographing it to see how a city shows its character in type.",
+      "photoIds": ["signage"],
+      "placeholder": true
+    },
+    {
+      "slug": "evening-skies",
+      "title": "Evening skies",
+      "photoIds": ["sky", "skyline"],
+      "placeholder": true
+    },
+    {
+      "slug": "colors-on-walks",
+      "title": "Colors on walks",
+      "photoIds": ["wall", "street"],
+      "placeholder": true
+    },
+    {
+      "slug": "live-sketches",
+      "title": "Live sketches",
+      "photoIds": ["wall"],
+      "placeholder": true
+    }
+  ],
+  "placeholder": true
+}

@@ -1,22 +1,41 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { WorkIndex } from "@/pages/Work";
-import { CursorCtx } from "@/components/layout/layout-context";
 
-describe("company-grouped work index", () => {
-  it("renders companies in reverse chronology with differentiated cards", () => {
-    class IntersectionObserverMock {
-      observe() {}
-      unobserve() {}
-      disconnect() {}
+describe("work index", () => {
+  it("renders the shared work rows and the product thinking links", () => {
+    render(
+      <MemoryRouter>
+        <WorkIndex />
+      </MemoryRouter>,
+    );
+
+    const [workList, fellowshipList] = screen.getAllByRole("list");
+    const [live, soon] = within(workList).getAllByRole("listitem");
+    expect(within(live).getByText("2023–24")).toBeInTheDocument();
+    expect(
+      within(live).getByRole("link", { name: /Property-document checker New/ }),
+    ).toHaveAttribute("href", "/work/property-document-checker");
+    expect(within(live).getByText("case study")).toBeInTheDocument();
+    expect(within(soon).getByText("Decision workflow")).toBeInTheDocument();
+    expect(within(soon).getByText("soon")).toBeInTheDocument();
+    expect(within(soon).queryByRole("link")).toBeNull();
+
+    expect(
+      screen.getByRole("heading", { name: "Product thinking" }),
+    ).toBeInTheDocument();
+    const links = within(fellowshipList).getAllByRole("link");
+    expect(links.map(({ textContent }) => textContent)).toEqual([
+      "Zomato eco-features PRD ↗",
+      "NextLeap portfolio ↗",
+    ]);
+    for (const link of links) {
+      expect(link).toHaveAttribute(
+        "href",
+        "https://nextleap.app/portfolio/n-deekshith",
+      );
+      expect(link).toHaveAttribute("target", "_blank");
     }
-    vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
-    render(<CursorCtx.Provider value={{ label: null, setLabel: () => undefined }}><MemoryRouter><WorkIndex /></MemoryRouter></CursorCtx.Provider>);
-    const headings = screen.getAllByRole("heading", { level: 2 });
-    expect(headings.map(({ textContent }) => textContent)).toEqual(["DAOSoft.AI", "Stealth AI Startup", "Univ.AI"]);
-    expect(screen.getByTestId("company-daosoft")).toHaveAttribute("data-size", "large");
-    expect(screen.getByTestId("company-stealth-ai")).toHaveAttribute("data-size", "medium");
-    expect(screen.getByTestId("company-univ-ai")).toHaveAttribute("data-size", "compact");
   });
 });

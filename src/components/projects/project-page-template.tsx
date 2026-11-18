@@ -2,6 +2,9 @@ import { Link } from "react-router";
 import { PageContainer } from "@/components/ui";
 import type { WorkItem } from "@/data";
 import { UI_RECIPE_TOKENS } from "@/design";
+import { SITE_LINKS } from "@/data/site-links";
+import { WORK_CONTENT } from "@/data/work-content";
+import { SectionNav } from "./section-nav";
 
 export type ProjectTemplateData = {
   title: string;
@@ -40,4 +43,76 @@ export function ProjectPageTemplate({ project, children }: { project: ProjectTem
     <section className="mt-10"><h2 className="text-2xl">Constraints and tradeoffs</h2><p className="mt-3 max-w-3xl text-[var(--surface-fg-mid)]">{project.constraints}</p></section>
     <a href={project.caseStudyUrl} className="focus-ring mt-10 inline-flex border border-[var(--surface-border-mid)] px-4 py-3">Read the full case study <span className="sr-only">(TODO: add PDF deck)</span></a>
   </PageContainer>;
+}
+
+export function CaseStudyPage() {
+  const { label, title, summary, metadata, sections, contact } =
+    WORK_CONTENT.caseStudy;
+  const backLink = SITE_LINKS.backToWork;
+
+  return (
+    <PageContainer>
+      <article className="space-y-page">
+        <header>
+          <Link to={backLink.href}>{backLink.label}</Link>
+          <p className="mt-gutter text-text-2">{label}</p>
+          <h1 className="text-2xl font-medium">{title}</h1>
+          <p className="mt-link">{summary}</p>
+          <dl className="mt-gutter text-text-2">
+            {metadata.map(({ label: name, value }) => (
+              <div key={name}>
+                <dt className="inline">{name}: </dt>
+                <dd className="inline">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </header>
+
+        <SectionNav sections={sections} />
+        {sections.map(({ id, title: heading, body, note, caption }) => (
+          <section
+            key={id}
+            id={id}
+            aria-labelledby={`${id}-heading`}
+            className="scroll-mt-gutter"
+            tabIndex={-1}
+          >
+            <h2 id={`${id}-heading`} className="font-medium">
+              {heading}
+            </h2>
+            <p className="mt-link">{body}</p>
+            {note && <p className="mt-link pl-gutter text-text-2">{note}</p>}
+            <figure className="mt-gutter">
+              <div aria-hidden="true" className="aspect-video bg-case-image" />
+              {caption?.trim() && (
+                <figcaption className="mt-link text-small text-text-2">
+                  {caption}
+                </figcaption>
+              )}
+            </figure>
+          </section>
+        ))}
+
+        <div className="space-y-link">
+          <Link to={backLink.href}>{backLink.label}</Link>
+          <p>
+            {contact.map(({ text, link }, index) => {
+              if (link === undefined) return text;
+              const { href, label: linkLabel, newTab } = SITE_LINKS[link];
+              return (
+                <a
+                  key={index}
+                  href={href}
+                  target={newTab ? "_blank" : undefined}
+                  rel={newTab ? "noreferrer" : undefined}
+                >
+                  {linkLabel}
+                </a>
+              );
+            })}
+          </p>
+        </div>
+      </article>
+    </PageContainer>
+  );
 }
