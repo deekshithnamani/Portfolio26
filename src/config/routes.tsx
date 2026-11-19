@@ -1,8 +1,4 @@
-import {
-  lazy,
-  type ComponentType,
-  type LazyExoticComponent,
-} from "react";
+import { lazy, type ComponentType, type LazyExoticComponent } from "react";
 import { matchPath } from "react-router";
 import { ROUTE_IDS, ROUTE_SEGMENTS } from "./route-paths";
 import type { PageShellVariant } from "@/design";
@@ -46,12 +42,6 @@ export const ROUTES: RouteDefinition[] = [
     ),
   },
   {
-    id: ROUTE_IDS.daosoftProject,
-    path: ROUTE_SEGMENTS.daosoftProject,
-    pageShell: "wide",
-    component: lazy(() => import("@/pages/Work").then((module) => ({ default: module.DaosoftProjectDetail }))),
-  },
-  {
     id: ROUTE_IDS.practice,
     path: ROUTE_SEGMENTS.practice,
     pageShell: "standard",
@@ -68,54 +58,10 @@ export const ROUTES: RouteDefinition[] = [
     ),
   },
   {
-    id: ROUTE_IDS.productThinking,
-    path: ROUTE_SEGMENTS.productThinking,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/ProductThinking")),
-  },
-  {
-    id: ROUTE_IDS.beyondWork,
-    path: ROUTE_SEGMENTS.beyondWork,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/BeyondWork")),
-  },
-  {
-    id: ROUTE_IDS.make,
-    path: ROUTE_SEGMENTS.make,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/Make")),
-  },
-  {
     id: ROUTE_IDS.about,
     path: ROUTE_SEGMENTS.about,
     pageShell: "compact",
     component: lazy(() => import("@/pages/About")),
-  },
-  {
-    id: ROUTE_IDS.writing,
-    path: ROUTE_SEGMENTS.writing,
-    pageShell: "standard",
-    component: lazy(() =>
-      import("@/pages/Writing").then((module) => ({
-        default: module.WritingIndex,
-      })),
-    ),
-  },
-  {
-    id: ROUTE_IDS.writingDetail,
-    path: ROUTE_SEGMENTS.writingDetail,
-    pageShell: "compact",
-    component: lazy(() =>
-      import("@/pages/Writing").then((module) => ({
-        default: module.PostDetail,
-      })),
-    ),
-  },
-  {
-    id: ROUTE_IDS.interests,
-    path: ROUTE_SEGMENTS.interests,
-    pageShell: "standard",
-    component: lazy(() => import("@/pages/Interests")),
   },
   {
     id: ROUTE_IDS.notFound,

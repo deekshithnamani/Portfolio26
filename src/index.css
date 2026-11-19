@@ -103,12 +103,13 @@ body {
 
 #root:has(.home-dither) {
   isolation: isolate;
-  text-shadow:
-    0 0 8px var(--bg),
-    0 0 2px var(--bg);
+  background: var(--home-paper);
 }
 
 .home-dither {
+  --edge-width: max(var(--gutter), calc((100% - var(--column-width)) / 2));
+  --edge-fade: max(0px, calc(var(--edge-width) - 80px));
+
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -116,26 +117,21 @@ body {
   height: 100%;
   pointer-events: none;
   image-rendering: pixelated;
-  opacity: 0.18;
+  mask-image: linear-gradient(
+    to right,
+    black var(--edge-fade),
+    transparent var(--edge-width) calc(100% - var(--edge-width)),
+    black calc(100% - var(--edge-fade))
+  );
 }
 
-@media (min-width: 768px) {
-  .home-dither {
-    opacity: 1;
-    --mask-left: calc(50% - var(--column-width) / 2);
-    --mask-right: calc(50% + var(--column-width) / 2);
-    mask-image: linear-gradient(
-      to right,
-      black calc(var(--mask-left) - 80px),
-      rgb(0 0 0 / 18%) var(--mask-left) var(--mask-right),
-      black calc(var(--mask-right) + 80px)
-    );
-  }
-
+@media (min-width: 1280px) {
   .home-dither-caption {
     position: fixed;
     bottom: var(--gutter);
     right: var(--gutter);
+    padding-inline: var(--row-gap-small);
+    background: var(--home-paper);
     white-space: nowrap;
   }
 }

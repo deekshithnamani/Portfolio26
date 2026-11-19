@@ -1,11 +1,12 @@
 :root {
   color-scheme: light;
   --bg: #f8f8f6;
+  --home-paper: #ffffff;
   --text: #111111;
   --text-2: #5f5f5a;
   --line: #e3e3dd;
   --dither: #cfcfc7;
-  --pen: #e6128f;
+  --pen: #7446a5;
   --case-image: #efefea;
   --column-width: 640px;
   --gutter: 24px;
@@ -14,10 +15,14 @@
   --small-size: 14px;
   --page-space: 48px;
   --link-gap: 12px;
+  --row-gap-small: 8px;
+  --row-year-small: 64px;
+  --row-year: 96px;
 }
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-home-paper: var(--home-paper);
   --color-text: var(--text);
   --color-text-2: var(--text-2);
   --color-line: var(--line);
@@ -34,4 +39,5 @@
   --spacing-gutter: var(--gutter);
   --spacing-page: var(--page-space);
   --spacing-link: var(--link-gap);
+  --spacing-row-small: var(--row-gap-small);
 }

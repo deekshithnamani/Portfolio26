@@ -8,42 +8,52 @@
     {
       "id": "sky",
       "file": "/images/sky.webp",
+      "homeCrop": { "focalX": 0.68, "focalY": 0.73 },
       "caption": "",
       "place": "Hyderabad",
       "date": "",
-      "placeholder": true
+      "placeholder": true,
+      "alt": "Sun low over a dark ridge and layered clouds"
     },
     {
       "id": "signage",
       "file": "/images/signage.webp",
+      "homeCrop": { "focalX": 0.52, "focalY": 0.46 },
       "caption": "",
       "place": "",
       "date": "",
-      "placeholder": true
+      "placeholder": true,
+      "alt": "Geometric shop sign mounted on a brick wall"
     },
     {
       "id": "skyline",
       "file": "/images/skyline.webp",
+      "homeCrop": { "focalX": 0.42, "focalY": 0.78 },
       "caption": "",
       "place": "",
       "date": "",
-      "placeholder": true
+      "placeholder": true,
+      "alt": "Building silhouettes and lit windows at dusk"
     },
     {
       "id": "wall",
       "file": "/images/wall.webp",
+      "homeCrop": { "focalX": 0.65, "focalY": 0.53 },
       "caption": "",
       "place": "",
       "date": "",
-      "placeholder": true
+      "placeholder": true,
+      "alt": "Line drawing on a concrete wall"
     },
     {
       "id": "street",
       "file": "/images/street.webp",
+      "homeCrop": { "focalX": 0.5, "focalY": 0.76 },
       "caption": "",
       "place": "",
       "date": "",
-      "placeholder": true
+      "placeholder": true,
+      "alt": "Street with converging buildings and road markings"
     }
   ],
   "placeholder": true

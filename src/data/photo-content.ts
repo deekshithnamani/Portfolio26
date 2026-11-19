@@ -6,6 +6,8 @@ export const PHOTO_CONTENT: {
   images: {
     id: string;
     file: string;
+    alt: string;
+    homeCrop: { focalX: number; focalY: number };
     caption?: string;
     place: string;
     date: string;

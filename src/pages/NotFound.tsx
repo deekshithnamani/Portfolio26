@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { EmptyState } from "@/components/ui/empty-state";
 import { PageContainer } from "@/components/ui";
 import { ABOUT_CONTENT } from "@/data/about-content";
 import { SITE_LINKS } from "@/data/site-links";
@@ -9,10 +10,7 @@ export default function NotFound() {
 
   return (
     <PageContainer>
-      <h1>{message}</h1>
-      <p className="mt-link">
-        <Link to={href}>{label}</Link>
-      </p>
+      <EmptyState title={message} action={<Link to={href}>{label}</Link>} />
     </PageContainer>
   );
 }

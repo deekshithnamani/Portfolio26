@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import {
   render,
   screen,
@@ -5,39 +6,17 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import App from "@/App";
-import { POSTS } from "@/data";
 import {
   ROUTE_PATHS,
   buildWorkDetailPath,
-  buildWritingDetailPath,
+  buildPracticeSeriesPath,
 } from "@/config/route-paths";
 import { setMediaState } from "@/test/matchMedia";
 import { SITE_LINKS } from "@/data/site-links";
 
-const BASE_POSTS = structuredClone(POSTS);
-const MAKE_PATH = (ROUTE_PATHS as Record<string, string>).make ?? "/make";
-
-beforeAll(() => {
-  class IntersectionObserverMock {
-    disconnect() {}
-    observe() {}
-    takeRecords() {
-      return [];
-    }
-    unobserve() {}
-  }
-
-  Object.defineProperty(globalThis, "IntersectionObserver", {
-    configurable: true,
-    writable: true,
-    value: IntersectionObserverMock,
-  });
-});
-
 afterEach(() => {
-  POSTS.splice(0, POSTS.length, ...structuredClone(BASE_POSTS));
   setMediaState({ reduce: false });
   vi.restoreAllMocks();
 });
@@ -138,47 +117,27 @@ describe("app routes", () => {
     );
   });
 
-  it("filters make items by type", async () => {
-    const user = userEvent.setup();
-
-    await renderAt(MAKE_PATH);
-    await user.click(screen.getByRole("button", { name: "Experiments" }));
-
-    expect(screen.getByText("Prototype Rhythm Tester")).toBeInTheDocument();
-    expect(screen.queryByText("Field Notes Index")).not.toBeInTheDocument();
-  });
-
-  it("renders the make index heading and description", async () => {
-    await renderAt(MAKE_PATH);
-
-    expect(screen.getByRole("heading", { name: "MAKE" })).toBeInTheDocument();
+  it.each([
+    ["/make", "/work", "Work"],
+    ["/writing", "/work", "Work"],
+    ["/writing/old-note", "/work", "Work"],
+    ["/interests", "/work", "Work"],
+    ["/product-thinking", "/work", "Work"],
+    [
+      "/work/daosoft-ai-decision-intelligence/ai-workflow-planner",
+      "/work",
+      "Work",
+    ],
+    ["/curations/", "/work", "Work"],
+    ["/concepts", "/work", "Work"],
+    ["/beyond-work", "/practice", "Practice"],
+  ])("redirects legacy URL %s to %s", async (source, destination, heading) => {
+    await renderAt(source);
     expect(
-      screen.getByText("Things I build when nobody asked me to."),
+      await screen.findByRole("heading", { name: heading, level: 1 }),
     ).toBeInTheDocument();
-  });
-
-  it("renders bold text in the writing detail view", async () => {
-    await renderAt(buildWritingDetailPath("tbd-note-01"));
-
-    expect(
-      screen.getByText("Quiet interaction states", { selector: "strong" }),
-    ).toBeInTheDocument();
-  });
-
-  it("uses dedicated prose typography for writing detail content", async () => {
-    await renderAt(buildWritingDetailPath("tbd-note-01"));
-
-    const article = document.querySelector("article");
-
-    expect(article).toBeTruthy();
-    expect(article?.className).toContain("max-w-[66ch]");
-    expect(article?.className).toContain("text-base");
-  });
-
-  it("renders the anime kaomoji accent in interests", async () => {
-    await renderAt(ROUTE_PATHS.interests);
-
-    expect(screen.getByText("( ˘ω˘ )")).toBeInTheDocument();
+    expect(window.location.pathname).toBe(destination);
+    expect(screen.getByRole("main")).not.toHaveTextContent(/TODO|placeholder/i);
   });
 
   it("renders the not-found page for unknown routes", async () => {
@@ -222,7 +181,9 @@ describe("app routes", () => {
       "Colors on walks",
       "Live sketches",
     ]);
-    const reveal = main.getByRole("button", { name: "Evening skies" });
+    const reveal = main.getByRole("button", {
+      name: "Show original image: Evening skies",
+    });
     expect(reveal).toHaveAttribute("aria-pressed", "false");
     await user.click(reveal);
     expect(reveal).toHaveAttribute("aria-pressed", "true");
@@ -274,21 +235,11 @@ describe("app routes", () => {
     expect(main.queryByText(/TODO|placeholder/i)).toBeNull();
   });
 
-  it("filters writing posts by tag", async () => {
-    const user = userEvent.setup();
-
-    await renderAt(ROUTE_PATHS.writing);
-    await user.click(screen.getByRole("button", { name: "Process" }));
-
-    expect(screen.getByText("July 2026")).toBeInTheDocument();
-    expect(screen.queryByText("August 2026")).not.toBeInTheDocument();
-  });
-
-  it("renders the missing detail states for work and writing", async () => {
-    const { unmount } = await renderAt(
-      buildWorkDetailPath("missing-case-study"),
-    );
-
+  it.each([
+    buildWorkDetailPath("missing-case-study"),
+    buildPracticeSeriesPath("missing-series"),
+  ])("uses the same empty state for %s", async (path) => {
+    await renderAt(path);
     expect(
       screen.getByRole("heading", { name: "That page doesn't exist." }),
     ).toBeInTheDocument();
@@ -297,10 +248,6 @@ describe("app routes", () => {
       "/",
     );
     expect(document.title).toBe("Deekshith Namani · Page Not Found");
-    unmount();
-
-    await renderAt(buildWritingDetailPath("missing-note"));
-    expect(screen.getByText("return to writing")).toBeInTheDocument();
   });
 
   it("scrolls to the top when navigating between routes", async () => {
@@ -344,6 +291,10 @@ describe("app routes", () => {
   it("links to LinkedIn, GitHub, and Resume from the footer", async () => {
     await renderAt(ROUTE_PATHS.home);
     const footer = within(screen.getByRole("contentinfo"));
+    expect(footer.getByText("© 2026 · Updated Nov 2026")).toBeInTheDocument();
+    expect(
+      within(screen.getByRole("banner")).queryByText("Updated Nov 2026"),
+    ).toBeNull();
     for (const [name, href] of [
       ["LinkedIn ↗", "https://www.linkedin.com/in/deekshithnamani"],
       ["GitHub ↗", SITE_LINKS.github.href],
@@ -357,21 +308,14 @@ describe("app routes", () => {
     }
   });
 
-  it("neutralizes page hover transforms for reduced-motion users", async () => {
-    vi.spyOn(console, "warn").mockImplementation(() => {});
-    setMediaState({ reduce: true });
-
-    const { unmount } = await renderAt(ROUTE_PATHS.home);
-    expect(getLinkByHref(buildWorkDetailPath("tbd-case-study-01"))).toHaveClass(
-      "motion-reduce:transform-none",
-      "motion-reduce:transition-none",
-    );
-    unmount();
-
+  it("limits the New mark animation to visitors who allow motion", async () => {
     await renderAt(ROUTE_PATHS.work);
-    expect(getLinkByHref(buildWorkDetailPath("tbd-case-study-01"))).toHaveClass(
-      "motion-reduce:transform-none",
-      "motion-reduce:transition-none",
+    expect(
+      screen.getByRole("main").querySelector(".new-mark-stroke"),
+    ).toBeInTheDocument();
+    const styles = readFileSync("src/index.css", "utf8");
+    expect(styles).toMatch(
+      /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*\.new-mark-stroke\s*\{[^}]*animation: draw-new-mark/,
     );
   });
 

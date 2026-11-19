@@ -104,24 +104,11 @@ describe("navigation metadata", () => {
     expect(
       resolveDocumentTitle(`${ROUTE_PATHS.work}/property-document-checker`),
     ).toBe(DOCUMENT_TITLES.propertyChecker);
-    expect(resolveDocumentTitle("/make")).toBe(
-      (DOCUMENT_TITLES as Record<string, string>).make ?? "Make | Dnamani",
-    );
-    expect(resolveDocumentTitle("/curations")).toBe(
-      (DOCUMENT_TITLES as Record<string, string>).curations ??
-        "Curations | Dnamani",
-    );
-    expect(resolveDocumentTitle("/concepts")).toBe(
-      (DOCUMENT_TITLES as Record<string, string>).concepts ??
-        "Concepts | Dnamani",
-    );
-    expect(resolveDocumentTitle("/practice")).toBe(
-      (DOCUMENT_TITLES as Record<string, string>).practice ??
-        "Practice | Dnamani",
-    );
-    expect(resolveDocumentTitle(`${ROUTE_PATHS.writing}/essay`)).toBe(
-      DOCUMENT_TITLES.writingDetail,
-    );
+    for (const path of ["/make", "/curations", "/concepts", "/writing/essay"]) {
+      expect(resolveDocumentTitle(path)).toBe(DOCUMENT_TITLES.work);
+    }
+    expect(resolveDocumentTitle("/beyond-work")).toBe(DOCUMENT_TITLES.practice);
+    expect(resolveDocumentTitle("/practice")).toBe(DOCUMENT_TITLES.practice);
     expect(resolveDocumentTitle("/missing")).toBe(DOCUMENT_TITLES.notFound);
   });
 });

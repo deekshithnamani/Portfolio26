@@ -61,8 +61,15 @@ export const ROUTE_IDS = {
 export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
 
 export const LEGACY_REDIRECTS = {
-  [ROUTE_PATHS.curations]: `${ROUTE_PATHS.beyondWork}#library`,
-  [ROUTE_PATHS.concepts]: ROUTE_PATHS.home,
+  [ROUTE_PATHS.beyondWork]: ROUTE_PATHS.practice,
+  [ROUTE_PATHS.productThinking]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.make]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.writing]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.writingDetail]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.interests]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.daosoftProject]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.curations]: ROUTE_PATHS.work,
+  [ROUTE_PATHS.concepts]: ROUTE_PATHS.work,
 } as const;
 
 export function buildWorkDetailPath(slug: string) {

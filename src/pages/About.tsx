@@ -1,3 +1,4 @@
+import { LinkLabel } from "@/components/ui/link-label";
 import { PageContainer } from "@/components/ui";
 import { ABOUT_CONTENT } from "@/data/about-content";
 import { SITE_LINKS } from "@/data/site-links";
@@ -22,7 +23,7 @@ export default function About() {
                         target={newTab ? "_blank" : undefined}
                         rel={newTab ? "noreferrer" : undefined}
                       >
-                        {labels?.about ?? label}
+                        <LinkLabel label={labels?.about ?? label} />
                       </a>
                     </li>
                   );

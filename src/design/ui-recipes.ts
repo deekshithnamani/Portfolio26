@@ -6,7 +6,7 @@ const CHROME_TEXT_BASE =
 export const CONTROL_SIZE_RECIPES = {
   sm: {
     filterPill:
-      "min-h-7 px-0 py-1 text-[12px] leading-none tracking-[0.12em] md:min-h-8 md:tracking-[0.14em]",
+      "min-h-7 px-2 py-1 text-[12px] leading-none tracking-[0.12em] md:min-h-8 md:tracking-[0.14em]",
     metaPill:
       "px-2 py-0.5 text-[12px] tracking-[0.12em] md:px-3 md:tracking-[0.14em]",
     subtleScaleButton:

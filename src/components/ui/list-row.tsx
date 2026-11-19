@@ -1,3 +1,4 @@
+import { LinkLabel } from "@/components/ui/link-label";
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 import { NewMark } from "./new-mark";
@@ -23,7 +24,7 @@ export function ListRow({
 }: ListRowProps) {
   const titleContent = (
     <>
-      {title}
+      <LinkLabel label={title} />
       {newLabel && (
         <>
           {" "}
@@ -39,7 +40,7 @@ export function ListRow({
       <div
         className={
           status
-            ? "grid grid-cols-[96px_minmax(0,1fr)_auto] items-baseline gap-link"
+            ? "grid grid-cols-[var(--row-year-small)_minmax(0,1fr)_auto] items-baseline gap-row-small sm:grid-cols-[var(--row-year)_minmax(0,1fr)_auto] sm:gap-link"
             : undefined
         }
       >

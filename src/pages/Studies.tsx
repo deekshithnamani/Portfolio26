@@ -56,11 +56,11 @@ export function PracticeSeriesPage() {
       {series.description && <p className="mt-link">{series.description}</p>}
       {photos.length > 0 && (
         <div className="mt-gutter grid gap-gutter sm:grid-cols-2">
-          {photos.map(({ id, file, caption }) => (
+          {photos.map(({ id, file, alt, caption }) => (
             <figure key={id}>
               <img
                 src={file}
-                alt=""
+                alt={alt}
                 loading="lazy"
                 className="aspect-video w-full object-cover"
               />

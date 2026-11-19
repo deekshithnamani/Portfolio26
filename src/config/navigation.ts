@@ -3,7 +3,11 @@ import { ABOUT_CONTENT } from "@/data/about-content";
 import { PRACTICE_CONTENT } from "@/data/practice-content";
 import { SITE_LINKS } from "@/data/site-links";
 import { WORK_CONTENT } from "@/data/work-content";
-import { buildPracticeSeriesPath, ROUTE_PATHS } from "./route-paths";
+import {
+  buildPracticeSeriesPath,
+  LEGACY_REDIRECTS,
+  ROUTE_PATHS,
+} from "./route-paths";
 
 export type NavItem = {
   label: string;
@@ -21,20 +25,11 @@ export type DocumentTitleRule = {
 };
 
 export const DOCUMENT_TITLES = {
-  productThinking: "Deekshith Namani · Product thinking",
-  beyondWork: "Deekshith Namani · Beyond work",
   propertyChecker: "Deekshith Namani · Property-document checker",
   home: "Deekshith Namani · Home",
   work: "Deekshith Namani · Work",
-  workDetail: "Deekshith Namani · Case Study",
-  make: "Deekshith Namani · Built",
-  curations: "Deekshith Namani · Curations",
   practice: "Deekshith Namani · Practice",
-  concepts: "Deekshith Namani · Backlog",
   about: "Deekshith Namani · About",
-  writing: "Deekshith Namani · Writing",
-  writingDetail: "Deekshith Namani · Article",
-  interests: "Deekshith Namani · Interests",
   notFound: "Deekshith Namani · Page Not Found",
 } as const;
 
@@ -107,16 +102,6 @@ export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
     description: description ?? PRACTICE_CONTENT.description,
   })),
   {
-    match: (pathname) => pathname === ROUTE_PATHS.productThinking,
-    title: DOCUMENT_TITLES.productThinking,
-    description: "PRDs, teardowns, and product decisions.",
-  },
-  {
-    match: (pathname) => pathname === ROUTE_PATHS.beyondWork,
-    title: DOCUMENT_TITLES.beyondWork,
-    description: "Photography and a library of useful ideas.",
-  },
-  {
     match: (pathname) => pathname === ROUTE_PATHS.home,
     title: DOCUMENT_TITLES.home,
     description:
@@ -128,56 +113,25 @@ export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
     description: WORK_CONTENT.description,
   },
   {
-    match: (pathname) =>
-      Boolean(matchPath(ROUTE_PATHS.daosoftProject, pathname)),
-    title: DOCUMENT_TITLES.workDetail,
-    description: "Product design case study.",
-  },
-  {
-    match: (pathname) => pathname === ROUTE_PATHS.make,
-    title: DOCUMENT_TITLES.make,
-    description: "Independent projects and experiments.",
-  },
-  {
-    match: (pathname) => pathname === ROUTE_PATHS.curations,
-    title: DOCUMENT_TITLES.curations,
-    description: "A library of useful ideas.",
-  },
-  {
     match: (pathname) => pathname === ROUTE_PATHS.practice,
     title: DOCUMENT_TITLES.practice,
     description: PRACTICE_CONTENT.description,
-  },
-  {
-    match: (pathname) => pathname === ROUTE_PATHS.concepts,
-    title: DOCUMENT_TITLES.concepts,
-    description: "Product and business ideas.",
   },
   {
     match: (pathname) => pathname === ROUTE_PATHS.about,
     title: DOCUMENT_TITLES.about,
     description: "About Deekshith Namani and how he works.",
   },
-  {
-    match: (pathname) => pathname === ROUTE_PATHS.writing,
-    title: DOCUMENT_TITLES.writing,
-    description: "Writing by Deekshith Namani.",
-  },
-  {
-    match: (pathname) => pathname.startsWith(`${ROUTE_PATHS.writing}/`),
-    title: DOCUMENT_TITLES.writingDetail,
-    description: "An article by Deekshith Namani.",
-  },
-  {
-    match: (pathname) => pathname === ROUTE_PATHS.interests,
-    title: DOCUMENT_TITLES.interests,
-    description: "Interests and influences.",
-  },
 ];
 
 export function resolveDocumentMetadata(pathname: string) {
   const normalizedPath = pathname.replace(/\/+$/, "") || "/";
-  const rule = DOCUMENT_TITLE_RULES.find(({ match }) => match(normalizedPath));
+  const redirect = Object.entries(LEGACY_REDIRECTS).find(([pattern]) =>
+    matchPath(pattern, normalizedPath),
+  );
+  const rule = DOCUMENT_TITLE_RULES.find(({ match }) =>
+    match(redirect?.[1] ?? normalizedPath),
+  );
   return {
     title: rule?.title ?? DOCUMENT_TITLES.notFound,
     description: rule?.description ?? ABOUT_CONTENT.notFound.message,

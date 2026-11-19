@@ -1,3 +1,4 @@
+import { LinkLabel } from "@/components/ui/link-label";
 import { Link } from "react-router";
 import { PageContainer } from "@/components/ui";
 import { DitherBackground } from "@/components/ui/dither-background";
@@ -24,7 +25,7 @@ export default function Home() {
               const homeLabel = labels?.home ?? label;
               return newTab ? (
                 <a key={index} href={href} target="_blank" rel="noreferrer">
-                  {homeLabel}
+                  <LinkLabel label={homeLabel} />
                 </a>
               ) : (
                 <Link key={index} to={href}>

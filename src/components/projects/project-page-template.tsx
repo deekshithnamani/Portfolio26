@@ -1,3 +1,4 @@
+import { LinkLabel } from "@/components/ui/link-label";
 import { Link } from "react-router";
 import { PageContainer } from "@/components/ui";
 import type { WorkItem } from "@/data";
@@ -106,7 +107,7 @@ export function CaseStudyPage() {
                   target={newTab ? "_blank" : undefined}
                   rel={newTab ? "noreferrer" : undefined}
                 >
-                  {linkLabel}
+                  <LinkLabel label={linkLabel} />
                 </a>
               );
             })}

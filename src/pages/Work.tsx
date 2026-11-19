@@ -1,15 +1,10 @@
 import { useParams } from "react-router";
-import { AsciiEmpty, PageContainer } from "@/components/ui";
+import { PageContainer } from "@/components/ui";
 import { ListRow } from "@/components/ui/list-row";
 import { buildWorkDetailPath } from "@/config/route-paths";
-import { DAOSOFT_PROJECTS, WORK } from "@/data";
 import { SITE_LINKS } from "@/data/site-links";
 import { WORK_CONTENT } from "@/data/work-content";
-import {
-  CaseStudyPage,
-  ProjectPageTemplate,
-  projectToTemplate,
-} from "@/components/projects/project-page-template";
+import { CaseStudyPage } from "@/components/projects/project-page-template";
 import NotFound from "./NotFound";
 
 export function WorkIndex() {
@@ -64,23 +59,4 @@ export function WorkDetail() {
     return <NotFound />;
   }
   return <CaseStudyPage />;
-}
-
-export function DaosoftProjectDetail() {
-  const { projectSlug = "" } = useParams();
-  const child = DAOSOFT_PROJECTS.find(({ slug }) => slug === projectSlug);
-  const parent = WORK.find(
-    ({ slug }) => slug === "daosoft-ai-decision-intelligence",
-  );
-  if (!child || !parent)
-    return (
-      <PageContainer compact>
-        <AsciiEmpty title="project not found —" subtitle="return to DAOSoft" />
-      </PageContainer>
-    );
-  return (
-    <ProjectPageTemplate
-      project={{ ...projectToTemplate(parent), title: child.title }}
-    />
-  );
 }

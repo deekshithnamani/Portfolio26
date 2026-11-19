@@ -4,6 +4,7 @@ import { drawDither, loadDitherSource } from "./dither";
 
 const ROTATE_MS = 10_000;
 const FADE_MS = 1_200;
+const HOME_DENSITY_SCALE = 0.65;
 
 export function DitherBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,7 +22,8 @@ export function DitherBackground() {
     const first = Math.floor(Math.random() * photos.length);
     const ordered = [...photos.slice(first), ...photos.slice(0, first)];
     const frames = new Map<number, HTMLCanvasElement>();
-    let images: HTMLImageElement[] = [];
+    let images: { source: HTMLImageElement; focalX: number; focalY: number }[] =
+      [];
     let disposed = false;
     let elapsed = 0;
     let started: number | undefined;
@@ -67,7 +69,12 @@ export function DitherBackground() {
         if (cached) return cached;
 
         const frame = document.createElement("canvas");
-        drawDither(frame, images[index], width, height);
+        const { source, focalX, focalY } = images[index];
+        drawDither(frame, source, width, height, {
+          densityScale: HOME_DENSITY_SCALE,
+          focalX,
+          focalY,
+        });
         frames.set(index, frame);
         return frame;
       };
@@ -116,13 +123,16 @@ export function DitherBackground() {
     window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", updatePlayback);
     motion.addEventListener("change", updatePlayback);
-    void Promise.all(ordered.map(({ file }) => loadDitherSource(file))).then(
-      (sources) => {
-        if (disposed) return;
-        images = sources.filter((image) => image !== null);
-        updatePlayback();
-      },
-    );
+    void Promise.all(
+      ordered.map(async ({ file, homeCrop }) => {
+        const source = await loadDitherSource(file);
+        return source ? { source, ...homeCrop } : null;
+      }),
+    ).then((sources) => {
+      if (disposed) return;
+      images = sources.filter((image) => image !== null);
+      updatePlayback();
+    });
 
     return () => {
       disposed = true;

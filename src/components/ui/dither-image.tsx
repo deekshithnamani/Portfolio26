@@ -28,7 +28,7 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
     <button
       type="button"
       className="dither-image relative mb-link block aspect-video w-full max-w-[280px] cursor-pointer bg-line"
-      aria-label={label}
+      aria-label={`Show original image: ${label}`}
       aria-pressed={revealed}
       data-ready={ready}
       data-hovered={hovered}
