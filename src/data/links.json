@@ -6,9 +6,15 @@
       "appearsIn": ["header"],
       "placeholder": true
     },
+    "work": {
+      "label": "Work",
+      "href": "/work",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
     "productThinking": {
-      "label": "Product thinking",
-      "href": "/product-thinking",
+      "label": "Product",
+      "href": "/product",
       "appearsIn": ["header"],
       "placeholder": true
     },
@@ -42,7 +48,7 @@
     "nextLeap": {
       "label": "NextLeap portfolio ↗",
       "href": "https://nextleap.app/portfolio/n-deekshith",
-      "appearsIn": ["work", "footer"],
+      "appearsIn": ["footer"],
       "newTab": true,
       "placeholder": true,
       "labels": {
@@ -52,7 +58,7 @@
     "legalProof": {
       "label": "a legal workspace where I cut the feature list down to what mattered →",
       "href": "/work/property-document-checker",
-      "appearsIn": ["home"],
+      "appearsIn": ["work"],
       "placeholder": true
     },
     "zomato": {

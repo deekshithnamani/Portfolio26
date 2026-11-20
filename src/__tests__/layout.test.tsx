@@ -92,7 +92,7 @@ describe("layout shell", () => {
     await user.tab();
     expect(
       within(screen.getByRole("navigation")).getByRole("link", {
-        name: "Product thinking",
+        name: "Work",
       }),
     ).toHaveFocus();
   });
@@ -105,7 +105,7 @@ describe("layout shell", () => {
       within(header)
         .getAllByRole("link")
         .map((link) => link.textContent),
-    ).toEqual(["Deekshith Namani", "Product thinking", "Beyond work", "About"]);
+    ).toEqual(["Deekshith Namani", "Work", "Product", "Beyond work", "About"]);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });

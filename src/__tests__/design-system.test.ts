@@ -89,7 +89,8 @@ describe("design system recipes", () => {
 describe("navigation metadata", () => {
   it("keeps nav items aligned with the top-level route paths", () => {
     expect(NAV_ITEMS.map((item) => item.path)).toEqual([
-      "/product-thinking",
+      "/work",
+      "/product",
       "/beyond-work",
       "/about",
     ]);

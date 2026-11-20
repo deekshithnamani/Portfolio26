@@ -37,7 +37,8 @@ type WorkContent = {
   description: string;
   newLabel: string;
   placeholder: boolean;
-  home: { intro: string; experience: ExperienceGroup[]; placeholder: boolean };
+  home: { intro: string; selectedLabel: string; placeholder: boolean };
+  experience: ExperienceGroup[];
   entries: WorkEntry[];
   productThinking: {
     label: string;
@@ -64,17 +65,14 @@ type WorkContent = {
 
 export const WORK_CONTENT: WorkContent = {
   ...data,
-  home: {
-    ...data.home,
-    experience: data.home.experience.map((group) => ({
-      ...group,
-      projects: group.projects.map((project) => ({
-        ...project,
-        link:
-          project.link === undefined ? undefined : readSiteLinkId(project.link),
-      })),
+  experience: data.experience.map((group) => ({
+    ...group,
+    projects: group.projects.map((project) => ({
+      ...project,
+      link:
+        project.link === undefined ? undefined : readSiteLinkId(project.link),
     })),
-  },
+  })),
   productThinking: {
     ...data.productThinking,
     entries: data.productThinking.entries.map((entry) => ({

@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
 import ProductThinking from "@/pages/ProductThinking";
 
-describe("Product thinking", () => {
+describe("Product", () => {
   it("launches with the Zomato PRD and verified NextLeap link", () => {
     render(
       <MemoryRouter>

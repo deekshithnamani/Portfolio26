@@ -29,6 +29,9 @@ export default function ProductThinking() {
           ),
         )}
       </div>
+      <p className="mt-gutter text-text-2">
+        {WORK_CONTENT.productThinking.note}
+      </p>
     </PageContainer>
   );
 }

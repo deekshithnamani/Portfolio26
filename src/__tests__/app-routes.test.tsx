@@ -46,7 +46,7 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
-  it("groups Home projects by experience and links only projects with destinations", async () => {
+  it("shows selected projects from Product and Work on Home, newest first", async () => {
     await renderAt(ROUTE_PATHS.home);
     const mainElement = screen.getByRole("main");
     const main = within(mainElement);
@@ -54,22 +54,15 @@ describe("app routes", () => {
       main.getByText(/I’m Deekshith, a product designer/),
     ).toBeInTheDocument();
     expect(
-      main
-        .getAllByRole("heading", { level: 2 })
-        .map((heading) => heading.textContent),
-    ).toEqual(["Company A", "Company B"]);
-    expect(
-      main
-        .getAllByRole("list")
-        .map((list) => within(list).getAllByRole("listitem").length),
-    ).toEqual([3, 3]);
-    expect(
-      main.getByRole("link", { name: "Property-document checker →" }),
-    ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
-    expect(
-      main.getByRole("link", { name: SITE_LINKS.zomato.label }),
-    ).toHaveAttribute("href", SITE_LINKS.zomato.href);
-    expect(main.queryByRole("link", { name: "Decision workflow" })).toBeNull();
+      main.getByRole("heading", { name: "Selected projects" }),
+    ).toBeInTheDocument();
+    const projects = main.getAllByRole("link");
+    expect(projects.map((link) => link.getAttribute("href"))).toEqual([
+      "/product",
+      SITE_LINKS.legalProof.href,
+    ]);
+    expect(projects[0]).toHaveAccessibleName("Zomato eco-features PRD");
+    expect(projects[1]).toHaveAccessibleName("Property-document checker");
     expect(mainElement.querySelector("canvas")).toHaveAttribute(
       "aria-hidden",
       "true",
@@ -119,6 +112,7 @@ describe("app routes", () => {
 
   it.each([
     ["/make", "/work", "Work"],
+    ["/product-thinking", "/product", "Product"],
     ["/writing", "/work", "Work"],
     ["/writing/old-note", "/work", "Work"],
     ["/interests", "/work", "Work"],
@@ -142,7 +136,7 @@ describe("app routes", () => {
   });
 
   it.each([
-    ["Product thinking", "/product-thinking"],
+    ["Product", "/product"],
     ["About", "/about"],
   ])("opens %s from the header", async (label, path) => {
     const user = userEvent.setup();
@@ -220,14 +214,14 @@ describe("app routes", () => {
     );
   });
 
-  it("places How I work after Product thinking on Work", async () => {
+  it("places How I work after the experience groups on Work", async () => {
     await renderAt(ROUTE_PATHS.work);
     const main = within(screen.getByRole("main"));
     expect(
       main
         .getAllByRole("heading", { level: 2 })
         .map((heading) => heading.textContent),
-    ).toEqual(["Product thinking", "How I work"]);
+    ).toEqual(["Company B", "Company A", "Company C", "How I work"]);
     expect(
       main.getByText(
         /I question long feature lists, because most of them are guesses/,

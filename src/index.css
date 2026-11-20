@@ -27,12 +27,13 @@ body {
   a {
     color: inherit;
     text-decoration: underline;
-    text-decoration-thickness: 1px;
+    text-decoration-thickness: var(--link-underline-width);
+    text-decoration-color: var(--link-underline);
     text-underline-offset: 0.16em;
   }
 
   a:hover {
-    text-decoration-thickness: 2px;
+    text-decoration-color: var(--text-2);
   }
 }
 
@@ -146,12 +147,12 @@ a:hover .link-arrow::after {
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  border-bottom: 1px solid currentColor;
+  border-bottom: var(--link-underline-width) solid var(--link-underline);
   content: "";
 }
 
 a:hover .link-arrow::after {
-  border-bottom-width: 2px;
+  border-bottom-color: var(--text-2);
 }
 
 .work-list-row {

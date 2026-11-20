@@ -4,38 +4,25 @@ import { describe, expect, it } from "vitest";
 import { WorkIndex } from "@/pages/Work";
 
 describe("work index", () => {
-  it("renders the shared work rows and the product thinking links", () => {
+  it("groups work by experience and links published case studies", () => {
     render(
       <MemoryRouter>
         <WorkIndex />
       </MemoryRouter>,
     );
 
-    const [workList, fellowshipList] = screen.getAllByRole("list");
-    const [live, soon] = within(workList).getAllByRole("listitem");
-    expect(within(live).getByText("2023–24")).toBeInTheDocument();
+    const groups = screen.getAllByRole("list");
     expect(
-      within(live).getByRole("link", { name: /Property-document checker New/ }),
+      groups.map((group) => within(group).getAllByRole("listitem").length),
+    ).toEqual([3, 2, 1]);
+    expect(
+      screen.getByRole("link", { name: "Property-document checker →" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
-    expect(within(live).getByText("case study")).toBeInTheDocument();
-    expect(within(soon).getByText("Decision workflow")).toBeInTheDocument();
-    expect(within(soon).getByText("soon")).toBeInTheDocument();
-    expect(within(soon).queryByRole("link")).toBeNull();
-
+    expect(screen.getByText("New")).toBeInTheDocument();
+    expect(screen.getByText("Decision workflow")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Product thinking" }),
-    ).toBeInTheDocument();
-    const links = within(fellowshipList).getAllByRole("link");
-    expect(links.map(({ textContent }) => textContent)).toEqual([
-      "Zomato eco-features PRD ↗",
-      "NextLeap portfolio ↗",
-    ]);
-    for (const link of links) {
-      expect(link).toHaveAttribute(
-        "href",
-        "https://nextleap.app/portfolio/n-deekshith",
-      );
-      expect(link).toHaveAttribute("target", "_blank");
-    }
+      screen.queryByRole("link", { name: "Decision workflow" }),
+    ).toBeNull();
+    expect(screen.queryByRole("link", { name: /Zomato|NextLeap/ })).toBeNull();
   });
 });

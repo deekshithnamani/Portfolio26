@@ -28,13 +28,21 @@ export const DOCUMENT_TITLES = {
   propertyChecker: "Deekshith Namani · Property-document checker",
   home: "Deekshith Namani · Home",
   work: "Deekshith Namani · Work",
-  productThinking: "Deekshith Namani · Product thinking",
+  productThinking: "Deekshith Namani · Product",
   about: "Deekshith Namani · About",
   beyondWork: "Deekshith Namani · Beyond work",
   notFound: "Deekshith Namani · Page Not Found",
 } as const;
 
 export const NAV_ITEMS: NavItem[] = [
+  {
+    label: SITE_LINKS.work.label,
+    path: SITE_LINKS.work.href,
+    order: 0,
+    visible: true,
+    group: "main",
+    description: WORK_CONTENT.description,
+  },
   {
     label: SITE_LINKS.productThinking.label,
     path: SITE_LINKS.productThinking.href,

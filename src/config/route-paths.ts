@@ -1,7 +1,7 @@
 export const ROUTE_SEGMENTS = {
   home: "",
   work: "work",
-  productThinking: "product-thinking",
+  productThinking: "product",
   beyondWork: "beyond-work",
   make: "make",
   curations: "curations",
@@ -19,7 +19,7 @@ export const ROUTE_SEGMENTS = {
 export const ROUTE_PATHS = {
   home: "/",
   work: "/work",
-  productThinking: "/product-thinking",
+  productThinking: "/product",
   beyondWork: "/beyond-work",
   make: "/make",
   curations: "/curations",
@@ -40,7 +40,7 @@ export type RoutePath = (typeof ROUTE_PATHS)[keyof typeof ROUTE_PATHS];
 export const ROUTE_IDS = {
   home: "home",
   work: "work",
-  productThinking: "product-thinking",
+  productThinking: "product",
   beyondWork: "beyond-work",
   workDetail: "work-detail",
   daosoftProject: "daosoft-project",
@@ -58,6 +58,7 @@ export const ROUTE_IDS = {
 export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
 
 export const LEGACY_REDIRECTS = {
+  "/product-thinking": ROUTE_PATHS.productThinking,
   "/practice/*": ROUTE_PATHS.beyondWork,
   [ROUTE_PATHS.make]: ROUTE_PATHS.work,
   [ROUTE_PATHS.writing]: ROUTE_PATHS.work,

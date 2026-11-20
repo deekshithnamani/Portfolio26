@@ -6,6 +6,7 @@ import { LEGACY_REDIRECTS, ROUTE_PATHS } from "@/config/route-paths";
 describe("v2 information architecture routes", () => {
   it("maps legacy routes to their approved destinations", () => {
     expect(LEGACY_REDIRECTS).toEqual({
+      "/product-thinking": "/product",
       "/practice/*": "/beyond-work",
       "/make": "/work",
       "/writing": "/work",
@@ -21,6 +22,7 @@ describe("v2 information architecture routes", () => {
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.beyondWork);
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.beyondWorkSeries);
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.work);
+    expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.productThinking);
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.workDetail);
   });
 

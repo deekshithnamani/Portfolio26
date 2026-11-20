@@ -10,17 +10,20 @@
   --case-image: #efefea;
   --column-width: 640px;
   --gutter: 24px;
-  --body-size: 17px;
+  --body-size: 16px;
   --body-leading: 1.6;
-  --small-size: 14px;
+  --small-size: 13px;
   --page-space: 64px;
   --link-gap: 16px;
   --row-gap-small: 8px;
-  --header-space: 80px;
+  --header-space: 48px;
   --footer-space: 96px;
   --row-height: 56px;
   --tap-height: 44px;
-  --nav-size: 15px;
+  --nav-size: 14px;
+  --title-size: 23px;
+  --link-underline: #85857e;
+  --link-underline-width: 1px;
   --row-year: 96px;
   --experience-meta-width: 176px;
 }
@@ -47,6 +50,7 @@
   --text-body--line-height: var(--body-leading);
   --text-small: var(--small-size);
   --text-nav: var(--nav-size);
+  --text-title: var(--title-size);
   --container-column: var(--column-width);
   --spacing-gutter: var(--gutter);
   --spacing-page: var(--page-space);

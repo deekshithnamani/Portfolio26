@@ -4,45 +4,8 @@
   "newLabel": "New",
   "home": {
     "intro": "I’m Deekshith, a product designer in Hyderabad. I work on AI and enterprise products, mostly as the only designer.",
-    "experience": [
-      {
-        "company": "Company A",
-        "role": "Product Designer",
-        "years": "2023–2024",
-        "projects": [
-          {
-            "title": "Property-document checker →",
-            "link": "legalProof"
-          },
-          {
-            "title": "Intake flow"
-          },
-          {
-            "title": "Document review queue"
-          }
-        ],
-        "placeholder": true
-      },
-      {
-        "company": "Company B",
-        "role": "Product Design Fellow",
-        "years": "2024–2025",
-        "projects": [
-          {
-            "title": "Zomato eco-features PRD ↗",
-            "link": "zomato"
-          },
-          {
-            "title": "Decision workflow"
-          },
-          {
-            "title": "Reporting dashboard"
-          }
-        ],
-        "placeholder": true
-      }
-    ],
-    "placeholder": true
+    "placeholder": true,
+    "selectedLabel": "Selected projects"
   },
   "entries": [
     {
@@ -61,16 +24,11 @@
     }
   ],
   "productThinking": {
-    "label": "Product thinking",
+    "label": "Product",
     "entries": [
       {
         "year": "2025",
         "link": "zomato",
-        "status": "fellowship",
-        "placeholder": true
-      },
-      {
-        "link": "nextLeap",
         "status": "fellowship",
         "placeholder": true
       }
@@ -169,5 +127,50 @@
     "label": "How I work",
     "body": "I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.",
     "placeholder": true
-  }
+  },
+  "experience": [
+    {
+      "company": "Company B",
+      "role": "Product Design Fellow",
+      "years": "2024–2025",
+      "projects": [
+        {
+          "title": "Workflow research"
+        },
+        {
+          "title": "Decision workflow"
+        },
+        {
+          "title": "Reporting dashboard"
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "company": "Company A",
+      "role": "Product Designer",
+      "years": "2023–2024",
+      "projects": [
+        {
+          "title": "Property-document checker →",
+          "link": "legalProof"
+        },
+        {
+          "title": "Intake flow"
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "company": "Company C",
+      "role": "Product Design Intern",
+      "years": "2022–2023",
+      "projects": [
+        {
+          "title": "Document review queue"
+        }
+      ],
+      "placeholder": true
+    }
+  ]
 }

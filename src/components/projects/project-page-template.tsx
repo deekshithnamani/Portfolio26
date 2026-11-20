@@ -57,7 +57,7 @@ export function CaseStudyPage() {
         <header>
           <Link to={backLink.href}>{backLink.label}</Link>
           <p className="mt-gutter text-text-2">{label}</p>
-          <h1 className="text-2xl font-medium">{title}</h1>
+          <h1 className="text-title font-medium">{title}</h1>
           <p className="mt-link">{summary}</p>
           <dl className="mt-gutter text-text-2">
             {metadata.map(({ label: name, value }) => (

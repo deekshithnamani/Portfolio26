@@ -5,8 +5,8 @@ This React and TypeScript app uses Vite, React Router, and Tailwind CSS. Vitest 
 ## Pages and routes
 
 - [App.tsx](../src/App.tsx) mounts the router and shared layout. [routes.tsx](../src/config/routes.tsx) selects active page modules, and [route-paths.ts](../src/config/route-paths.ts) defines paths and legacy redirects.
-- Home is the portfolio index. It renders the intro and experience groups from [work.json](../src/data/work.json). Published project entries resolve their destinations through [site-links.ts](../src/data/site-links.ts).
-- Product thinking, Beyond work, and About have their own routes. Work remains reachable at `/work`, and the case study has a direct URL.
+- Home renders the intro and selected projects. Work renders the full experience groups from [work.json](../src/data/work.json). Published project entries resolve their destinations through [site-links.ts](../src/data/site-links.ts).
+- Product, Beyond work, and About have their own routes. The former Product thinking URL redirects to `/product`, and the case study has a direct URL.
 - [navigation.ts](../src/config/navigation.ts) resolves document titles and descriptions. The shared layout handles skip links and route focus.
 
 ## Content and styling
