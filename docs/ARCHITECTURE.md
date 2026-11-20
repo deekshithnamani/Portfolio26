@@ -1,83 +1,17 @@
-# Portfolio Architecture (Non-Technical Guide)
+# Portfolio architecture
 
-## What this project is
+This React and TypeScript app uses Vite, React Router, and Tailwind CSS. Vitest and React Testing Library cover routes, shared layout, and content rendering.
 
-This is a React + TypeScript web app that renders your portfolio pages and routes between sections like:
-Home, Work, Lab, Writing, and Interests.
+## Pages and routes
 
-Think of it like a house:
+- [App.tsx](../src/App.tsx) mounts the router and shared layout. [routes.tsx](../src/config/routes.tsx) selects active page modules, and [route-paths.ts](../src/config/route-paths.ts) defines paths and legacy redirects.
+- Home is the portfolio index. It renders the intro and experience groups from [work.json](../src/data/work.json). Published project entries resolve their destinations through [site-links.ts](../src/data/site-links.ts).
+- Product thinking, Beyond work, and About have their own routes. Work remains reachable at `/work`, and the case study has a direct URL.
+- [navigation.ts](../src/config/navigation.ts) resolves document titles and descriptions. The shared layout handles skip links and route focus.
 
-- `src/App.tsx` is the front door and hallway (`routes` to different pages).
-- `src/Layout.tsx` is the single public entry into the layout shell, while `src/components/layout/*` holds the internal shell parts (header, menu, cursor, page transitions).
-- Each page file under `src/pages/*` is a room with its own content.
+## Content and styling
 
-## Tech stack (simple view)
-
-- **Core app**: React 19, TypeScript, Vite.
-- **Routing**: React Router.
-- **Styling**: Tailwind CSS + custom `src/index.css` variables and classes.
-- **Motion/interaction**: Motion (for subtle animations and page effects).
-- **Testing**: Vitest + React Testing Library.
-- **Utilities**: `clsx`, small local helpers in `src/lib`.
-
-## Important folders and what they mean
-
-- [src/](C:\Users\Dnamani\Personal\Portfolio26\src)
-  - `index.css`: global styles, typography, and theme CSS variables.
-  - [src/App.tsx](C:\Users\Dnamani\Personal\Portfolio26\src\App.tsx): defines which URL paths show which page.
-  - [src/Layout.tsx](C:\Users\Dnamani\Personal\Portfolio26\src\Layout.tsx): re-export entry so the outside world still imports from one place.
-- [src/components/](C:\Users\Dnamani\Personal\Portfolio26\src\components)
-  - [src/components/layout/](C:\Users\Dnamani\Personal\Portfolio26\src\components\layout): all shared chrome pieces (top bar, drawer, cursor, route effects, transitions).
-  - [src/components/ui/shared.tsx](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\shared.tsx): reusable page building blocks.
-  - [src/components/ui/shared-props.ts](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\shared-props.ts): shared prop type contracts for UI primitives.
-  - [src/components/ui/index.ts](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\index.ts): shared UI barrel export.
-- [src/data/](C:\Users\Dnamani\Personal\Portfolio26\src\data)
-  - Split by content type (work, lab, writing, interests) and surfaced via index exports.
-- [src/design/](C:\Users\Dnamani\Personal\Portfolio26\src\design)
-  - Design tokens (colors, animation timing), named UI recipes in `ui-recipes.ts`, plus layout helpers in [src/design/layout-system.ts](C:\Users\Dnamani\Personal\Portfolio26\src\design\layout-system.ts) and the shared design barrel.
-- [src/lib/](C:\Users\Dnamani\Personal\Portfolio26\src\lib): tiny pure helper functions.
-- [src/**tests**](C:\Users\Dnamani\Personal\Portfolio26\src__tests__): behavior checks for layout and data imports.
-
-## Yes, there is a style sheet and design tokens
-
-- Style sheet: [src/index.css](C:\Users\Dnamani\Personal\Portfolio26\src\index.css)
-- Design tokens: [src/design/tokens.ts](C:\Users\Dnamani\Personal\Portfolio26\src\design\tokens.ts)
-- UI recipe tokens: [src/design/ui-recipes.ts](C:\Users\Dnamani\Personal\Portfolio26\src\design\ui-recipes.ts)
-- Token exports shortcut: [src/design/index.ts](C:\Users\Dnamani\Personal\Portfolio26\src\design\index.ts)
-
-## Common components in use
-
-- Reused UI building blocks live in:
-  - [src/components/ui/index.ts](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\index.ts) (use this barrel import for shared UI)
-  - [src/components/ui/shared.tsx](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\shared.tsx)
-- Reused layout helpers/hooks live in:
-  - [src/components/layout/layout-utils.ts](C:\Users\Dnamani\Personal\Portfolio26\src\components\layout\layout-utils.ts)
-  - [src/components/layout/layout-context.ts](C:\Users\Dnamani\Personal\Portfolio26\src\components\layout\layout-context.ts)
-
-## How to add features without chaos
-
-When adding a new page:
-
-1. Add page content file under `src/pages`.
-2. Add the route in [src/App.tsx](C:\Users\Dnamani\Personal\Portfolio26\src\App.tsx).
-3. If new shared UI appears, place it in `src/components/ui`.
-4. If new shared data appears, add a file under `src/data` and export from [src/data/index.ts](C:\Users\Dnamani\Personal\Portfolio26\src\data\index.ts).
-
-When adding a new visual style tweak:
-
-1. Try to add reusable CSS variables in [src/index.css](C:\Users\Dnamani\Personal\Portfolio26\src\index.css) first.
-2. For brand colors, spacing tone, or shared values, update [src/design/tokens.ts](C:\Users\Dnamani\Personal\Portfolio26\src\design\tokens.ts).
-
-When adding a new shared UI primitive:
-
-1. Add it in [src/components/ui/shared.tsx](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\shared.tsx) if it is generic.
-2. Re-export it from [src/components/ui/index.ts](C:\Users\Dnamani\Personal\Portfolio26\src\components\ui\index.ts).
-3. Import from `../components/ui` in pages and tests.
-
-## Why this setup is good for long-term growth
-
-This layout is now split into small files by responsibility:
-
-- data vs. UI shell vs. styles vs. helpers.
-
-So as new sections, feature pages, or capabilities grow, each change lands in a predictable folder instead of a single large file.
+- Use [links.json](../src/data/links.json) for header and footer destinations and the footer credit.
+- Use [about.json](../src/data/about.json) for About and 404 copy, and [beyond-work.json](../src/data/beyond-work.json) plus [photos.json](../src/data/photos.json) for series and photographs.
+- Shared layout components are under [src/components/layout](../src/components/layout). Shared UI primitives are under [src/components/ui](../src/components/ui).
+- [tokens.css](../src/tokens.css) owns shared visual values. See the [design system guide](../src/design/README.md) and [portfolio specification](../SPEC.md) for layout rules.

@@ -1,18 +1,34 @@
-import clsx from "clsx";
-import { Link } from "react-router";
-import { PageContainer, SectionHeader } from "@/components/ui";
+import { PageContainer } from "@/components/ui";
+import { LinkLabel } from "@/components/ui/link-label";
 import { PRODUCT_THINKING } from "@/data";
-import { UI_RECIPE_TOKENS } from "@/design";
-import { buildWorkDetailPath } from "@/config/route-paths";
+import { SITE_LINKS } from "@/data/site-links";
+import { WORK_CONTENT } from "@/data/work-content";
 
 export default function ProductThinking() {
-  return <PageContainer><SectionHeader title="PRODUCT THINKING" description="PRDs, teardowns, and product decisions." />
-    <div className="space-y-6">{PRODUCT_THINKING.map((item) => <article key={item.slug} className="border border-[var(--surface-border)] bg-[var(--surface-card)] p-5 md:p-7">
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><span className={clsx("border border-[var(--surface-border-mid)] px-2 py-1", UI_RECIPE_TOKENS.metaText)}>{item.tag}</span><span className={UI_RECIPE_TOKENS.monoMuted}>{item.duration}</span></div>
-      <h2 className="max-w-3xl text-3xl leading-tight tracking-[-0.04em] text-[var(--surface-fg)]">{item.title}</h2>
-      <p className={clsx("mt-4 max-w-3xl", UI_RECIPE_TOKENS.bodySupport)}>{item.context}</p>
-      <p className={clsx("mt-4 max-w-3xl", UI_RECIPE_TOKENS.bodySupport)}>{item.tldr}</p>
-      <div className="mt-7 flex flex-wrap gap-5"><Link to={buildWorkDetailPath(item.slug)} className={UI_RECIPE_TOKENS.actionLink}>Read the project</Link><a href={item.portfolioUrl} target="_blank" rel="noreferrer" className={UI_RECIPE_TOKENS.actionLinkMuted}>See more on NextLeap ↗</a></div>
-    </article>)}</div>
-  </PageContainer>;
+  return (
+    <PageContainer>
+      <h1 className="text-text-2">{WORK_CONTENT.productThinking.label}</h1>
+      <div className="mt-link border-t border-line">
+        {PRODUCT_THINKING.map(
+          ({ slug, tag, duration, title, context, tldr, portfolioUrl }) => (
+            <article
+              key={slug}
+              className="space-y-link border-b border-line py-gutter"
+            >
+              <p className="flex flex-wrap gap-x-link text-small text-text-2">
+                <span>{tag}</span>
+                <span>{duration}</span>
+              </p>
+              <h2 className="font-medium">{title}</h2>
+              <p>{context}</p>
+              <p className="text-text-2">{tldr}</p>
+              <a href={portfolioUrl} target="_blank" rel="noreferrer">
+                <LinkLabel label={SITE_LINKS.nextLeap.label} />
+              </a>
+            </article>
+          ),
+        )}
+      </div>
+    </PageContainer>
+  );
 }

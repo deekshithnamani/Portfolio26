@@ -23,10 +23,7 @@ function isEasing(value: unknown): boolean {
 }
 
 function assertLayoutTokens(): void {
-  const tokenValues = [
-    LAYOUT_TOKENS.pageShellPaddingX,
-    LAYOUT_TOKENS.pageShellPaddingY,
-  ];
+  const tokenValues = [LAYOUT_TOKENS.pageShellPaddingX];
 
   for (const token of tokenValues) {
     if (!isNonEmptyString(token)) {

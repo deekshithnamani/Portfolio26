@@ -2,18 +2,18 @@ import { useParams } from "react-router";
 import { PageContainer } from "@/components/ui";
 import { DitherImage } from "@/components/ui/dither-image";
 import { ListRow } from "@/components/ui/list-row";
-import { buildPracticeSeriesPath } from "@/config/route-paths";
+import { buildBeyondWorkSeriesPath } from "@/config/route-paths";
 import { PHOTO_CONTENT } from "@/data/photo-content";
-import { PRACTICE_CONTENT } from "@/data/practice-content";
+import { BEYOND_WORK_CONTENT } from "@/data/beyond-work-content";
 import NotFound from "./NotFound";
 
-export default function PracticeIndex() {
+export default function BeyondWorkIndex() {
   return (
     <PageContainer>
-      <h1 className="text-text-2">{PRACTICE_CONTENT.label}</h1>
-      <p className="mt-link">{PRACTICE_CONTENT.description}</p>
+      <h1 className="text-text-2">{BEYOND_WORK_CONTENT.label}</h1>
+      <p className="mt-link">{BEYOND_WORK_CONTENT.description}</p>
       <ul className="mt-gutter">
-        {PRACTICE_CONTENT.series.map(({ slug, title, photoIds }) => {
+        {BEYOND_WORK_CONTENT.series.map(({ slug, title, photoIds }) => {
           const cover = PHOTO_CONTENT.images.find(
             ({ id }) => id === photoIds[0],
           );
@@ -21,7 +21,7 @@ export default function PracticeIndex() {
             <ListRow
               key={slug}
               title={title}
-              href={buildPracticeSeriesPath(slug)}
+              href={buildBeyondWorkSeriesPath(slug)}
               preview={
                 cover && (
                   <>
@@ -40,9 +40,9 @@ export default function PracticeIndex() {
   );
 }
 
-export function PracticeSeriesPage() {
+export function BeyondWorkSeriesPage() {
   const { slug } = useParams();
-  const series = PRACTICE_CONTENT.series.find((item) => item.slug === slug);
+  const series = BEYOND_WORK_CONTENT.series.find((item) => item.slug === slug);
 
   if (!series) return <NotFound />;
 

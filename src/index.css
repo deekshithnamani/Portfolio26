@@ -125,17 +125,6 @@ body {
   );
 }
 
-@media (min-width: 1280px) {
-  .home-dither-caption {
-    position: fixed;
-    bottom: var(--gutter);
-    right: var(--gutter);
-    padding-inline: var(--row-gap-small);
-    background: var(--home-paper);
-    white-space: nowrap;
-  }
-}
-
 .dither-image canvas {
   opacity: 0;
   image-rendering: pixelated;
@@ -144,4 +133,95 @@ body {
 .dither-image[data-ready="true"][data-hovered="false"][aria-pressed="false"]
   canvas {
   opacity: 1;
+}
+
+.link-arrow {
+  margin-inline-start: 0.25em;
+  position: relative;
+  white-space: nowrap;
+}
+
+a:not(.no-underline) .link-arrow::after,
+a:hover .link-arrow::after {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  border-bottom: 1px solid currentColor;
+  content: "";
+}
+
+a:hover .link-arrow::after {
+  border-bottom-width: 2px;
+}
+
+.work-list-row {
+  display: grid;
+  gap: var(--row-gap-small);
+  padding-block: var(--row-gap-small);
+}
+
+.work-list-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (width >= 480px) {
+  .work-list-row {
+    min-height: calc(var(--row-height) - 1px);
+    grid-template-columns: var(--row-year) minmax(0, 1fr) auto;
+    column-gap: var(--link-gap);
+    align-items: center;
+  }
+
+  .work-list-title {
+    grid-area: 1 / 2;
+  }
+
+  .work-list-meta {
+    display: contents;
+  }
+
+  .work-list-year {
+    grid-area: 1 / 1;
+  }
+
+  .work-list-status {
+    grid-area: 1 / 3;
+    text-align: right;
+  }
+}
+
+@media (width < 768px) {
+  .home-dither {
+    mask-image: none;
+    opacity: 0.18;
+  }
+}
+
+.experience-group {
+  display: grid;
+  gap: var(--link-gap);
+}
+
+.experience-projects {
+  display: grid;
+  align-content: start;
+  gap: var(--row-gap-small);
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--row-gap-small) var(--link-gap);
+}
+
+@media (width >= 480px) {
+  .experience-group {
+    grid-template-columns: minmax(0, var(--experience-meta-width)) minmax(
+        0,
+        1fr
+      );
+    column-gap: var(--gutter);
+  }
 }

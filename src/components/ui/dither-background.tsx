@@ -17,7 +17,7 @@ export function DitherBackground() {
     if (!canvas || !context) return;
 
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobile = window.matchMedia("(max-width: 767px)");
+    const mobile = window.matchMedia("(width < 768px)");
     const photos = PHOTO_CONTENT.images;
     const first = Math.floor(Math.random() * photos.length);
     const ordered = [...photos.slice(first), ...photos.slice(0, first)];
@@ -58,7 +58,11 @@ export function DitherBackground() {
       const previous = (current + images.length - 1) % images.length;
       const progress = (time % ROTATE_MS) / FADE_MS;
       const fading =
-        !motion.matches && images.length > 1 && turn > 0 && progress < 1;
+        !motion.matches &&
+        !mobile.matches &&
+        images.length > 1 &&
+        turn > 0 &&
+        progress < 1;
       for (const key of frames.keys()) {
         if (key !== current && (!fading || key !== previous))
           frames.delete(key);
@@ -106,7 +110,7 @@ export function DitherBackground() {
       started = undefined;
 
       if (document.hidden || !images.length) return;
-      if (motion.matches || images.length === 1) {
+      if (motion.matches || mobile.matches || images.length === 1) {
         elapsed = Math.floor(elapsed / ROTATE_MS) * ROTATE_MS;
         paint(elapsed);
         return;
@@ -123,6 +127,7 @@ export function DitherBackground() {
     window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", updatePlayback);
     motion.addEventListener("change", updatePlayback);
+    mobile.addEventListener("change", updatePlayback);
     void Promise.all(
       ordered.map(async ({ file, homeCrop }) => {
         const source = await loadDitherSource(file);
@@ -140,6 +145,7 @@ export function DitherBackground() {
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", updatePlayback);
       motion.removeEventListener("change", updatePlayback);
+      mobile.removeEventListener("change", updatePlayback);
     };
   }, []);
 

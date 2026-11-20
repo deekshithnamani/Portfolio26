@@ -10,7 +10,7 @@ type WorkEntry = {
   year: string;
   title: string;
   status: string;
-  slug?: string;
+  href?: string;
   isNew?: boolean;
   placeholder: boolean;
 };
@@ -24,12 +24,20 @@ type CaseStudySection = {
   placeholder: boolean;
 };
 
+type ExperienceGroup = {
+  company: string;
+  role: string;
+  years: string;
+  projects: { title: string; link?: SiteLinkId }[];
+  placeholder: boolean;
+};
+
 type WorkContent = {
   label: string;
   description: string;
   newLabel: string;
   placeholder: boolean;
-  home: { paragraphs: LinkedText[][]; placeholder: boolean };
+  home: { intro: string; experience: ExperienceGroup[]; placeholder: boolean };
   entries: WorkEntry[];
   productThinking: {
     label: string;
@@ -42,6 +50,7 @@ type WorkContent = {
     note: string;
     placeholder: boolean;
   };
+  howIWork: { label: string; body: string; placeholder: boolean };
   caseStudy: {
     label: string;
     title: string;
@@ -57,9 +66,14 @@ export const WORK_CONTENT: WorkContent = {
   ...data,
   home: {
     ...data.home,
-    paragraphs: data.home.paragraphs.map((paragraph) =>
-      paragraph.map(readLinkedText),
-    ),
+    experience: data.home.experience.map((group) => ({
+      ...group,
+      projects: group.projects.map((project) => ({
+        ...project,
+        link:
+          project.link === undefined ? undefined : readSiteLinkId(project.link),
+      })),
+    })),
   },
   productThinking: {
     ...data.productThinking,

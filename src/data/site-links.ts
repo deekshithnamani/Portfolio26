@@ -15,7 +15,7 @@ type SiteLink = {
 
 export const SITE_LINKS: { [Id in keyof typeof data.items]: SiteLink } =
   data.items;
-export const SITE_UPDATED = data.updated;
+export const FOOTER_CREDIT = data.footerCredit;
 export type SiteLinkId = keyof typeof SITE_LINKS;
 export type LinkedText =
   { text: string; link?: never } | { link: SiteLinkId; text?: never };

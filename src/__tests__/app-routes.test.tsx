@@ -11,7 +11,7 @@ import App from "@/App";
 import {
   ROUTE_PATHS,
   buildWorkDetailPath,
-  buildPracticeSeriesPath,
+  buildBeyondWorkSeriesPath,
 } from "@/config/route-paths";
 import { setMediaState } from "@/test/matchMedia";
 import { SITE_LINKS } from "@/data/site-links";
@@ -46,34 +46,34 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
-  it("renders the Home intro links and featured work list", async () => {
+  it("groups Home projects by experience and links only projects with destinations", async () => {
     await renderAt(ROUTE_PATHS.home);
-    const main = within(screen.getByRole("main"));
-    for (const id of [
-      "decisionProof",
-      "legalProof",
-      "photograph",
-      "linkedin",
-      "github",
-      "resume",
-    ] as const) {
-      const link = SITE_LINKS[id];
-      expect(
-        main.getByRole("link", { name: link.labels?.home ?? link.label }),
-      ).toHaveAttribute("href", link.href);
-    }
+    const mainElement = screen.getByRole("main");
+    const main = within(mainElement);
     expect(
-      main.getByRole("link", { name: /Property-document checker/ }),
+      main.getByText(/I’m Deekshith, a product designer/),
+    ).toBeInTheDocument();
+    expect(
+      main
+        .getAllByRole("heading", { level: 2 })
+        .map((heading) => heading.textContent),
+    ).toEqual(["Company A", "Company B"]);
+    expect(
+      main
+        .getAllByRole("list")
+        .map((list) => within(list).getAllByRole("listitem").length),
+    ).toEqual([3, 3]);
+    expect(
+      main.getByRole("link", { name: "Property-document checker →" }),
     ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
-    expect(main.getByText("Decision workflow")).toBeInTheDocument();
     expect(
-      main.getByRole("link", { name: "more in Practice →" }),
-    ).toHaveAttribute("href", "/practice");
-    expect(screen.getByRole("main").querySelector("canvas")).toHaveAttribute(
+      main.getByRole("link", { name: SITE_LINKS.zomato.label }),
+    ).toHaveAttribute("href", SITE_LINKS.zomato.href);
+    expect(main.queryByRole("link", { name: "Decision workflow" })).toBeNull();
+    expect(mainElement.querySelector("canvas")).toHaveAttribute(
       "aria-hidden",
       "true",
     );
-    expect(main.queryByRole("link", { name: "Decision workflow" })).toBeNull();
   });
 
   it("renders the case study and its seven section links", async () => {
@@ -92,7 +92,7 @@ describe("app routes", () => {
       "What I cut",
       "Tradeoffs",
       "Outcome",
-      "What I'd change",
+      "What I’d change",
     ];
     expect(
       main
@@ -122,7 +122,6 @@ describe("app routes", () => {
     ["/writing", "/work", "Work"],
     ["/writing/old-note", "/work", "Work"],
     ["/interests", "/work", "Work"],
-    ["/product-thinking", "/work", "Work"],
     [
       "/work/daosoft-ai-decision-intelligence/ai-workflow-planner",
       "/work",
@@ -130,7 +129,9 @@ describe("app routes", () => {
     ],
     ["/curations/", "/work", "Work"],
     ["/concepts", "/work", "Work"],
-    ["/beyond-work", "/practice", "Practice"],
+    ["/practice", "/beyond-work", "Beyond work"],
+    ["/practice/evening-skies", "/beyond-work", "Beyond work"],
+    ["/practice/archived/series", "/beyond-work", "Beyond work"],
   ])("redirects legacy URL %s to %s", async (source, destination, heading) => {
     await renderAt(source);
     expect(
@@ -140,11 +141,28 @@ describe("app routes", () => {
     expect(screen.getByRole("main")).not.toHaveTextContent(/TODO|placeholder/i);
   });
 
+  it.each([
+    ["Product thinking", "/product-thinking"],
+    ["About", "/about"],
+  ])("opens %s from the header", async (label, path) => {
+    const user = userEvent.setup();
+    await renderAt(ROUTE_PATHS.home);
+    const link = within(screen.getByRole("navigation")).getByRole("link", {
+      name: label,
+    });
+    await user.click(link);
+    expect(
+      await screen.findByRole("heading", { level: 1, name: label }),
+    ).toBeInTheDocument();
+    expect(window.location.pathname).toBe(path);
+    expect(link).toHaveAttribute("aria-current", "page");
+  });
+
   it("renders the not-found page for unknown routes", async () => {
     await renderAt("/missing");
 
     expect(
-      screen.getByRole("heading", { name: "That page doesn't exist." }),
+      screen.getByRole("heading", { name: "That page doesn’t exist." }),
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "← Home" })).toHaveAttribute(
       "href",
@@ -162,11 +180,11 @@ describe("app routes", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the Practice index and opens the Evening skies series", async () => {
+  it("renders the Beyond work index and opens the Evening skies series", async () => {
     const user = userEvent.setup();
-    await renderAt(ROUTE_PATHS.practice);
+    await renderAt(ROUTE_PATHS.beyondWork);
     expect(
-      screen.getByRole("heading", { name: "Practice", level: 1 }),
+      screen.getByRole("heading", { name: "Beyond work", level: 1 }),
     ).toBeInTheDocument();
     expect(
       screen.getByText("Photographs and studies I make to unwind."),
@@ -187,10 +205,10 @@ describe("app routes", () => {
     expect(reveal).toHaveAttribute("aria-pressed", "false");
     await user.click(reveal);
     expect(reveal).toHaveAttribute("aria-pressed", "true");
-    expect(window.location.pathname).toBe("/practice");
+    expect(window.location.pathname).toBe("/beyond-work");
 
     const eveningSkies = main.getByRole("link", { name: "Evening skies" });
-    expect(eveningSkies).toHaveAttribute("href", "/practice/evening-skies");
+    expect(eveningSkies).toHaveAttribute("href", "/beyond-work/evening-skies");
     await user.click(eveningSkies);
     expect(
       await screen.findByRole("heading", { name: "Evening skies" }),
@@ -202,46 +220,28 @@ describe("app routes", () => {
     );
   });
 
-  it("renders the approved About sections and contact links", async () => {
-    await renderAt(ROUTE_PATHS.about);
+  it("places How I work after Product thinking on Work", async () => {
+    await renderAt(ROUTE_PATHS.work);
     const main = within(screen.getByRole("main"));
-    expect(
-      main.getByRole("heading", { name: "About", level: 1 }),
-    ).toBeInTheDocument();
     expect(
       main
         .getAllByRole("heading", { level: 2 })
-        .map(({ textContent }) => textContent),
-    ).toEqual([
-      "Who I am",
-      "How I work",
-      "What I care about",
-      "What I'd cut",
-      "Get in touch",
-    ]);
+        .map((heading) => heading.textContent),
+    ).toEqual(["Product thinking", "How I work"]);
     expect(
-      main.getByText("Languages: Telugu, Hindi, English"),
-    ).toBeInTheDocument();
-    for (const [label, href] of [
-      ["LinkedIn ↗", SITE_LINKS.linkedin.href],
-      ["GitHub ↗", SITE_LINKS.github.href],
-      ["Resume (product design) ↗", "/resume.pdf"],
-      ["Resume (product management) ↗", "/resume-pm.pdf"],
-    ]) {
-      const link = main.getByRole("link", { name: label });
-      expect(link).toHaveAttribute("href", href);
-      expect(link).toHaveAttribute("target", "_blank");
-    }
-    expect(main.queryByText(/TODO|placeholder/i)).toBeNull();
+      main.getByText(
+        /I question long feature lists, because most of them are guesses/,
+      ),
+    ).toHaveClass("mt-link");
   });
 
   it.each([
     buildWorkDetailPath("missing-case-study"),
-    buildPracticeSeriesPath("missing-series"),
+    buildBeyondWorkSeriesPath("missing-series"),
   ])("uses the same empty state for %s", async (path) => {
     await renderAt(path);
     expect(
-      screen.getByRole("heading", { name: "That page doesn't exist." }),
+      screen.getByRole("heading", { name: "That page doesn’t exist." }),
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "← Home" })).toHaveAttribute(
       "href",
@@ -279,33 +279,31 @@ describe("app routes", () => {
     expect(screen.queryByTestId("custom-cursor")).not.toBeInTheDocument();
     await user.click(
       within(screen.getByRole("navigation")).getByRole("link", {
-        name: "Work",
+        name: "Beyond work",
       }),
     );
     expect(
-      await screen.findByRole("heading", { name: "Work" }),
+      await screen.findByRole("heading", { name: "Beyond work" }),
     ).toBeInTheDocument();
     expect(screen.queryByTestId("custom-cursor")).not.toBeInTheDocument();
   });
 
-  it("links to LinkedIn, GitHub, and Resume from the footer", async () => {
+  it("shows social links in the footer and omits the résumé link", async () => {
     await renderAt(ROUTE_PATHS.home);
     const footer = within(screen.getByRole("contentinfo"));
-    expect(footer.getByText("© 2026 · Updated Nov 2026")).toBeInTheDocument();
-    expect(
-      within(screen.getByRole("banner")).queryByText("Updated Nov 2026"),
-    ).toBeNull();
-    for (const [name, href] of [
-      ["LinkedIn ↗", "https://www.linkedin.com/in/deekshithnamani"],
-      ["GitHub ↗", SITE_LINKS.github.href],
-      ["Resume ↗", "/resume.pdf"],
+    expect(footer.getAllByRole("link")).toHaveLength(3);
+    for (const [label, href] of [
+      [SITE_LINKS.linkedin.label, SITE_LINKS.linkedin.href],
+      [SITE_LINKS.github.label, SITE_LINKS.github.href],
+      ["NextLeap ↗", SITE_LINKS.nextLeap.href],
     ]) {
-      expect(footer.getByRole("link", { name })).toHaveAttribute("href", href);
-      expect(footer.getByRole("link", { name })).toHaveAttribute(
-        "target",
-        "_blank",
-      );
+      const link = footer.getByRole("link", { name: label });
+      expect(link).toHaveAttribute("href", href);
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveClass("no-underline", "hover:underline");
     }
+    expect(footer.getByText("deekshithn007 © 2026")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /resume|résumé/i })).toBeNull();
   });
 
   it("limits the New mark animation to visitors who allow motion", async () => {

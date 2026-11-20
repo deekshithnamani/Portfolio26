@@ -60,7 +60,7 @@ describe("light theme tokens", () => {
       "#5F5F5A",
       "#E3E3DD",
       "#CFCFC7",
-      "#7446A5",
+      "#E6128F",
     ]);
   });
 });

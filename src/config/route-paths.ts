@@ -5,8 +5,7 @@ export const ROUTE_SEGMENTS = {
   beyondWork: "beyond-work",
   make: "make",
   curations: "curations",
-  practice: "practice",
-  practiceSeries: "practice/:slug",
+  beyondWorkSeries: "beyond-work/:slug",
   concepts: "concepts",
   about: "about",
   writing: "writing",
@@ -24,8 +23,7 @@ export const ROUTE_PATHS = {
   beyondWork: "/beyond-work",
   make: "/make",
   curations: "/curations",
-  practice: "/practice",
-  practiceSeries: "/practice/:slug",
+  beyondWorkSeries: "/beyond-work/:slug",
   concepts: "/concepts",
   about: "/about",
   writing: "/writing",
@@ -48,8 +46,7 @@ export const ROUTE_IDS = {
   daosoftProject: "daosoft-project",
   make: "make",
   curations: "curations",
-  practice: "practice",
-  practiceSeries: "practice-series",
+  beyondWorkSeries: "beyond-work-series",
   concepts: "concepts",
   about: "about",
   writing: "writing",
@@ -61,8 +58,7 @@ export const ROUTE_IDS = {
 export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
 
 export const LEGACY_REDIRECTS = {
-  [ROUTE_PATHS.beyondWork]: ROUTE_PATHS.practice,
-  [ROUTE_PATHS.productThinking]: ROUTE_PATHS.work,
+  "/practice/*": ROUTE_PATHS.beyondWork,
   [ROUTE_PATHS.make]: ROUTE_PATHS.work,
   [ROUTE_PATHS.writing]: ROUTE_PATHS.work,
   [ROUTE_PATHS.writingDetail]: ROUTE_PATHS.work,
@@ -76,8 +72,8 @@ export function buildWorkDetailPath(slug: string) {
   return `/work/${slug}`;
 }
 
-export function buildPracticeSeriesPath(slug: string) {
-  return `${ROUTE_PATHS.practice}/${slug}`;
+export function buildBeyondWorkSeriesPath(slug: string) {
+  return `${ROUTE_PATHS.beyondWork}/${slug}`;
 }
 
 export function buildWritingDetailPath(slug: string) {

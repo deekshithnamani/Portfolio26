@@ -3,58 +3,44 @@
   "description": "Selected work, with the decisions behind it.",
   "newLabel": "New",
   "home": {
-    "paragraphs": [
-      [
-        {
-          "text": "I'm Deekshith, a product designer in Hyderabad. For three years I've worked on AI and enterprise products, mostly as the only designer, on "
-        },
-        {
-          "link": "decisionProof"
-        },
-        {
-          "text": " and "
-        },
-        {
-          "link": "legalProof"
-        },
-        {
-          "text": "."
-        }
-      ],
-      [
-        {
-          "text": "When I'm not working I "
-        },
-        {
-          "link": "photograph"
-        },
-        {
-          "text": " things, and some of those photographs are the background of this page."
-        }
-      ],
-      [
-        {
-          "text": "You can find me on "
-        },
-        {
-          "link": "linkedin"
-        },
-        {
-          "text": " and "
-        },
-        {
-          "link": "github"
-        },
-        {
-          "text": ", or read my "
-        },
-        {
-          "link": "resume"
-        },
-        {
-          "text": "."
-        }
-      ]
+    "intro": "I’m Deekshith, a product designer in Hyderabad. I work on AI and enterprise products, mostly as the only designer.",
+    "experience": [
+      {
+        "company": "Company A",
+        "role": "Product Designer",
+        "years": "2023–2024",
+        "projects": [
+          {
+            "title": "Property-document checker →",
+            "link": "legalProof"
+          },
+          {
+            "title": "Intake flow"
+          },
+          {
+            "title": "Document review queue"
+          }
+        ],
+        "placeholder": true
+      },
+      {
+        "company": "Company B",
+        "role": "Product Design Fellow",
+        "years": "2024–2025",
+        "projects": [
+          {
+            "title": "Zomato eco-features PRD ↗",
+            "link": "zomato"
+          },
+          {
+            "title": "Decision workflow"
+          },
+          {
+            "title": "Reporting dashboard"
+          }
+        ],
+        "placeholder": true
+      }
     ],
     "placeholder": true
   },
@@ -63,9 +49,9 @@
       "year": "2023–24",
       "title": "Property-document checker",
       "status": "case study",
-      "slug": "property-document-checker",
       "isNew": true,
-      "placeholder": true
+      "placeholder": true,
+      "href": "/work/property-document-checker"
     },
     {
       "year": "2024–",
@@ -124,7 +110,7 @@
       {
         "id": "user-and-problem",
         "title": "User and problem",
-        "body": "Checking land documents for issues can take lawyers weeks. The idea was a checker that flags problems early, so a lawyer's time goes to judgment instead of searching.",
+        "body": "Checking land documents for issues can take lawyers weeks. The idea was a checker that flags problems early, so a lawyer’s time goes to judgment instead of searching.",
         "caption": "",
         "placeholder": true
       },
@@ -138,7 +124,7 @@
       {
         "id": "what-i-cut",
         "title": "What I cut",
-        "body": "The founders' feature list was long. I questioned each item against one question: does this help a lawyer decide faster? Most did not.",
+        "body": "The founders’ feature list was long. I questioned each item against one question: does this help a lawyer decide faster? Most did not.",
         "caption": "",
         "note": "Why: a smaller first version was easier to test and easier to trust.",
         "placeholder": true
@@ -146,21 +132,21 @@
       {
         "id": "tradeoffs",
         "title": "Tradeoffs",
-        "body": "Fewer features at launch meant some requests had to wait. The check also had to be clear about what it was unsure of, because a wrong 'all clear' costs more than a missed flag.",
+        "body": "Fewer features at launch meant some requests had to wait. The check also had to be clear about what it was unsure of, because a wrong ‘all clear’ costs more than a missed flag.",
         "caption": "",
         "placeholder": true
       },
       {
         "id": "outcome",
         "title": "Outcome",
-        "body": "I don't have usage metrics for this feature. If I were measuring it, I would look at time to first review and how often flagged issues were accepted.",
+        "body": "I don’t have usage metrics for this feature. If I were measuring it, I would look at time to first review and how often flagged issues were accepted.",
         "caption": "",
         "placeholder": true
       },
       {
         "id": "what-id-change",
-        "title": "What I'd change",
-        "body": "I'd put real documents in front of lawyers earlier, before settling the flow.",
+        "title": "What I’d change",
+        "body": "I’d put real documents in front of lawyers earlier, before settling the flow.",
         "caption": "",
         "placeholder": true
       }
@@ -178,5 +164,10 @@
     ],
     "placeholder": true
   },
-  "placeholder": true
+  "placeholder": true,
+  "howIWork": {
+    "label": "How I work",
+    "body": "I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.",
+    "placeholder": true
+  }
 }

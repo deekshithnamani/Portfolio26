@@ -1,30 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { NAV_ITEMS, getVisibleNavItems } from "@/config/navigation";
+import { getVisibleNavItems } from "@/config/navigation";
 import { SOCIALS } from "@/data/socials";
 
 describe("navigation configuration", () => {
-  it("keeps launch navigation ordered and hides future sections", () => {
+  it("keeps Product thinking, Beyond work and About in the primary navigation", () => {
     expect(getVisibleNavItems("main").map(({ label }) => label)).toEqual([
-      "Work",
-      "Practice",
+      "Product thinking",
+      "Beyond work",
       "About",
     ]);
-    expect(
-      NAV_ITEMS.find(({ label }) => label === "Beyond work")?.visible,
-    ).toBe(false);
-    expect(
-      NAV_ITEMS.find(({ label }) => label === "Side projects")?.visible,
-    ).toBe(false);
   });
 
-  it("keeps Resume separate as a utility item with its PDF path", () => {
-    expect(getVisibleNavItems("utility")).toEqual([
-      expect.objectContaining({
-        label: "Resume",
-        path: "/resume.pdf",
-        group: "utility",
-      }),
-    ]);
+  it("has no utility navigation links", () => {
+    expect(getVisibleNavItems("utility")).toEqual([]);
   });
 
   it("stores socials separately from navigation", () => {

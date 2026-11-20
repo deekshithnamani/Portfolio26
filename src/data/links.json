@@ -1,5 +1,4 @@
 {
-  "updated": "Updated Nov 2026",
   "items": {
     "brand": {
       "label": "Deekshith Namani",
@@ -7,15 +6,15 @@
       "appearsIn": ["header"],
       "placeholder": true
     },
-    "work": {
-      "label": "Work",
-      "href": "/work",
+    "productThinking": {
+      "label": "Product thinking",
+      "href": "/product-thinking",
       "appearsIn": ["header"],
       "placeholder": true
     },
-    "practice": {
-      "label": "Practice",
-      "href": "/practice",
+    "beyondWork": {
+      "label": "Beyond work",
+      "href": "/beyond-work",
       "appearsIn": ["header"],
       "placeholder": true
     },
@@ -28,41 +27,27 @@
     "linkedin": {
       "label": "LinkedIn ↗",
       "href": "https://www.linkedin.com/in/deekshithnamani",
-      "appearsIn": ["footer", "home", "about", "caseStudy"],
+      "appearsIn": ["footer", "caseStudy"],
       "newTab": true,
       "placeholder": true
     },
     "github": {
       "label": "GitHub ↗",
       "href": "https://github.com/deekshithnamani",
-      "appearsIn": ["footer", "home", "about"],
+      "appearsIn": ["footer"],
       "newTab": true,
       "comment": "Verify this GitHub profile URL before launch.",
       "placeholder": true
     },
-    "resume": {
-      "label": "Resume ↗",
-      "href": "/resume.pdf",
-      "appearsIn": ["header", "footer", "home", "about"],
+    "nextLeap": {
+      "label": "NextLeap portfolio ↗",
+      "href": "https://nextleap.app/portfolio/n-deekshith",
+      "appearsIn": ["work", "footer"],
       "newTab": true,
+      "placeholder": true,
       "labels": {
-        "home": "resume ↗",
-        "about": "Resume (product design) ↗"
-      },
-      "placeholder": true
-    },
-    "resumePm": {
-      "label": "Resume (product management) ↗",
-      "href": "/resume-pm.pdf",
-      "appearsIn": ["about"],
-      "newTab": true,
-      "placeholder": true
-    },
-    "decisionProof": {
-      "label": "a decision platform for engineering teams →",
-      "href": "/work",
-      "appearsIn": ["home"],
-      "placeholder": true
+        "footer": "NextLeap ↗"
+      }
     },
     "legalProof": {
       "label": "a legal workspace where I cut the feature list down to what mattered →",
@@ -70,27 +55,8 @@
       "appearsIn": ["home"],
       "placeholder": true
     },
-    "photograph": {
-      "label": "photograph",
-      "href": "/practice",
-      "appearsIn": ["home"],
-      "placeholder": true
-    },
-    "morePractice": {
-      "label": "more in Practice →",
-      "href": "/practice",
-      "appearsIn": ["home"],
-      "placeholder": true
-    },
     "zomato": {
       "label": "Zomato eco-features PRD ↗",
-      "href": "https://nextleap.app/portfolio/n-deekshith",
-      "appearsIn": ["work"],
-      "newTab": true,
-      "placeholder": true
-    },
-    "nextLeap": {
-      "label": "NextLeap portfolio ↗",
       "href": "https://nextleap.app/portfolio/n-deekshith",
       "appearsIn": ["work"],
       "newTab": true,
@@ -109,5 +75,6 @@
       "placeholder": true
     }
   },
-  "placeholder": true
+  "placeholder": true,
+  "footerCredit": "deekshithn007 © 2026"
 }

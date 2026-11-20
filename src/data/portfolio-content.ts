@@ -39,7 +39,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
       line3: "whether anyone assigns it or not.",
     },
     positioningLine:
-      "Product designer who's spent the last year doing PM work because a team needed it — now doing it on purpose.",
+      "Product designer who’s spent the last year doing PM work because a team needed it — now doing it on purpose.",
     ctas: [
       {
         label: "VIEW WORK",
@@ -59,9 +59,9 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
   },
   about: {
     bioParagraphs: [
-      "I started in chemical engineering, not design — NIT Nagpur, four years of process systems, before I found my way into UX during an internship at Univ.AI. That internship turned into building a learner platform's first design system, and I was hooked.",
-      "Since then I've spent three years building AI-powered products across edtech, legal-tech, and now decision-intelligence software — usually in small, founder-led teams where the line between 'design' and 'product' didn't really exist. At DAOSoft.AI, that's meant rebuilding an entire platform's UI and design system, and also owning the AI feature roadmap, because the team didn't have a dedicated PM and someone had to.",
-      "That gap is what pushed me into NextLeap's PM Fellowship, where I placed in the top 12% of 200+ fellows — not to leave design behind, but to get formal about the product thinking I'd already been doing informally for two years.",
+      "I started in chemical engineering, not design — NIT Nagpur, four years of process systems, before I found my way into UX during an internship at Univ.AI. That internship turned into building a learner platform’s first design system, and I was hooked.",
+      "Since then I’ve spent three years building AI-powered products across edtech, legal-tech, and now decision-intelligence software — usually in small, founder-led teams where the line between 'design' and 'product' didn’t really exist. At DAOSoft.AI, that’s meant rebuilding an entire platform’s UI and design system, and also owning the AI feature roadmap, because the team didn’t have a dedicated PM and someone had to.",
+      "That gap is what pushed me into NextLeap’s PM Fellowship, where I placed in the top 12% of 200+ fellows — not to leave design behind, but to get formal about the product thinking I’d already been doing informally for two years.",
     ],
     nowBlock:
       "Currently designing AI-native decision tools at DAOSoft.AI, while looking at roles — design or PM — where I can own a product end-to-end rather than just the interface.",
@@ -135,7 +135,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
         {
           type: "text",
           content:
-            "Reflection: Operating without a PM taught me to think in roadmaps, not just screens. It's also the experience that made me want to do product management deliberately, not by accident.",
+            "Reflection: Operating without a PM taught me to think in roadmaps, not just screens. It’s also the experience that made me want to do product management deliberately, not by accident.",
         },
       ],
       closingNote: "Happy to walk through the workflow planner in more depth — reach out.",
@@ -207,7 +207,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
       slug: "univ-ai-design-system",
       id: "03",
       company: "Univ.AI",
-      title: "Building a learner platform's first design system",
+      title: "Building a learner platform’s first design system",
       category: "EdTech / Design Systems",
       year: "2022",
       duration: "Oct 2022 – Apr 2023",
@@ -219,7 +219,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
         tools: "Figma",
       },
       tldr:
-        "Redesigned an edtech learner platform's onboarding and course discovery, then built the platform's first scalable design system, reducing UI inconsistency and speeding up future development.",
+        "Redesigned an edtech learner platform’s onboarding and course discovery, then built the platform’s first scalable design system, reducing UI inconsistency and speeding up future development.",
       cover:
         "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=700&fit=crop&auto=format",
       body: [
@@ -231,7 +231,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
         {
           type: "text",
           content:
-            "Context: Univ.AI's learner platform needed better onboarding, course discovery, and profile creation, plus a job-portal feature connecting learners with recruiters.",
+            "Context: Univ.AI’s learner platform needed better onboarding, course discovery, and profile creation, plus a job-portal feature connecting learners with recruiters.",
         },
         {
           type: "text",
@@ -247,7 +247,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
         {
           type: "text",
           content:
-            "Output: Redesigned onboarding, discovery, and profile workflows; shipped job-portal features (application, tracking, feedback); built the platform's first scalable design system.",
+            "Output: Redesigned onboarding, discovery, and profile workflows; shipped job-portal features (application, tracking, feedback); built the platform’s first scalable design system.",
         },
         {
           type: "text",
@@ -317,7 +317,7 @@ export const PORTFOLIO_CONTENT: PortfolioContent = {
         {
           type: "text",
           content:
-            "Reflection: This is the project where formal PM method — KPI trees, structured PRDs, experimentation design — replaced the informal product thinking I'd been doing on the job for two years.",
+            "Reflection: This is the project where formal PM method — KPI trees, structured PRDs, experimentation design — replaced the informal product thinking I’d been doing on the job for two years.",
         },
       ],
       closingNote: "Full PRD and dashboard available on request.",

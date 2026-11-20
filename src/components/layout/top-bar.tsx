@@ -1,41 +1,35 @@
-import { LinkLabel } from "@/components/ui/link-label";
 import { NavLink, Link } from "react-router";
 import { getSiteLinks, SITE_LINKS } from "@/data/site-links";
 
 export function Header() {
-  const { brand, resume } = SITE_LINKS;
+  const { brand } = SITE_LINKS;
   const navigation = getSiteLinks("header").filter(
     ({ id, newTab }) => id !== "brand" && !newTab,
   );
 
   return (
-    <header className="flex flex-col gap-link pt-gutter sm:flex-row sm:items-baseline sm:justify-between">
-      <Link to={brand.href} className="no-underline hover:underline">
+    <header className="mb-header flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-row-small pt-gutter">
+      <Link
+        to={brand.href}
+        className="shrink-0 text-body text-text no-underline hover:underline"
+      >
         {brand.label}
       </Link>
       <nav
         aria-label="Primary navigation"
-        className="site-header-nav flex items-center gap-link text-small"
+        className="site-header-nav flex flex-wrap items-baseline gap-x-link text-nav"
       >
         {navigation.map(({ label, href }) => (
           <NavLink
             key={href}
             to={href}
             className={({ isActive }) =>
-              isActive ? "text-text" : "text-text-2"
+              `inline-flex min-h-tap shrink-0 items-center no-underline hover:underline ${isActive ? "text-text" : "text-text-2"}`
             }
           >
             {label}
           </NavLink>
         ))}
-        <a
-          href={resume.href}
-          target="_blank"
-          rel="noreferrer"
-          className="ml-link text-text-2"
-        >
-          <LinkLabel label={resume.label} />
-        </a>
       </nav>
     </header>
   );

@@ -1,10 +1,10 @@
 import { matchPath } from "react-router";
 import { ABOUT_CONTENT } from "@/data/about-content";
-import { PRACTICE_CONTENT } from "@/data/practice-content";
+import { BEYOND_WORK_CONTENT } from "@/data/beyond-work-content";
 import { SITE_LINKS } from "@/data/site-links";
 import { WORK_CONTENT } from "@/data/work-content";
 import {
-  buildPracticeSeriesPath,
+  buildBeyondWorkSeriesPath,
   LEGACY_REDIRECTS,
   ROUTE_PATHS,
 } from "./route-paths";
@@ -28,59 +28,36 @@ export const DOCUMENT_TITLES = {
   propertyChecker: "Deekshith Namani · Property-document checker",
   home: "Deekshith Namani · Home",
   work: "Deekshith Namani · Work",
-  practice: "Deekshith Namani · Practice",
+  productThinking: "Deekshith Namani · Product thinking",
   about: "Deekshith Namani · About",
+  beyondWork: "Deekshith Namani · Beyond work",
   notFound: "Deekshith Namani · Page Not Found",
 } as const;
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: SITE_LINKS.work.label,
-    path: SITE_LINKS.work.href,
+    label: SITE_LINKS.productThinking.label,
+    path: SITE_LINKS.productThinking.href,
+    order: 1,
+    visible: true,
+    group: "main",
+    description: "PRDs, teardowns, and product decisions",
+  },
+  {
+    label: SITE_LINKS.beyondWork.label,
+    path: SITE_LINKS.beyondWork.href,
     order: 2,
     visible: true,
     group: "main",
-    description: "Selected product design work",
-  },
-  {
-    label: SITE_LINKS.practice.label,
-    path: SITE_LINKS.practice.href,
-    order: 3,
-    visible: true,
-    group: "main",
-    description: "Photographs and studies",
-  },
-  {
-    label: "Beyond work",
-    path: "/beyond-work",
-    order: 4,
-    visible: false,
-    group: "main",
-    description: "Photography and library",
+    description: BEYOND_WORK_CONTENT.description,
   },
   {
     label: SITE_LINKS.about.label,
     path: SITE_LINKS.about.href,
-    order: 5,
+    order: 3,
     visible: true,
     group: "main",
-    description: "How I work",
-  },
-  {
-    label: "Side projects",
-    path: "/make",
-    order: 6,
-    visible: false,
-    group: "main",
-    description: "Independent experiments",
-  },
-  {
-    label: SITE_LINKS.resume.label.replace(" ↗", ""),
-    path: SITE_LINKS.resume.href,
-    order: 1,
-    visible: true,
-    group: "utility",
-    description: "Product design résumé",
+    description: "Background and contact",
   },
 ];
 
@@ -96,10 +73,10 @@ export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
     title: DOCUMENT_TITLES.propertyChecker,
     description: WORK_CONTENT.caseStudy.summary,
   },
-  ...PRACTICE_CONTENT.series.map(({ slug, title, description }) => ({
-    match: (pathname: string) => pathname === buildPracticeSeriesPath(slug),
+  ...BEYOND_WORK_CONTENT.series.map(({ slug, title, description }) => ({
+    match: (pathname: string) => pathname === buildBeyondWorkSeriesPath(slug),
     title: `${SITE_LINKS.brand.label} · ${title}`,
-    description: description ?? PRACTICE_CONTENT.description,
+    description: description ?? BEYOND_WORK_CONTENT.description,
   })),
   {
     match: (pathname) => pathname === ROUTE_PATHS.home,
@@ -113,14 +90,19 @@ export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
     description: WORK_CONTENT.description,
   },
   {
-    match: (pathname) => pathname === ROUTE_PATHS.practice,
-    title: DOCUMENT_TITLES.practice,
-    description: PRACTICE_CONTENT.description,
+    match: (pathname) => pathname === ROUTE_PATHS.beyondWork,
+    title: DOCUMENT_TITLES.beyondWork,
+    description: BEYOND_WORK_CONTENT.description,
+  },
+  {
+    match: (pathname) => pathname === ROUTE_PATHS.productThinking,
+    title: DOCUMENT_TITLES.productThinking,
+    description: "PRDs, teardowns, and product decisions.",
   },
   {
     match: (pathname) => pathname === ROUTE_PATHS.about,
     title: DOCUMENT_TITLES.about,
-    description: "About Deekshith Namani and how he works.",
+    description: ABOUT_CONTENT.sections[0].body,
   },
 ];
 

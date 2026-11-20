@@ -1,6 +1,6 @@
 export function NewMark({ label }: { label: string }) {
   return (
-    <span className="relative ml-2 inline-block whitespace-nowrap px-1.5 text-small">
+    <span className="relative ml-row-small inline-block whitespace-nowrap px-row-small text-small">
       {label}
       <svg
         aria-hidden="true"

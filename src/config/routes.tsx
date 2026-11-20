@@ -42,25 +42,31 @@ export const ROUTES: RouteDefinition[] = [
     ),
   },
   {
-    id: ROUTE_IDS.practice,
-    path: ROUTE_SEGMENTS.practice,
+    id: ROUTE_IDS.beyondWork,
+    path: ROUTE_SEGMENTS.beyondWork,
     pageShell: "standard",
     component: lazy(() => import("@/pages/Studies")),
   },
   {
-    id: ROUTE_IDS.practiceSeries,
-    path: ROUTE_SEGMENTS.practiceSeries,
+    id: ROUTE_IDS.beyondWorkSeries,
+    path: ROUTE_SEGMENTS.beyondWorkSeries,
     pageShell: "standard",
     component: lazy(() =>
       import("@/pages/Studies").then((module) => ({
-        default: module.PracticeSeriesPage,
+        default: module.BeyondWorkSeriesPage,
       })),
     ),
   },
   {
+    id: ROUTE_IDS.productThinking,
+    path: ROUTE_SEGMENTS.productThinking,
+    pageShell: "standard",
+    component: lazy(() => import("@/pages/ProductThinking")),
+  },
+  {
     id: ROUTE_IDS.about,
     path: ROUTE_SEGMENTS.about,
-    pageShell: "compact",
+    pageShell: "standard",
     component: lazy(() => import("@/pages/About")),
   },
   {

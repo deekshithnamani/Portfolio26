@@ -1,0 +1,56 @@
+# Portfolio specification v2
+
+Apply this specification to the existing portfolio with the smallest possible changes. This version supersedes earlier instructions where they conflict. Keep approved copy in data, keep placeholder flags out of the rendered UI, preserve the skip link and route focus handling, and avoid visible TODOs, prohibited company or client names, and invented copy or metrics.
+
+## Information architecture
+
+- The site name links to `/`. The header navigation contains Product thinking, Beyond work, and About. The current page uses `--text`; the other links use `--text-2`.
+- The footer links to LinkedIn ↗, GitHub ↗, and NextLeap ↗ on the left. The right reads “deekshithn007 © 2026”. The credit wraps below the links on narrow screens.
+- Header and footer links are underlined on hover. Links in running text stay underlined.
+- Home is the portfolio index. The active routes also include `/work`, `/work/property-document-checker`, `/product-thinking`, `/beyond-work`, `/beyond-work/:slug`, and `/about`. Unknown routes and unknown Work or series slugs show the shared 404.
+- Redirect the old photography index and all its descendants to `/beyond-work`. Keep the other approved legacy redirects to `/work`. Retain retired page files and identify those that no longer serve a route.
+- Use Beyond work in navigation, titles, metadata, data, and tests.
+
+## Home
+
+I’m Deekshith, a product designer in Hyderabad. I work on AI and enterprise products, mostly as the only designer.
+
+Show two experience groups for the prototype. Each group has company, role, and years on the left and three project titles on the right. On narrow screens metadata appears above the project list. Use hairlines between groups. Link published projects to their real destinations and render sample titles without destinations as plain text. Store the data in `work.json` and retain captions in `photos.json` for the series pages.
+
+## Product thinking and About
+
+Product thinking has its own route and shows the existing fellowship project with its NextLeap destination. About uses the existing background and contact copy. Keep “How I work” on Work.
+
+## Work
+
+Keep the existing Work and Product thinking lists. After Product thinking, add the secondary-colored label “How I work” and the paragraph below. Store this section in `work.json` and remove its earlier version from `about.json`. Retain `about.json`.
+
+I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.
+
+Keep the approved case-study sections, optional captions, and desktop section navigation.
+
+## Visual style
+
+- Keep the single light theme, centered reading column, and Inter at 17px with a 1.6 body line height. The desktop Home background has a white reading column and edge-only dither. Keep the existing desktop rotation and crossfade and honor reduced motion and hidden tabs.
+- On desktop the name is 17px in `--text` and the nav is 15px. Align them on one baseline.
+- Wrap link arrows in a span with a `.25em` left margin. Keep anchor text and arrow adjacent in markup so the underline ends at the arrow.
+- Use hairlines around the Home experience groups and above the first row and below each row in Work lists.
+- Use spacing values of 8, 16, 24, 64, 80, and 96px. The header has 80px below it. Paragraphs are 24px apart. Allow 64px from intro to section label and 16px from label to list. Desktop Work rows are 56px high. Allow at least 96px above the footer, with a top hairline and 24px padding.
+- Draw the New mark with `--pen` set to `#E6128F` and an 8px gap from the title.
+- Use typographic apostrophes and en dashes for ranges in data and markup.
+
+## Responsive behavior
+
+- At 480px and wider, Home experience groups use a 176px metadata column and a flexible project column. Use a wrapping flex row for the header. Let the nav wrap beneath the name when space runs out. Keep type sizes fixed and links at least 44px tall.
+- Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored year and status, separated by a middle dot. Keep 17px body text.
+- Keep the container centered and capped at 640px up to the 1920px check.
+- On mobile, use uniform 0.18 dither opacity and a still frame.
+- Check 320, 360, 390, 768, 1280, and 1920px in Chromium. Report any horizontal overflow.
+
+## Work order
+
+1. IA, routes, navigation labels, copy, and data.
+2. Visual polish and responsive behavior.
+3. Tests for renamed routes and labels.
+
+After each step run build, lint, and tests, list the changed files, and stop for approval.

@@ -27,7 +27,7 @@ export function ListRow({
       <LinkLabel label={title} />
       {newLabel && (
         <>
-          {" "}
+          <span className="sr-only"> </span>
           <NewMark label={newLabel} />
         </>
       )}
@@ -35,29 +35,34 @@ export function ListRow({
   );
 
   return (
-    <li className="border-b border-line py-link">
+    <li
+      className={
+        status ? "border-b border-line" : "border-b border-line py-link"
+      }
+    >
       {preview}
-      <div
-        className={
-          status
-            ? "grid grid-cols-[var(--row-year-small)_minmax(0,1fr)_auto] items-baseline gap-row-small sm:grid-cols-[var(--row-year)_minmax(0,1fr)_auto] sm:gap-link"
-            : undefined
-        }
-      >
-        {status && <span className="text-small text-text-2">{year}</span>}
-        {href ? (
-          newTab ? (
-            <a href={href} target="_blank" rel="noreferrer">
-              {titleContent}
-            </a>
+      <div className={status ? "work-list-row" : undefined}>
+        <div className="work-list-title">
+          {href ? (
+            newTab ? (
+              <a href={href} target="_blank" rel="noreferrer">
+                {titleContent}
+              </a>
+            ) : (
+              <Link to={href}>{titleContent}</Link>
+            )
           ) : (
-            <Link to={href}>{titleContent}</Link>
-          )
-        ) : (
-          <span className="text-text-2">{titleContent}</span>
-        )}
+            <span className="text-text-2">{titleContent}</span>
+          )}
+        </div>
         {status && (
-          <span className="text-right text-small text-text-2">{status}</span>
+          <div className="work-list-meta text-small text-text-2">
+            {year && <span className="work-list-year">{year}</span>}
+            {year && (
+              <span className="work-list-dot min-[480px]:hidden"> · </span>
+            )}
+            <span className="work-list-status">{status}</span>
+          </div>
         )}
       </div>
     </li>

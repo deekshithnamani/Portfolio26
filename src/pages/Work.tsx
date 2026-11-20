@@ -8,21 +8,21 @@ import { CaseStudyPage } from "@/components/projects/project-page-template";
 import NotFound from "./NotFound";
 
 export function WorkIndex() {
-  const { entries, label, description, newLabel, productThinking } =
+  const { entries, label, description, newLabel, productThinking, howIWork } =
     WORK_CONTENT;
 
   return (
     <PageContainer>
       <h1 className="text-text-2">{label}</h1>
       <p className="mt-link">{description}</p>
-      <ul className="mt-gutter">
-        {entries.map(({ year, title, status, slug, isNew }) => (
+      <ul className="mt-link border-t border-line">
+        {entries.map(({ year, title, status, href, isNew }) => (
           <ListRow
             key={title}
             year={year}
             title={title}
             status={status}
-            href={slug ? buildWorkDetailPath(slug) : undefined}
+            href={href}
             newLabel={isNew ? newLabel : undefined}
           />
         ))}
@@ -32,7 +32,7 @@ export function WorkIndex() {
         <h2 id="product-thinking" className="text-text-2">
           {productThinking.label}
         </h2>
-        <ul className="mt-link">
+        <ul className="mt-link border-t border-line">
           {productThinking.entries.map(({ year, link, status }) => {
             const { label, href, newTab } = SITE_LINKS[link];
             return (
@@ -48,6 +48,12 @@ export function WorkIndex() {
           })}
         </ul>
         <p className="mt-gutter text-text-2">{productThinking.note}</p>
+      </section>
+      <section className="mt-page" aria-labelledby="how-i-work">
+        <h2 id="how-i-work" className="text-text-2">
+          {howIWork.label}
+        </h2>
+        <p className="mt-link">{howIWork.body}</p>
       </section>
     </PageContainer>
   );

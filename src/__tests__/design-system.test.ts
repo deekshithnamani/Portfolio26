@@ -29,7 +29,6 @@ describe("design system recipes", () => {
 
   it("uses the shared gutter and page spacing tokens", () => {
     expect(LAYOUT_TOKENS.pageShellPaddingX).toBe("px-gutter");
-    expect(LAYOUT_TOKENS.pageShellPaddingY).toBe("py-page");
   });
 
   it("uses readable sans chrome text for navigation and footer UI", () => {
@@ -90,12 +89,9 @@ describe("design system recipes", () => {
 describe("navigation metadata", () => {
   it("keeps nav items aligned with the top-level route paths", () => {
     expect(NAV_ITEMS.map((item) => item.path)).toEqual([
-      "/work",
-      "/practice",
+      "/product-thinking",
       "/beyond-work",
       "/about",
-      "/make",
-      "/resume.pdf",
     ]);
   });
 
@@ -107,8 +103,10 @@ describe("navigation metadata", () => {
     for (const path of ["/make", "/curations", "/concepts", "/writing/essay"]) {
       expect(resolveDocumentTitle(path)).toBe(DOCUMENT_TITLES.work);
     }
-    expect(resolveDocumentTitle("/beyond-work")).toBe(DOCUMENT_TITLES.practice);
-    expect(resolveDocumentTitle("/practice")).toBe(DOCUMENT_TITLES.practice);
+    expect(resolveDocumentTitle("/beyond-work")).toBe(
+      DOCUMENT_TITLES.beyondWork,
+    );
+    expect(resolveDocumentTitle("/practice")).toBe(DOCUMENT_TITLES.beyondWork);
     expect(resolveDocumentTitle("/missing")).toBe(DOCUMENT_TITLES.notFound);
   });
 });

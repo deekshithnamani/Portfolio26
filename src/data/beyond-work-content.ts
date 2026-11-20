@@ -1,6 +1,6 @@
-import data from "./practice.json";
+import data from "./beyond-work.json";
 
-type PracticeSeries = {
+type BeyondWorkSeries = {
   slug: string;
   title: string;
   description?: string;
@@ -8,9 +8,9 @@ type PracticeSeries = {
   placeholder: boolean;
 };
 
-export const PRACTICE_CONTENT: {
+export const BEYOND_WORK_CONTENT: {
   label: string;
   description: string;
-  series: PracticeSeries[];
+  series: BeyondWorkSeries[];
   placeholder: boolean;
 } = data;

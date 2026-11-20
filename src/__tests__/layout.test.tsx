@@ -27,8 +27,12 @@ function renderLayout(initialEntries: string[] = [ROUTE_PATHS.home]) {
             element={<div>work detail screen</div>}
           />
           <Route
-            path={ROUTE_SEGMENTS.about}
-            element={<div>about screen</div>}
+            path={ROUTE_SEGMENTS.beyondWork}
+            element={<div>beyond work screen</div>}
+          />
+          <Route
+            path={ROUTE_SEGMENTS.beyondWorkSeries}
+            element={<div>series screen</div>}
           />
           <Route path="workflow" element={<div>workflow screen</div>} />
         </Route>
@@ -88,7 +92,7 @@ describe("layout shell", () => {
     await user.tab();
     expect(
       within(screen.getByRole("navigation")).getByRole("link", {
-        name: "Work",
+        name: "Product thinking",
       }),
     ).toHaveFocus();
   });
@@ -101,26 +105,26 @@ describe("layout shell", () => {
       within(header)
         .getAllByRole("link")
         .map((link) => link.textContent),
-    ).toEqual(["Deekshith Namani", "Work", "Practice", "About", "Resume ↗"]);
+    ).toEqual(["Deekshith Namani", "Product thinking", "Beyond work", "About"]);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
 
-  it("marks Work as current on case study pages", () => {
-    renderLayout(["/work/featured"]);
+  it("marks Beyond work as current on series pages", () => {
+    renderLayout(["/beyond-work/evening-skies"]);
     expect(
       within(screen.getByRole("navigation")).getByRole("link", {
-        name: "Work",
+        name: "Beyond work",
       }),
     ).toHaveAttribute("aria-current", "page");
   });
 
-  it("moves focus to About after following its header link", async () => {
+  it("moves focus to Beyond work after following its header link", async () => {
     const user = userEvent.setup();
     renderLayout();
-    await user.click(screen.getByRole("link", { name: "About" }));
+    await user.click(screen.getByRole("link", { name: "Beyond work" }));
     expect(screen.getByRole("main")).toHaveFocus();
-    expect(screen.getByText("about screen")).toBeInTheDocument();
+    expect(screen.getByText("beyond work screen")).toBeInTheDocument();
   });
 
   it("moves focus to the main route destination and updates the title", async () => {
