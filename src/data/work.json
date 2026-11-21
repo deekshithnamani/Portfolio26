@@ -3,178 +3,154 @@
   "description": "Selected work, with the decisions behind it.",
   "newLabel": "New",
   "home": {
-    "intro": "I’m Deekshith, a product designer in Hyderabad. I work on AI and enterprise products, mostly as the only designer.",
-    "placeholder": true,
-    "selectedLabel": "Selected projects"
+    "intro": "I’m Deekshith, a product designer in Hyderabad. I started as a chemical engineer, moved into design, and for the last three years have worked on AI and enterprise products, mostly as the only designer on the project.",
+    "photography": [
+      {
+        "text": "When I’m not working I "
+      },
+      {
+        "link": "photograph"
+      },
+      {
+        "text": " things, and some of those photographs are the background of this page."
+      }
+    ],
+    "selectedLabel": "Selected work",
+    "placeholder": true
   },
   "entries": [
     {
       "year": "2023–24",
       "title": "Property-document checker",
+      "description": "Stealth AI startup · Flags issues in land documents that take lawyers weeks.",
       "status": "case study",
-      "isNew": true,
       "placeholder": true,
+      "isNew": true,
       "href": "/work/property-document-checker"
     },
     {
       "year": "2024–",
-      "title": "Decision workflow",
+      "title": "Decision workflows",
+      "description": "DAOSoft · How a high-stakes engineering decision moves through one connected system.",
       "status": "soon",
       "placeholder": true
+    },
+    {
+      "year": "2022–23",
+      "title": "Univ.AI platform",
+      "description": "Univ.AI · A design system, a job portal and a staff tool for an edtech startup.",
+      "status": "project note",
+      "placeholder": true,
+      "href": "/work/univ-ai-platform"
     }
   ],
   "productThinking": {
-    "label": "Product",
+    "id": "product-thinking",
+    "label": "Product thinking",
     "entries": [
       {
         "year": "2025",
-        "link": "zomato",
+        "title": "Zomato eco-features PRD",
+        "description": "Graduation project on driving eco-feature adoption in Zomato: KPI tree, PRD and experimentation roadmap.",
         "status": "fellowship",
         "placeholder": true
+      },
+      {
+        "year": "2025",
+        "title": "NextLeap portfolio ↗",
+        "description": "The rest of my fellowship projects.",
+        "status": "fellowship",
+        "placeholder": true,
+        "link": "nextLeap"
       }
     ],
-    "note": "Done during the NextLeap PM Fellowship, Feb–May 2025.",
+    "note": "NextLeap PM Fellowship, Feb–May 2025. Top ~12% of 200+ fellows, 87%.",
+    "certificateLabel": "Certificate ↗",
     "placeholder": true
   },
   "caseStudy": {
     "title": "Property-document checker",
     "summary": "A legal workspace that helps surface issues in land documents before they become expensive problems.",
-    "metadata": [
-      {
-        "label": "Role",
-        "value": "Product design",
-        "placeholder": true
-      },
-      {
-        "label": "Context",
-        "value": "Stealth AI startup, legal-tech",
-        "placeholder": true
-      },
-      {
-        "label": "Period",
-        "value": "Aug 2023 – Feb 2024",
-        "placeholder": true
-      }
-    ],
+    "meta": "Product design · Stealth AI startup, legal-tech · Aug 2023 – Feb 2024",
     "sections": [
       {
         "id": "context",
         "title": "Context",
-        "body": "An early-stage legal-tech startup was building an AI workspace for lawyers. I was the designer on the project, working directly with the founders.",
-        "caption": "",
+        "body": "The startup was building an AI product for the legal market in India. Designs from an earlier freelancer had been set aside, so I redesigned web and mobile from scratch. The founders had long feature lists, and I was the designer on this project.",
         "placeholder": true
       },
       {
-        "id": "user-and-problem",
-        "title": "User and problem",
-        "body": "Checking land documents for issues can take lawyers weeks. The idea was a checker that flags problems early, so a lawyer’s time goes to judgment instead of searching.",
-        "caption": "",
+        "id": "problem",
+        "title": "Problem",
+        "body": "Checking a land document for problems can take a lawyer weeks. The idea was a checker that flags issues early, so a lawyer’s time goes to judgment instead of searching.",
         "placeholder": true
       },
       {
         "id": "options",
         "title": "Options",
-        "body": "We looked at three directions: a general chat interface, a checklist-style review, and a document view with issues flagged in place.",
-        "caption": "",
+        "body": "The first big choice was one product or two. Leadership decided on two, a consumer legal marketplace and an AI workspace for lawyers, after talking with the founders’ network and with lawyer focus groups. I contributed to those discussions as the designer.",
         "placeholder": true
       },
       {
         "id": "what-i-cut",
         "title": "What I cut",
-        "body": "The founders’ feature list was long. I questioned each item against one question: does this help a lawyer decide faster? Most did not.",
-        "caption": "",
-        "note": "Why: a smaller first version was easier to test and easier to trust.",
+        "body": "The founders’ feature lists were long. I questioned them and cut scope down to the core jobs a lawyer needed done, so the first version could be built and tested.",
         "placeholder": true
       },
       {
         "id": "tradeoffs",
         "title": "Tradeoffs",
-        "body": "Fewer features at launch meant some requests had to wait. The check also had to be clear about what it was unsure of, because a wrong ‘all clear’ costs more than a missed flag.",
-        "caption": "",
+        "body": "",
         "placeholder": true
       },
       {
         "id": "outcome",
         "title": "Outcome",
-        "body": "I don’t have usage metrics for this feature. If I were measuring it, I would look at time to first review and how often flagged issues were accepted.",
-        "caption": "",
+        "body": "The two apps launched on web and mobile with 1K+ downloads, mostly through the founders’ network. I don’t have usage numbers for the property-document checker itself. If I were measuring it, I’d look at how long a first review takes and how often a flagged issue turns out to be real.",
         "placeholder": true
       },
       {
-        "id": "what-id-change",
-        "title": "What I’d change",
-        "body": "I’d put real documents in front of lawyers earlier, before settling the flow.",
-        "caption": "",
+        "id": "in-hindsight",
+        "title": "In hindsight",
+        "body": "",
         "placeholder": true
       }
     ],
-    "contact": [
+    "sectionNav": true,
+    "placeholder": true
+  },
+  "placeholder": true,
+  "univPlatform": {
+    "title": "Univ.AI platform",
+    "meta": "Product design · Univ.AI · Oct 2022 – Apr 2023",
+    "sections": [
       {
-        "text": "Want to talk about this work? Find me on "
+        "id": "background",
+        "title": "Background",
+        "body": "Univ.AI was an edtech company where Ivy League professors taught live to Indian learners, with a curriculum like a college’s. It needed its own platform to cut costs on third-party tools.",
+        "placeholder": true
       },
       {
-        "link": "linkedin"
+        "id": "my-part",
+        "title": "My part",
+        "body": "As the UX/UI intern I audited the existing screens and built the platform’s first design system. I designed the learner flows (discovery, course pages, video, notes and community), a job portal with profiles, a recruiter side, applications and tracking, and a staff tool for teaching assistants inside the platform. I ran the interviews with the teaching assistants, with my mentor shadowing and stepping in when needed.",
+        "placeholder": true
       },
       {
-        "text": "."
+        "id": "outcome",
+        "title": "Outcome",
+        "body": "I handed the designs to engineering, and what shipped differed from what I had designed. I don’t have metrics for this work. The company later shut down after failing to raise funding.",
+        "placeholder": true
       }
     ],
     "placeholder": true
   },
-  "placeholder": true,
-  "experience": [
+  "projectContact": [
     {
-      "company": "Company B",
-      "role": "Product Design Fellow",
-      "years": "2024–2025",
-      "projects": [
-        {
-          "title": "Workflow research",
-          "slug": "workflow-research"
-        },
-        {
-          "title": "Decision workflow",
-          "slug": "decision-workflow"
-        },
-        {
-          "title": "Reporting dashboard",
-          "slug": "reporting-dashboard"
-        }
-      ],
-      "placeholder": true
+      "text": "Want to talk about this work? Find me on "
     },
     {
-      "company": "Company A",
-      "role": "Product Designer",
-      "years": "2023–2024",
-      "projects": [
-        {
-          "title": "Property-document checker →",
-          "slug": "property-document-checker"
-        },
-        {
-          "title": "Intake flow",
-          "slug": "intake-flow"
-        }
-      ],
-      "placeholder": true
-    },
-    {
-      "company": "Company C",
-      "role": "Product Design Intern",
-      "years": "2022–2023",
-      "projects": [
-        {
-          "title": "Document review queue",
-          "slug": "document-review-queue"
-        },
-        {
-          "title": "Design system",
-          "slug": "design-system"
-        }
-      ],
-      "placeholder": true
+      "link": "linkedin"
     }
-  ],
-  "unpublishedStatus": "Case study not yet published."
+  ]
 }

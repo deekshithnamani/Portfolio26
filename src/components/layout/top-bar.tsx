@@ -1,5 +1,5 @@
 import { NavLink, Link } from "react-router";
-import { getSiteLinks, SITE_LINKS } from "@/data/site-links";
+import { getSiteLinks, SITE_LABELS, SITE_LINKS } from "@/data/site-links";
 
 export function Header() {
   const { brand } = SITE_LINKS;
@@ -16,7 +16,7 @@ export function Header() {
         {brand.label}
       </Link>
       <nav
-        aria-label="Primary navigation"
+        aria-label={SITE_LABELS.primaryNav}
         className="site-header-nav flex flex-wrap items-baseline gap-x-link text-nav"
       >
         {navigation.map(({ label, href }) => (

@@ -4,30 +4,37 @@ import { describe, expect, it } from "vitest";
 import { WorkIndex } from "@/pages/Work";
 
 describe("work index", () => {
-  it("groups work by experience and links published case studies", () => {
+  it("renders three flat Work rows and two Product thinking rows", () => {
     render(
       <MemoryRouter>
         <WorkIndex />
       </MemoryRouter>,
     );
 
-    const groups = screen.getAllByRole("list");
+    const [work, product] = screen
+      .getAllByRole("list")
+      .map((list) => within(list));
+    expect(work.getAllByRole("listitem")).toHaveLength(3);
+    expect(product.getAllByRole("listitem")).toHaveLength(2);
     expect(
-      groups.map((group) => within(group).getAllByRole("listitem").length),
-    ).toEqual([3, 2, 2]);
-    expect(
-      screen.getByRole("link", { name: "Property-document checker →" }),
+      work.getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
-    expect(screen.getByText("New")).toBeInTheDocument();
-    expect(screen.getByText("Decision workflow")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Decision workflow" }),
-    ).toHaveAttribute("href", "/work/decision-workflow");
-    for (const group of groups) {
-      expect(within(group).getAllByRole("link")).toHaveLength(
-        within(group).getAllByRole("listitem").length,
-      );
-    }
-    expect(screen.queryByRole("link", { name: /Zomato|NextLeap/ })).toBeNull();
+      work.getByRole("link", { name: "Univ.AI platform" }),
+    ).toHaveAttribute("href", "/work/univ-ai-platform");
+    expect(work.getByText("New")).toBeInTheDocument();
+    expect(work.getByText("Decision workflows")).toBeInTheDocument();
+    expect(work.queryByRole("link", { name: "Decision workflows" })).toBeNull();
+    expect(product.getByText("Zomato eco-features PRD")).toBeInTheDocument();
+    expect(product.queryByRole("link", { name: /Zomato/ })).toBeNull();
+    expect(
+      product.getByRole("link", { name: "NextLeap portfolio ↗" }),
+    ).toHaveAttribute("href", "https://nextleap.app/portfolio/n-deekshith");
+    expect(
+      screen.getByText(
+        "NextLeap PM Fellowship, Feb–May 2025. Top ~12% of 200+ fellows, 87%.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Certificate ↗" })).toBeNull();
   });
 });

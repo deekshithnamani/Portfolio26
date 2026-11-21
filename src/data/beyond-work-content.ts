@@ -1,9 +1,9 @@
-import data from "./beyond-work.json";
+import data from "./practice.json";
 
 type BeyondWorkSeries = {
   slug: string;
   title: string;
-  description?: string;
+  description: string;
   photoIds: string[];
   placeholder: boolean;
 };

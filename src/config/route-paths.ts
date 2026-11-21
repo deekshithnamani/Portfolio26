@@ -60,7 +60,8 @@ export const ROUTE_IDS = {
 export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
 
 export const LEGACY_REDIRECTS = {
-  "/product-thinking": ROUTE_PATHS.productThinking,
+  [ROUTE_PATHS.productThinking]: "/work#product-thinking",
+  "/product-thinking": "/work#product-thinking",
   ...Object.fromEntries(
     BEYOND_WORK_CONTENT.series.map(({ slug }) => [
       `/beyond-work/${slug}`,

@@ -105,7 +105,7 @@ describe("layout shell", () => {
       within(header)
         .getAllByRole("link")
         .map((link) => link.textContent),
-    ).toEqual(["Deekshith Namani", "Work", "Product", "Creative", "About"]);
+    ).toEqual(["Deekshith Namani", "Work", "Creative", "About"]);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
@@ -136,7 +136,7 @@ describe("layout shell", () => {
 
     renderLayout();
 
-    expect(document.title).toBe("Deekshith Namani · Home");
+    expect(document.title).toBe("Deekshith Namani · Product designer");
     await user.click(screen.getByRole("link", { name: /go to work/i }));
 
     expect(screen.getByRole("main")).toHaveFocus();
@@ -191,7 +191,7 @@ describe("layout shell", () => {
     expect(document.title).toBe("Deekshith Namani · Work");
     expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
       "content",
-      "Selected work, with the decisions behind it.",
+      "Selected work by Deekshith Namani, with the decisions behind it.",
     );
   });
 });

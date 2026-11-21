@@ -18,24 +18,31 @@ export default function BeyondWorkIndex() {
       <h1 className="page-title">{BEYOND_WORK_CONTENT.label}</h1>
       <p className="mt-link">{BEYOND_WORK_CONTENT.description}</p>
       <ul className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
-        {BEYOND_WORK_CONTENT.series.map(({ slug, title, photoIds }) => {
-          const cover = PHOTO_CONTENT.images.find(
-            ({ id }) => id === photoIds[0],
-          );
-          return (
-            <li key={slug} className="min-w-0">
-              {cover && <DitherImage src={cover.file} label={title} />}
-              <h2 className="item-title">
-                <Link
-                  id={seriesLinkId(slug)}
-                  to={buildBeyondWorkSeriesPath(slug)}
-                >
-                  {title}
-                </Link>
-              </h2>
-            </li>
-          );
-        })}
+        {BEYOND_WORK_CONTENT.series.map(
+          ({ slug, title, description, photoIds }) => {
+            const cover = PHOTO_CONTENT.images.find(
+              ({ id }) => id === photoIds[0],
+            );
+            return (
+              <li key={slug} className="min-w-0">
+                <figure>
+                  {cover && <DitherImage src={cover.file} label={title} />}
+                  <figcaption>
+                    <h2 className="item-title">
+                      <Link
+                        id={seriesLinkId(slug)}
+                        to={buildBeyondWorkSeriesPath(slug)}
+                      >
+                        {title}
+                      </Link>
+                    </h2>
+                    <p className="text-text-2">{description}</p>
+                  </figcaption>
+                </figure>
+              </li>
+            );
+          },
+        )}
       </ul>
     </PageContainer>
   );
@@ -59,9 +66,9 @@ export function BeyondWorkSeriesPage() {
         state={{ returnToId: seriesLinkId(series.slug) }}
       />
       <h1 className="item-title">{series.title}</h1>
-      {series.description && <p className="mt-link">{series.description}</p>}
+      <p className="mt-link">{series.description}</p>
       {photos.length > 0 && (
-        <div className="mt-gutter grid gap-gutter">
+        <div className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
           {photos.map(({ id, file, alt, caption }) => (
             <figure key={id}>
               <img

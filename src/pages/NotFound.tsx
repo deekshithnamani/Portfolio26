@@ -1,11 +1,10 @@
 import { BackLink } from "@/components/ui/back-link";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PageContainer } from "@/components/ui";
-import { ABOUT_CONTENT } from "@/data/about-content";
-import { SITE_LINKS } from "@/data/site-links";
+import { NOT_FOUND_CONTENT, SITE_LINKS } from "@/data/site-links";
 
 export default function NotFound() {
-  const { message, link } = ABOUT_CONTENT.notFound;
+  const { message, link } = NOT_FOUND_CONTENT;
   const destination = SITE_LINKS[link];
 
   return (

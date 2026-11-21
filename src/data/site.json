@@ -1,0 +1,136 @@
+{
+  "items": {
+    "brand": {
+      "label": "Deekshith Namani",
+      "href": "/",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "work": {
+      "label": "Work",
+      "href": "/work",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "beyondWork": {
+      "label": "Creative",
+      "href": "/creative",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "about": {
+      "label": "About",
+      "href": "/about",
+      "appearsIn": ["header"],
+      "placeholder": true
+    },
+    "linkedin": {
+      "label": "LinkedIn ↗",
+      "href": "https://www.linkedin.com/in/deekshithnamani",
+      "appearsIn": ["footer", "caseStudy", "about"],
+      "newTab": true,
+      "placeholder": true
+    },
+    "github": {
+      "label": "GitHub ↗",
+      "href": "https://github.com/deekshithnamani",
+      "appearsIn": ["footer"],
+      "newTab": true,
+      "comment": "Verify this GitHub profile URL before launch.",
+      "placeholder": true
+    },
+    "nextLeap": {
+      "label": "NextLeap portfolio ↗",
+      "href": "https://nextleap.app/portfolio/n-deekshith",
+      "appearsIn": ["work"],
+      "newTab": true,
+      "placeholder": true
+    },
+    "legalProof": {
+      "label": "Property-document checker",
+      "href": "/work/property-document-checker",
+      "appearsIn": ["work"],
+      "placeholder": true
+    },
+    "backToWork": {
+      "label": "Work",
+      "href": "/work",
+      "appearsIn": ["caseStudy"],
+      "placeholder": true
+    },
+    "backHome": {
+      "label": "Home",
+      "href": "/",
+      "appearsIn": ["notFound"],
+      "placeholder": true
+    },
+    "backToCreative": {
+      "label": "Creative",
+      "href": "/creative",
+      "appearsIn": ["creativeSeries"],
+      "placeholder": true
+    },
+    "photograph": {
+      "label": "photograph",
+      "href": "/creative",
+      "appearsIn": ["home"],
+      "placeholder": true
+    },
+    "creativeText": {
+      "label": "Creative",
+      "href": "/creative",
+      "appearsIn": ["about"],
+      "placeholder": true
+    }
+  },
+  "placeholder": true,
+  "footerCredit": "© 2026",
+  "labels": {
+    "skip": "Skip to content",
+    "primaryNav": "Primary navigation",
+    "projectNav": "Case study sections",
+    "showOriginal": "Show original image: ",
+    "back": "Back to "
+  },
+  "pages": {
+    "home": {
+      "title": "Deekshith Namani · Product designer",
+      "description": "Deekshith Namani is a product designer in Hyderabad working on AI and enterprise products.",
+      "placeholder": true
+    },
+    "work": {
+      "title": "Deekshith Namani · Work",
+      "description": "Selected work by Deekshith Namani, with the decisions behind it.",
+      "placeholder": true
+    },
+    "propertyChecker": {
+      "title": "Deekshith Namani · Property-document checker",
+      "description": "A case study on a tool that surfaces issues in land documents.",
+      "placeholder": true
+    },
+    "univPlatform": {
+      "title": "Deekshith Namani · Univ.AI platform",
+      "description": "A design system, a job portal and a staff tool for an edtech startup.",
+      "placeholder": true
+    },
+    "beyondWork": {
+      "title": "Deekshith Namani · Creative",
+      "description": "Photographs and studies by Deekshith Namani.",
+      "placeholder": true
+    },
+    "about": {
+      "title": "Deekshith Namani · About",
+      "description": "About Deekshith Namani, a product designer in Hyderabad.",
+      "placeholder": true
+    },
+    "notFound": {
+      "title": "Deekshith Namani · Not found",
+      "placeholder": true
+    }
+  },
+  "notFound": {
+    "message": "That page doesn’t exist.",
+    "link": "backHome",
+    "placeholder": true
+  }
+}

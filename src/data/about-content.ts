@@ -1,7 +1,11 @@
 import data from "./about.json";
-import { readSiteLinkId } from "./site-links";
+import { readLinkedText } from "./site-links";
 
 export const ABOUT_CONTENT = {
   ...data,
-  notFound: { ...data.notFound, link: readSiteLinkId(data.notFound.link) },
+  sections: data.sections.map(({ body, ...section }) => ({
+    ...section,
+    body: body.map(readLinkedText),
+  })),
+  contact: data.contact.map(readLinkedText),
 };

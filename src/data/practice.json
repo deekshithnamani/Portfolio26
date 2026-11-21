@@ -5,7 +5,7 @@
     {
       "slug": "city-typefaces",
       "title": "City typefaces",
-      "description": "I started noticing lettering on shopfronts and signs, and began photographing it to see how a city shows its character in type.",
+      "description": "Lettering on shopfronts, signs and walls around the city.",
       "photoIds": ["signage"],
       "placeholder": true
     },
@@ -13,19 +13,22 @@
       "slug": "evening-skies",
       "title": "Evening skies",
       "photoIds": ["sky", "skyline"],
-      "placeholder": true
+      "placeholder": true,
+      "description": "A daily photograph of the evening sky."
     },
     {
       "slug": "colors-on-walks",
       "title": "Colors on walks",
       "photoIds": ["wall", "street"],
-      "placeholder": true
+      "placeholder": true,
+      "description": "Colors that catch my eye, collected as photographs."
     },
     {
       "slug": "live-sketches",
       "title": "Live sketches",
       "photoIds": ["wall"],
-      "placeholder": true
+      "placeholder": true,
+      "description": "Sketches made on location."
     }
   ],
   "placeholder": true

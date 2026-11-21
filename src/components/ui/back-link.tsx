@@ -1,3 +1,4 @@
+import { SITE_LABELS } from "@/data/site-links";
 import { Link, type LinkProps } from "react-router";
 
 export function BackLink({
@@ -11,7 +12,7 @@ export function BackLink({
     <Link
       to={destination.href}
       state={state}
-      aria-label={`Back to ${destination.label}`}
+      aria-label={`${SITE_LABELS.back}${destination.label}`}
       className="back-link"
     >
       <svg

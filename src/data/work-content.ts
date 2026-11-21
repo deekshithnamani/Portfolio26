@@ -9,6 +9,7 @@ import {
 type WorkEntry = {
   year: string;
   title: string;
+  description: string;
   status: string;
   href?: string;
   isNew?: boolean;
@@ -24,11 +25,12 @@ type CaseStudySection = {
   placeholder: boolean;
 };
 
-type ExperienceGroup = {
-  company: string;
-  role: string;
-  years: string;
-  projects: { title: string; slug: string }[];
+export type ProjectContent = {
+  title: string;
+  summary?: string;
+  meta?: string;
+  sectionNav?: boolean;
+  sections: CaseStudySection[];
   placeholder: boolean;
 };
 
@@ -37,42 +39,44 @@ type WorkContent = {
   description: string;
   newLabel: string;
   placeholder: boolean;
-  home: { intro: string; selectedLabel: string; placeholder: boolean };
-  experience: ExperienceGroup[];
+  home: {
+    intro: string;
+    photography: LinkedText[];
+    selectedLabel: string;
+    placeholder: boolean;
+  };
   entries: WorkEntry[];
   productThinking: {
     label: string;
-    entries: {
-      year?: string;
-      link: SiteLinkId;
-      status: string;
-      placeholder: boolean;
-    }[];
+    id: string;
+    entries: (WorkEntry & { link?: SiteLinkId })[];
     note: string;
+    certificateUrl?: string;
+    certificateLabel: string;
     placeholder: boolean;
   };
-  unpublishedStatus: string;
-  caseStudy: {
-    title: string;
-    summary: string;
-    metadata: { label: string; value: string; placeholder: boolean }[];
-    sections: CaseStudySection[];
-    contact: LinkedText[];
-    placeholder: boolean;
-  };
+  caseStudy: ProjectContent;
+  univPlatform: ProjectContent;
+  projectContact: LinkedText[];
 };
 
 export const WORK_CONTENT: WorkContent = {
   ...data,
+  home: {
+    ...data.home,
+    photography: data.home.photography.map(readLinkedText),
+  },
   productThinking: {
     ...data.productThinking,
     entries: data.productThinking.entries.map((entry) => ({
       ...entry,
-      link: readSiteLinkId(entry.link),
+      link: entry.link === undefined ? undefined : readSiteLinkId(entry.link),
     })),
   },
-  caseStudy: {
-    ...data.caseStudy,
-    contact: data.caseStudy.contact.map(readLinkedText),
-  },
+  projectContact: data.projectContact.map(readLinkedText),
+};
+
+export const PROJECT_PAGES: Readonly<Record<string, ProjectContent>> = {
+  "/work/property-document-checker": WORK_CONTENT.caseStudy,
+  "/work/univ-ai-platform": WORK_CONTENT.univPlatform,
 };

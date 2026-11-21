@@ -1,3 +1,4 @@
+import { SITE_LABELS } from "@/data/site-links";
 import { useEffect, useRef, useState } from "react";
 import { drawDither } from "./dither";
 
@@ -28,7 +29,7 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
     <button
       type="button"
       className="dither-image relative mb-link block aspect-video w-full cursor-pointer bg-line"
-      aria-label={`Show original image: ${label}`}
+      aria-label={`${SITE_LABELS.showOriginal}${label}`}
       aria-pressed={revealed}
       data-ready={ready}
       data-hovered={hovered}

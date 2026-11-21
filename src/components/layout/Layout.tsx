@@ -80,7 +80,6 @@ export default function Layout() {
       <div className="mx-auto flex min-h-dvh w-full max-w-column flex-col px-gutter">
         <SkipLink mainRef={mainRef} />
         <Header />
-        <RouteEffects mainRef={mainRef} />
         <main
           ref={mainRef}
           id="main-content"
@@ -91,6 +90,7 @@ export default function Layout() {
             <Outlet />
           </div>
         </main>
+        <RouteEffects mainRef={mainRef} />
         <Footer />
       </div>
     </CursorCtx.Provider>

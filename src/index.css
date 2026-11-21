@@ -213,11 +213,11 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .home-dither::before {
-    animation: dither-wave var(--motion-grain) linear -2.45s infinite;
+    animation: dither-wave var(--motion-grain) ease-in-out -1.4s infinite alternate;
   }
 
   .home-dither::after {
-    animation: dither-wave var(--motion-grain-front) linear -2s infinite reverse;
+    animation: dither-wave var(--motion-grain-front) ease-in-out -2.25s infinite alternate-reverse;
   }
 
   .home-dither[data-paused="true"]::before,
@@ -235,17 +235,18 @@ body {
 
 @keyframes dither-wave {
   from {
+    mask-position: center, center 6%, var(--grain-origin);
+  }
+
+  50% {
     mask-position:
       center,
-      calc(50% - var(--wave-offset)) calc(0px - var(--wave-height)),
+      calc(50% + var(--wave-offset)) 50%,
       var(--grain-origin);
   }
 
   to {
-    mask-position:
-      center,
-      calc(50% + var(--wave-offset)) calc(100% + var(--wave-height)),
-      var(--grain-origin);
+    mask-position: center, center 94%, var(--grain-origin);
   }
 }
 
@@ -282,6 +283,24 @@ a:hover .link-arrow::after {
   display: grid;
   gap: var(--row-gap-small);
   padding-block: var(--row-gap-small);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "project project"
+    "year status";
+}
+
+.work-list-year {
+  grid-area: year;
+}
+
+.work-list-project {
+  grid-area: project;
+  min-width: 0;
+}
+
+.work-list-status {
+  grid-area: status;
+  text-align: right;
 }
 
 .work-list-title {
@@ -293,23 +312,11 @@ a:hover .link-arrow::after {
 @media (width >= 480px) {
   .work-list-row {
     min-height: var(--row-height);
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: var(--work-year-width) minmax(0, 1fr) auto;
+    grid-template-areas: "year project status";
     column-gap: var(--link-gap);
     align-items: center;
   }
-}
-
-.experience-group {
-  display: grid;
-  align-items: start;
-  gap: var(--link-gap);
-}
-
-.experience-projects {
-  @apply text-item font-medium;
-  display: grid;
-  align-content: start;
-  gap: var(--row-gap-small);
 }
 
 .site-footer {
@@ -317,16 +324,6 @@ a:hover .link-arrow::after {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--row-gap-small) var(--link-gap);
-}
-
-@media (width >= 480px) {
-  .experience-group {
-    grid-template-columns: minmax(0, var(--experience-meta-width)) minmax(
-        0,
-        1fr
-      );
-    column-gap: var(--gutter);
-  }
 }
 
 .page-title {

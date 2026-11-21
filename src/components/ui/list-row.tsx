@@ -1,6 +1,5 @@
 import { LinkLabel } from "@/components/ui/link-label";
-import type { ReactNode } from "react";
-import { Link, type LinkProps } from "react-router";
+import { Link } from "react-router";
 import { NewMark } from "./new-mark";
 
 type ListRowProps = {
@@ -8,9 +7,9 @@ type ListRowProps = {
   status?: string;
   href?: string;
   newTab?: boolean;
-  navigationState?: LinkProps["state"];
   newLabel?: string;
-  preview?: ReactNode;
+  year: string;
+  description?: string;
 };
 
 export function ListRow({
@@ -18,43 +17,35 @@ export function ListRow({
   status,
   href,
   newTab,
-  navigationState,
   newLabel,
-  preview,
+  year,
+  description,
 }: ListRowProps) {
-  const titleContent = (
-    <>
-      <LinkLabel label={title} />
-      {newLabel && (
-        <>
-          <span className="sr-only"> </span>
-          <NewMark label={newLabel} />
-        </>
-      )}
-    </>
-  );
+  const titleContent = <LinkLabel label={title} />;
 
   return (
-    <li className={status ? undefined : "py-link"}>
-      {preview}
-      <div className={status ? "work-list-row" : undefined}>
-        <div className="work-list-title">
-          {href ? (
-            newTab ? (
-              <a href={href} target="_blank" rel="noreferrer">
-                {titleContent}
-              </a>
+    <li className="border-b border-line">
+      <div className="work-list-row">
+        <span className="work-list-year text-small text-text-2">{year}</span>
+        <div className="work-list-project">
+          <div className="work-list-title">
+            {href ? (
+              newTab ? (
+                <a href={href} target="_blank" rel="noreferrer">
+                  {titleContent}
+                </a>
+              ) : (
+                <Link to={href}>{titleContent}</Link>
+              )
             ) : (
-              <Link to={href} state={navigationState}>
-                {titleContent}
-              </Link>
-            )
-          ) : (
-            <span className="text-text-2">{titleContent}</span>
-          )}
+              <span className="text-text-2">{titleContent}</span>
+            )}
+            {newLabel && <NewMark label={newLabel} />}
+          </div>
+          {description?.trim() && <p className="text-text-2">{description}</p>}
         </div>
         {status && (
-          <span className="text-small text-text-2 min-[480px]:text-right">
+          <span className="work-list-status text-small text-text-2">
             {status}
           </span>
         )}

@@ -1,9 +1,6 @@
+import { SITE_METADATA } from "@/data/site-links";
 import { describe, expect, it } from "vitest";
-import {
-  DOCUMENT_TITLES,
-  NAV_ITEMS,
-  resolveDocumentTitle,
-} from "@/config/navigation";
+import { NAV_ITEMS, resolveDocumentTitle } from "@/config/navigation";
 import { ROUTE_PATHS } from "@/config/route-paths";
 import {
   CONTROL_SIZE_RECIPES,
@@ -90,22 +87,27 @@ describe("navigation metadata", () => {
   it("keeps nav items aligned with the top-level route paths", () => {
     expect(NAV_ITEMS.map((item) => item.path)).toEqual([
       "/work",
-      "/product",
       "/creative",
       "/about",
     ]);
   });
 
   it("resolves document titles from a single title source", () => {
-    expect(resolveDocumentTitle(ROUTE_PATHS.home)).toBe(DOCUMENT_TITLES.home);
+    expect(resolveDocumentTitle(ROUTE_PATHS.home)).toBe(
+      SITE_METADATA.home.title,
+    );
     expect(
       resolveDocumentTitle(`${ROUTE_PATHS.work}/property-document-checker`),
-    ).toBe(DOCUMENT_TITLES.propertyChecker);
+    ).toBe(SITE_METADATA.propertyChecker.title);
     for (const path of ["/make", "/curations", "/concepts", "/writing/essay"]) {
-      expect(resolveDocumentTitle(path)).toBe(DOCUMENT_TITLES.work);
+      expect(resolveDocumentTitle(path)).toBe(SITE_METADATA.work.title);
     }
-    expect(resolveDocumentTitle("/creative")).toBe(DOCUMENT_TITLES.beyondWork);
-    expect(resolveDocumentTitle("/practice")).toBe(DOCUMENT_TITLES.beyondWork);
-    expect(resolveDocumentTitle("/missing")).toBe(DOCUMENT_TITLES.notFound);
+    expect(resolveDocumentTitle("/creative")).toBe(
+      SITE_METADATA.beyondWork.title,
+    );
+    expect(resolveDocumentTitle("/practice")).toBe(
+      SITE_METADATA.beyondWork.title,
+    );
+    expect(resolveDocumentTitle("/missing")).toBe(SITE_METADATA.notFound.title);
   });
 });

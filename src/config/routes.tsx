@@ -5,7 +5,6 @@ import type { PageShellVariant } from "@/design";
 import About from "@/pages/About";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
-import ProductThinking from "@/pages/ProductThinking";
 import CreativeIndex, { BeyondWorkSeriesPage } from "@/pages/Studies";
 import { WorkDetail, WorkIndex } from "@/pages/Work";
 
@@ -48,12 +47,6 @@ export const ROUTES: RouteDefinition[] = [
     path: ROUTE_SEGMENTS.beyondWorkSeries,
     pageShell: "standard",
     component: BeyondWorkSeriesPage,
-  },
-  {
-    id: ROUTE_IDS.productThinking,
-    path: ROUTE_SEGMENTS.productThinking,
-    pageShell: "standard",
-    component: ProductThinking,
   },
   {
     id: ROUTE_IDS.about,

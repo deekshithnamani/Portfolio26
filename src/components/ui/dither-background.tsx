@@ -61,7 +61,7 @@ export function DitherBackground() {
 
     function onWaveIteration(event: AnimationEvent) {
       if (event.animationName !== "dither-wave") return;
-      // The wave has cleared the viewport when its next pass starts.
+      // Drift returns to center at each turnaround, so it can change without a jump.
       if (event.pseudoElement === "::before") varyWave("--wave-middle-offset");
       if (event.pseudoElement === "::after") varyWave("--wave-front-offset");
     }

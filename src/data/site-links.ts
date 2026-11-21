@@ -1,4 +1,7 @@
-import data from "./links.json";
+import data from "./site.json";
+
+export const SITE_METADATA = data.pages;
+export const SITE_LABELS = data.labels;
 
 type LinkLocation =
   | "header"
@@ -52,3 +55,8 @@ export function getSiteLinks(location: LinkLocation) {
       newTab,
     }));
 }
+
+export const NOT_FOUND_CONTENT = {
+  ...data.notFound,
+  link: readSiteLinkId(data.notFound.link),
+};

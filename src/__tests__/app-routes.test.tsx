@@ -38,58 +38,63 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
-  it("shows selected projects from Product and Work on Home, newest first", async () => {
+  it("shows the first two Work rows on Home", async () => {
     await renderAt(ROUTE_PATHS.home);
     const mainElement = screen.getByRole("main");
     const main = within(mainElement);
     expect(
-      main.getByText(/I’m Deekshith, a product designer/),
+      main.getByText(/I started as a chemical engineer/),
     ).toBeInTheDocument();
+    expect(main.getByRole("link", { name: "photograph" })).toHaveAttribute(
+      "href",
+      "/creative",
+    );
     expect(
-      main.getByRole("heading", { name: "Selected projects" }),
+      main.getByRole("heading", { name: "Selected work" }),
     ).toBeInTheDocument();
     const rows = main.getAllByRole("listitem");
-    expect(within(rows[0]).getByText("Product")).toBeInTheDocument();
-    expect(within(rows[1]).getByText("Work")).toBeInTheDocument();
-    for (const row of rows) expect(row).not.toHaveTextContent(/20\d{2}/);
-    const projects = main.getAllByRole("link");
-    expect(projects.map((link) => link.getAttribute("href"))).toEqual([
-      "/product",
-      SITE_LINKS.legalProof.href,
-    ]);
-    expect(projects[0]).toHaveAccessibleName("Zomato eco-features PRD");
-    expect(projects[1]).toHaveAccessibleName("Property-document checker");
+    expect(rows).toHaveLength(2);
+    expect(rows[0]).toHaveTextContent(
+      /2023–24.*Property-document checker.*case study/,
+    );
+    expect(rows[1]).toHaveTextContent(/2024–.*Decision workflows.*soon/);
+    expect(
+      within(rows[0]).getByRole("link", { name: "Property-document checker" }),
+    ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
+    expect(within(rows[1]).queryByRole("link")).toBeNull();
     expect(mainElement.querySelector(".home-dither")).toHaveAttribute(
       "aria-hidden",
       "true",
     );
   });
 
-  it.each([
-    ["Property-document checker", "/work/property-document-checker"],
-    ["Zomato eco-features PRD", "/product"],
-  ])(
-    "returns to Home after opening %s from the selection",
-    async (title, destination) => {
-      const user = userEvent.setup();
-      await renderAt(ROUTE_PATHS.home);
-      await user.click(
-        within(screen.getByRole("main")).getByRole("link", { name: title }),
+  it("returns to Work after opening the property checker from Home", async () => {
+    const user = userEvent.setup();
+    await renderAt(ROUTE_PATHS.home);
+    await user.click(getLinkByHref(SITE_LINKS.legalProof.href));
+    expect(window.location.pathname).toBe(SITE_LINKS.legalProof.href);
+    await user.click(
+      within(screen.getByRole("main")).getByRole("link", {
+        name: "Back to Work",
+      }),
+    );
+    expect(window.location.pathname).toBe("/work");
+    expect(screen.getByRole("main")).toHaveFocus();
+  });
+
+  it.each(["/product", "/product-thinking", "/work#product-thinking"])(
+    "focuses the Product thinking section from %s",
+    async (source) => {
+      await renderAt(source);
+      const section = screen.getByRole("region", { name: "Product thinking" });
+      expect(window.location.pathname + window.location.hash).toBe(
+        "/work#product-thinking",
       );
-      expect(window.location.pathname).toBe(destination);
-      const [back] = within(screen.getByRole("main")).getAllByRole("link", {
-        name: "Back to Home",
-      });
-      expect(back).toHaveAttribute("href", "/");
-      await user.click(back);
-      expect(
-        screen.getByRole("heading", { name: "Selected projects", level: 1 }),
-      ).toBeInTheDocument();
-      expect(screen.getByRole("main")).toHaveFocus();
+      expect(section).toHaveFocus();
     },
   );
 
-  it("renders the case study and its seven section links", async () => {
+  it("renders the case study and the five populated section links", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
     const main = within(screen.getByRole("main"));
     expect(main.queryByText(/^Case study$/i)).toBeNull();
@@ -99,15 +104,7 @@ describe("app routes", () => {
         level: 1,
       }),
     ).toBeInTheDocument();
-    const titles = [
-      "Context",
-      "User and problem",
-      "Options",
-      "What I cut",
-      "Tradeoffs",
-      "Outcome",
-      "What I’d change",
-    ];
+    const titles = ["Context", "Problem", "Options", "What I cut", "Outcome"];
     expect(
       main
         .getAllByRole("heading", { level: 2 })
@@ -125,7 +122,7 @@ describe("app routes", () => {
       );
     }
     const backLinks = main.getAllByRole("link", { name: "Back to Work" });
-    expect(backLinks).toHaveLength(2);
+    expect(backLinks).toHaveLength(1);
     expect(backLinks[0].querySelector("svg")).toHaveAttribute(
       "aria-hidden",
       "true",
@@ -138,7 +135,6 @@ describe("app routes", () => {
 
   it.each([
     ["/make", "/work", "Work"],
-    ["/product-thinking", "/product", "Product"],
     ["/writing", "/work", "Work"],
     ["/writing/old-note", "/work", "Work"],
     ["/interests", "/work", "Work"],
@@ -164,7 +160,7 @@ describe("app routes", () => {
   });
 
   it.each([
-    ["Product", "/product"],
+    ["Work", "/work"],
     ["About", "/about"],
   ])("opens %s from the header", async (label, path) => {
     const user = userEvent.setup();
@@ -183,9 +179,7 @@ describe("app routes", () => {
   it("reads About as a story with a separate approach section", async () => {
     await renderAt(ROUTE_PATHS.about);
     const main = within(screen.getByRole("main"));
-    expect(
-      main.getByText(/trained as a chemical engineer/),
-    ).toBeInTheDocument();
+    expect(main.getByText(/studied chemical engineering/)).toBeInTheDocument();
     expect(
       main.getByText(/I speak Telugu, Hindi and English/),
     ).toBeInTheDocument();
@@ -193,8 +187,15 @@ describe("app routes", () => {
       main
         .getAllByRole("heading", { level: 2 })
         .map((heading) => heading.textContent),
-    ).toEqual(["How I work"]);
-    expect(main.queryByRole("link", { name: /linkedin|github/i })).toBeNull();
+    ).toEqual(["How I work", "What I’m looking for", "Outside work"]);
+    expect(main.getByRole("link", { name: "LinkedIn ↗" })).toHaveAttribute(
+      "href",
+      SITE_LINKS.linkedin.href,
+    );
+    expect(main.getByRole("link", { name: "Creative" })).toHaveAttribute(
+      "href",
+      "/creative",
+    );
   });
 
   it("renders the not-found page for unknown routes", async () => {
@@ -264,7 +265,7 @@ describe("app routes", () => {
     expect(document.title).toBe("Deekshith Namani · Evening skies");
     expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
       "content",
-      "Photographs and studies I make to unwind.",
+      "A daily photograph of the evening sky.",
     );
     await user.click(back);
     expect(
@@ -279,25 +280,28 @@ describe("app routes", () => {
     ).toHaveFocus();
   });
 
-  it("opens an unpublished project from Work and returns to the project index", async () => {
+  it("opens the Univ.AI project note and returns to the Work index", async () => {
     const user = userEvent.setup();
     await renderAt(ROUTE_PATHS.work);
     const main = within(screen.getByRole("main"));
     expect(main.queryByRole("heading", { name: "How I work" })).toBeNull();
-    await user.click(main.getByRole("link", { name: "Decision workflow" }));
+    await user.click(main.getByRole("link", { name: "Univ.AI platform" }));
     expect(
-      await screen.findByRole("heading", {
-        name: "Decision workflow",
-        level: 1,
-      }),
+      main.getByRole("heading", { name: "Univ.AI platform", level: 1 }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Case study not yet published."),
-    ).toBeInTheDocument();
-    expect(document.title).toBe("Deekshith Namani · Decision workflow");
-    await user.click(screen.getByRole("link", { name: "Back to Work" }));
+      main
+        .getAllByRole("heading", { level: 2 })
+        .map((heading) => heading.textContent),
+    ).toEqual(["Background", "My part", "Outcome"]);
+    expect(main.queryByRole("navigation")).toBeNull();
     expect(
-      await screen.findByRole("heading", { name: "Work", level: 1 }),
+      main.getByText("Product design · Univ.AI · Oct 2022 – Apr 2023"),
+    ).toBeInTheDocument();
+    expect(document.title).toBe("Deekshith Namani · Univ.AI platform");
+    await user.click(main.getByRole("link", { name: "Back to Work" }));
+    expect(
+      main.getByRole("heading", { name: "Work", level: 1 }),
     ).toBeInTheDocument();
   });
 
@@ -313,7 +317,7 @@ describe("app routes", () => {
       "href",
       "/",
     );
-    expect(document.title).toBe("Deekshith Namani · Page Not Found");
+    expect(document.title).toBe("Deekshith Namani · Not found");
   });
 
   it("scrolls to the top when navigating between routes", async () => {
@@ -351,18 +355,17 @@ describe("app routes", () => {
   it("shows social links in the footer and omits the résumé link", async () => {
     await renderAt(ROUTE_PATHS.home);
     const footer = within(screen.getByRole("contentinfo"));
-    expect(footer.getAllByRole("link")).toHaveLength(3);
+    expect(footer.getAllByRole("link")).toHaveLength(2);
     for (const [label, href] of [
       [SITE_LINKS.linkedin.label, SITE_LINKS.linkedin.href],
       [SITE_LINKS.github.label, SITE_LINKS.github.href],
-      ["NextLeap ↗", SITE_LINKS.nextLeap.href],
     ]) {
       const link = footer.getByRole("link", { name: label });
       expect(link).toHaveAttribute("href", href);
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveClass("no-underline", "hover:underline");
     }
-    expect(footer.getByText("deekshithn007 © 2026")).toBeInTheDocument();
+    expect(footer.getByText("© 2026")).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /resume|résumé/i })).toBeNull();
   });
 
@@ -377,32 +380,22 @@ describe("app routes", () => {
     );
   });
 
-  it("renders a 16:9 illustration block per section and skips empty captions", async () => {
+  it("omits sections with empty bodies and empty media captions", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
     const main = screen.getByRole("main");
-    const blocks = main.querySelectorAll("figure .aspect-video");
-    expect(blocks).toHaveLength(7);
+    expect(within(main).queryByText("Tradeoffs")).toBeNull();
+    expect(within(main).queryByText("In hindsight")).toBeNull();
     expect(main.querySelector("figcaption")).toBeNull();
-    expect(
-      within(main).getByText(
-        "Why: a smaller first version was easier to test and easier to trust.",
-      ),
-    ).toBeInTheDocument();
   });
 
-  it("renders only the approved role, context, and period in the case study", async () => {
+  it("renders the project metadata as one line", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
     const main = screen.getByRole("main");
     expect(
-      Array.from(
-        main.querySelectorAll("dl dd"),
-        ({ textContent }) => textContent,
+      within(main).getByText(
+        "Product design · Stealth AI startup, legal-tech · Aug 2023 – Feb 2024",
       ),
-    ).toEqual([
-      "Product design",
-      "Stealth AI startup, legal-tech",
-      "Aug 2023 – Feb 2024",
-    ]);
+    ).toHaveClass("text-small");
     expect(main).not.toHaveTextContent(/TODO|placeholder/i);
   });
 });

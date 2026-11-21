@@ -1,3 +1,4 @@
+import { SITE_LABELS } from "@/data/site-links";
 import { useEffect, useState } from "react";
 
 type Section = { id: string; title: string };
@@ -47,7 +48,7 @@ export function SectionNav({ sections }: { sections: readonly Section[] }) {
 
   return (
     <nav
-      aria-label="Case study sections"
+      aria-label={SITE_LABELS.projectNav}
       className="fixed top-1/2 hidden -translate-y-1/2 max-h-[calc(100dvh-var(--page-space)-var(--page-space))] w-44 overflow-y-auto p-1 text-nav min-[1101px]:block"
       style={{ left: "calc(50% + var(--column-width) / 2 + var(--gutter))" }}
     >

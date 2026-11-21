@@ -1,10 +1,9 @@
 import { BackLink } from "@/components/ui/back-link";
-import { LinkLabel } from "@/components/ui/link-label";
-import { useLocation } from "react-router";
+import { InlineCopy } from "@/components/ui/inline-copy";
 import { PageContainer } from "@/components/ui";
 import type { WorkItem } from "@/data";
 import { SITE_LINKS } from "@/data/site-links";
-import { WORK_CONTENT } from "@/data/work-content";
+import { WORK_CONTENT, type ProjectContent } from "@/data/work-content";
 import { SectionNav } from "./section-nav";
 
 export type ProjectTemplateData = {
@@ -46,30 +45,20 @@ export function ProjectPageTemplate({ project, children }: { project: ProjectTem
   </PageContainer>;
 }
 
-export function CaseStudyPage() {
-  const { title, summary, metadata, sections, contact } =
-    WORK_CONTENT.caseStudy;
-  const { state } = useLocation();
-  const backLink = state?.fromHome === true ? SITE_LINKS.backHome : SITE_LINKS.backToWork;
+export function CaseStudyPage({ project }: { project: ProjectContent }) {
+  const { title, summary, meta, sectionNav } = project;
+  const sections = project.sections.filter(({ body }) => body.trim());
 
   return (
     <PageContainer>
       <article className="space-y-page">
         <header>
-          <BackLink destination={backLink} />
           <h1 className="item-title">{title}</h1>
-          <p className="mt-link">{summary}</p>
-          <dl className="mt-gutter text-text-2">
-            {metadata.map(({ label: name, value }) => (
-              <div key={name}>
-                <dt className="inline">{name}: </dt>
-                <dd className="inline">{value}</dd>
-              </div>
-            ))}
-          </dl>
+          {summary?.trim() && <p className="mt-link">{summary}</p>}
+          {meta?.trim() && <p className="mt-gutter text-small text-text-2">{meta}</p>}
         </header>
 
-        <SectionNav sections={sections} />
+        {sectionNav && sections.length > 0 && <SectionNav sections={sections} />}
         {sections.map(({ id, title: heading, body, note, caption }) => (
           <section
             key={id}
@@ -78,40 +67,16 @@ export function CaseStudyPage() {
             className="scroll-mt-gutter"
             tabIndex={-1}
           >
-            <h2 id={`${id}-heading`} className="section-title">
-              {heading}
-            </h2>
+            <h2 id={`${id}-heading`} className="section-title">{heading}</h2>
             <p className="mt-link">{body}</p>
-            {note && <p className="mt-link pl-gutter text-text-2">{note}</p>}
-            <figure className="mt-gutter">
-              <div aria-hidden="true" className="aspect-video bg-case-image" />
-              {caption?.trim() && (
-                <figcaption className="mt-link text-small text-text-2">
-                  {caption}
-                </figcaption>
-              )}
-            </figure>
+            {note?.trim() && <p className="mt-link pl-gutter text-text-2">{note}</p>}
+            {caption?.trim() && <p className="mt-gutter text-small text-text-2">{caption}</p>}
           </section>
         ))}
 
         <div className="space-y-link">
-          <BackLink destination={backLink} />
-          <p>
-            {contact.map(({ text, link }, index) => {
-              if (link === undefined) return text;
-              const { href, label: linkLabel, newTab } = SITE_LINKS[link];
-              return (
-                <a
-                  key={index}
-                  href={href}
-                  target={newTab ? "_blank" : undefined}
-                  rel={newTab ? "noreferrer" : undefined}
-                >
-                  <LinkLabel label={linkLabel} />
-                </a>
-              );
-            })}
-          </p>
+          <BackLink destination={SITE_LINKS.backToWork} />
+          <p><InlineCopy parts={WORK_CONTENT.projectContact} /></p>
         </div>
       </article>
     </PageContainer>

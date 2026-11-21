@@ -33,7 +33,7 @@
   --motion-grain-front: 10s;
   --motion-parallax: 420ms;
   --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --experience-meta-width: 176px;
+  --work-year-width: var(--footer-space);
 }
 
 @media (width < 480px) {

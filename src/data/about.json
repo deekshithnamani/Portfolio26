@@ -1,18 +1,55 @@
 {
   "label": "About",
   "story": [
-    "I’m a product designer in Hyderabad. I trained as a chemical engineer and worked at Tata Consulting Engineers before moving into design. I learned through a mentor, courses and a lot of reading, and my first design role was at Univ.AI.",
-    "In 2025 I completed the NextLeap PM Fellowship, which sharpened how I think about problems, metrics and prioritisation. I’m looking for a product team where design and product thinking go hand in hand. I speak Telugu, Hindi and English."
+    "I’m a product designer in Hyderabad. I studied chemical engineering at NIT Nagpur and started at Tata Consulting Engineers, designing plants for mining and metallurgy projects, and began exploring design on the side. A mentor helped me prepare for a design masters, I took a short UX workshop, and then I left to find a way in. After a few interviews with no offers, the same mentor offered me an internship at Univ.AI.",
+    "Since then I’ve worked on AI and enterprise products at early-stage teams, often as the only designer on the project: a legal workspace for lawyers, and now a platform for high-stakes engineering decisions. I’ve built design systems from scratch and ship small UI fixes to production with AI coding tools.",
+    "In 2025 I did the NextLeap PM Fellowship to learn how product managers frame problems, set metrics and prioritise."
   ],
-  "howIWork": {
-    "heading": "How I work",
-    "body": "I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.",
-    "placeholder": true
-  },
-  "notFound": {
-    "message": "That page doesn’t exist.",
-    "link": "backHome",
-    "placeholder": true
-  },
+  "sections": [
+    {
+      "id": "how-i-work",
+      "heading": "How I work",
+      "body": [
+        {
+          "text": "I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like seeing how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked."
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "what-im-looking-for",
+      "heading": "What I’m looking for",
+      "body": [
+        {
+          "text": "A product built for the long term and improved with real users, where I’m close to the decisions and can see whether they worked. The title matters less to me than that."
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "outside-work",
+      "heading": "Outside work",
+      "body": [
+        {
+          "text": "I read a lot about human behaviour and visual design, and I photograph and sketch to unwind. Some of that lives on "
+        },
+        {
+          "link": "creativeText"
+        },
+        {
+          "text": ". I speak Telugu, Hindi and English."
+        }
+      ],
+      "placeholder": true
+    }
+  ],
+  "contact": [
+    {
+      "text": "Find me on "
+    },
+    {
+      "link": "linkedin"
+    }
+  ],
   "placeholder": true
 }

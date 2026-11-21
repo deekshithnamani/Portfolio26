@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, type RefObject } from "react";
 import { useLocation } from "react-router";
 import { resolveDocumentMetadata } from "@/config/navigation";
+import { SITE_LABELS } from "@/data/site-links";
 import { useCursor } from "./layout-context";
 
 export function RouteEffects({
@@ -8,11 +9,11 @@ export function RouteEffects({
 }: {
   mainRef: RefObject<HTMLElement | null>;
 }) {
-  const { pathname, state } = useLocation();
+  const { pathname, hash, state } = useLocation();
   const returnToId =
     typeof state?.returnToId === "string" ? state.returnToId : undefined;
   const { setLabel } = useCursor();
-  const previousPathname = useRef(pathname);
+  const previousLocation = useRef(pathname);
 
   useLayoutEffect(() => {
     const { title, description } = resolveDocumentMetadata(pathname);
@@ -28,7 +29,14 @@ export function RouteEffects({
     meta.content = description;
     setLabel(null);
 
-    if (previousPathname.current !== pathname) {
+    if (previousLocation.current !== pathname + hash) {
+      const fragment = hash ? document.getElementById(hash.slice(1)) : null;
+      if (fragment && mainRef.current?.contains(fragment)) {
+        fragment.scrollIntoView?.({ block: "start", behavior: "auto" });
+        fragment.focus({ preventScroll: true });
+        previousLocation.current = pathname + hash;
+        return;
+      }
       const target = returnToId ? document.getElementById(returnToId) : null;
       if (
         target instanceof HTMLAnchorElement &&
@@ -40,9 +48,9 @@ export function RouteEffects({
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
         mainRef.current?.focus({ preventScroll: true });
       }
-      previousPathname.current = pathname;
+      previousLocation.current = pathname + hash;
     }
-  }, [mainRef, pathname, returnToId, setLabel]);
+  }, [hash, mainRef, pathname, returnToId, setLabel]);
 
   return null;
 }
@@ -68,7 +76,7 @@ export function SkipLink({
         window.setTimeout(focusMain, 0);
       }}
     >
-      Skip to content
+      {SITE_LABELS.skip}
     </a>
   );
 }

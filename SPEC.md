@@ -1,64 +1,171 @@
-# Portfolio specification v2
+# Portfolio specification v6
 
-Apply this specification to the existing portfolio with the smallest possible changes. This version supersedes earlier instructions where they conflict. Keep approved copy in data, keep placeholder flags out of the rendered UI, preserve the skip link and route focus handling, and avoid visible TODOs, prohibited company or client names, and invented copy or metrics.
+## General
 
-## Information architecture
+- All copy goes in the data files (work.json, about.json, practice.json,
+  site.json, photos.json). Remove copy hardcoded in components.
+- Do not change any font sizes or spacing; use the existing tokens.
+- A section with an empty body, and any empty optional field, does not
+  render and does not appear in the section nav.
+- Use ’ for apostrophes and – for ranges in all copy.
+- Mark placeholder records placeholder: true. Never render the flag.
 
-- The site name links to `/`. The header navigation contains Work, Product, Creative, and About. The current page and its parent section use semibold `--text`; the other links use `--text-2`.
-- The footer links to LinkedIn ↗, GitHub ↗, and NextLeap ↗ on the left. The right reads “deekshithn007 © 2026”. The credit matches the 14px links and wraps below them on narrow screens.
-- Header and footer links are underlined on hover. Links in running text stay underlined.
-- Home introduces the portfolio and highlights recent projects. The active routes also include `/work`, `/work/property-document-checker`, `/product`, `/creative`, `/creative/:slug`, and `/about`. Unknown routes and unknown Work or series slugs show the shared 404.
-- Redirect the old photography index to `/creative`. Preserve known series links from the former `/beyond-work` URLs. Redirect `/product-thinking` to `/product`. Keep the other approved legacy redirects to `/work`. Retain retired page files and identify those that no longer serve a route.
-- Use Creative in navigation, titles, metadata, data, and tests.
+## Header and footer
+
+- Header nav: Work, Creative, About. Remove Product.
+- Footer left: LinkedIn ↗  GitHub ↗. Footer right: © 2026. Remove NextLeap
+  and the handle.
+- /product redirects to /work#product-thinking. /practice and
+  /beyond-work redirect to /creative. List unused pages; don't delete files
+  without asking me.
+
+## Page titles and descriptions (`site.json`)
+
+- Home: "Deekshith Namani · Product designer" / "Deekshith Namani is a
+  product designer in Hyderabad working on AI and enterprise products."
+- Work: "Deekshith Namani · Work" / "Selected work by Deekshith Namani,
+  with the decisions behind it."
+- Property-document checker: "Deekshith Namani · Property-document
+  checker" / "A case study on a tool that surfaces issues in land
+  documents."
+- Univ.AI platform: "Deekshith Namani · Univ.AI platform" / "A design
+  system, a job portal and a staff tool for an edtech startup."
+- Creative: "Deekshith Namani · Creative" / "Photographs and studies by
+  Deekshith Namani."
+- About: "Deekshith Namani · About" / "About Deekshith Namani, a product
+  designer in Hyderabad."
+- 404: "Deekshith Namani · Not found"
 
 ## Home
 
-I’m Deekshith, a product designer in Hyderabad. I work on AI and enterprise products, mostly as the only designer.
+- P1: "I’m Deekshith, a product designer in Hyderabad. I started as a
+  chemical engineer, moved into design, and for the last three years have
+  worked on AI and enterprise products, mostly as the only designer on the
+  project."
+- P2: "When I’m not working I photograph things, and some of those
+  photographs are the background of this page." "photograph" links to
+  /creative.
+- Label "Selected work", then the first two Work entries: year left,
+  status right.
 
-Show a short list of published projects from Work and Product, newest first. Each row shows the title followed by the type. Use dates for ordering and omit them from the display. The selected projects are the product fellowship PRD and the work case study. Each links to its page and offers a return to Home when opened from the selection. Directly opened Work detail pages return to Work, and Creative galleries return to Creative. Keep photo captions in `photos.json` for the series pages.
+## Work page
 
-## Product and About
+- Intro: "Selected work, with the decisions behind it."
+- Replace the current list with this flat list (no company groups, no job
+  titles, years only). Remove every other row:
+  Property-document checker | 2023–24 | Stealth AI startup · Flags issues
+    in land documents that take lawyers weeks. | case study, "New" mark
+  Decision workflows | 2024– | DAOSoft · How a high-stakes engineering
+    decision moves through one connected system. | soon, no link
+  Univ.AI platform | 2022–23 | Univ.AI · A design system, a job portal and
+    a staff tool for an edtech startup. | project note
+- Section "Product thinking" (id product-thinking):
+  Zomato eco-features PRD | 2025 | Graduation project on driving
+    eco-feature adoption in Zomato: KPI tree, PRD and experimentation
+    roadmap. | fellowship, gray, no link
+  NextLeap portfolio ↗ | 2025 | The rest of my fellowship projects. |
+    fellowship, link https://nextleap.app/portfolio/n-deekshith
+  Line below: "NextLeap PM Fellowship, Feb–May 2025. Top ~12% of 200+
+  fellows, 87%." Optional certificateUrl appends "Certificate ↗".
 
-Product presents the existing fellowship project in a section with its NextLeap destination. About tells the career story in short paragraphs, mentions languages in the prose, and has a separate “How I work” section. Social profile links live in the footer. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative that scrolls to and focuses the corresponding tile’s title link. Back links use a leading left-arrow icon, muted supporting type and 16px of space before the heading.
+## Project pages
 
-## Work
+- Remove the top "← Work". At the end of the page add "← Work", then "Want
+  to talk about this work? Find me on LinkedIn ↗".
+- Replace Role/Context/Period with one meta line (small token).
+- Section nav labels match the section headings below.
 
-Group projects by experience, newest first. Each group shows company, role, and years on the left and project titles on the right. The prototype groups contain three, two, and two projects. On narrow screens metadata stacks above the titles. All project titles link to detail pages. Unpublished projects show the title, availability status, and a link back to Work.
+## Property-document checker
 
-I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.
+- Title: Property-document checker
+- Summary: "A legal workspace that helps surface issues in land documents
+  before they become expensive problems."
+- Meta: "Product design · Stealth AI startup, legal-tech · Aug 2023 –
+  Feb 2024"
+- Sections (heading: body):
+  Context: "The startup was building an AI product for the legal market in
+  India. Designs from an earlier freelancer had been set aside, so I
+  redesigned web and mobile from scratch. The founders had long feature
+  lists, and I was the designer on this project."
+  Problem: "Checking a land document for problems can take a lawyer weeks.
+  The idea was a checker that flags issues early, so a lawyer’s time goes
+  to judgment instead of searching."
+  Options: "The first big choice was one product or two. Leadership decided
+  on two, a consumer legal marketplace and an AI workspace for lawyers,
+  after talking with the founders’ network and with lawyer focus groups. I
+  contributed to those discussions as the designer."
+  What I cut: "The founders’ feature lists were long. I questioned them and
+  cut scope down to the core jobs a lawyer needed done, so the first
+  version could be built and tested."
+  Tradeoffs: (empty)
+  Outcome: "The two apps launched on web and mobile with 1K+ downloads,
+  mostly through the founders’ network. I don’t have usage numbers for the
+  property-document checker itself. If I were measuring it, I’d look at how
+  long a first review takes and how often a flagged issue turns out to be
+  real."
+  In hindsight: (empty)
 
-Keep the approved case-study sections and optional captions. Place desktop section navigation in the right margin, vertically centered.
+## Univ.AI platform
 
-## Visual style
+- Meta: "Product design · Univ.AI · Oct 2022 – Apr 2023"
+- Sections (no section nav):
+  Background: "Univ.AI was an edtech company where Ivy League professors
+  taught live to Indian learners, with a curriculum like a college’s. It
+  needed its own platform to cut costs on third-party tools."
+  My part: "As the UX/UI intern I audited the existing screens and built
+  the platform’s first design system. I designed the learner flows
+  (discovery, course pages, video, notes and community), a job portal with
+  profiles, a recruiter side, applications and tracking, and a staff tool
+  for teaching assistants inside the platform. I ran the interviews with
+  the teaching assistants, with my mentor shadowing and stepping in when
+  needed."
+  Outcome: "I handed the designs to engineering, and what shipped differed
+  from what I had designed. I don’t have metrics for this work. The company
+  later shut down after failing to raise funding."
 
-- Keep the single light theme, centered reading column, and Inter at 15px with a 1.6 body line height. Home uses continuous off-white and procedural dither. Keep a faint base texture through the reading column and concentrate the two moving layers at the edges. Home uses no photographs.
-- On desktop the name is 16px in `--text` and the header, footer, and case-study navigation links are 14px. Align them on one baseline. Use 20px semibold for main page headings, 18px medium for case-study and other section headings, 16px medium for project and gallery titles, and 12px for supporting text. Use 15px regular for prose and medium for inline links that need emphasis.
-- Wrap link arrows in a span with a `.25em` left margin. Keep anchor text and arrow adjacent in markup so the underline ends at the arrow. Use a muted 1px underline across links. Darken the color on hover while retaining the weight.
-- Use hairlines to separate Work experience groups and to mark the start of the Home selection. Use spacing between individual project rows and Creative grid tiles. Company names use body-sized, medium-weight text.
-- Use spacing values of 8, 16, 24, 40, 64, and 96px. The header has 40px below it. Paragraphs are 24px apart. Allow 40px from the Home intro to Selected projects and 16px from label to list. Desktop Home project rows are 56px high. Allow at least 96px above the footer, with a top hairline and 24px padding.
-- Draw the New mark with `--pen` set to `#E6128F` and an 8px gap from the title.
-- Use typographic apostrophes and en dashes for ranges in data and markup.
+## Creative
 
-## Motion
+- Title "Creative". Intro: "Photographs and studies I make to unwind."
+- Series (slug | title | line): each is a small dithered image with a
+  caption linking to its series page.
+  city-typefaces | City typefaces | Lettering on shopfronts, signs and
+    walls around the city.
+  evening-skies | Evening skies | A daily photograph of the evening sky.
+  colors-on-walks | Colors on walks | Colors that catch my eye, collected
+    as photographs.
+  live-sketches | Live sketches | Sketches made on location.
+- Series page: title, the one line, then the image grid. Captions optional
+  and empty. Use the existing neutral placeholder images.
 
-- A broad, shallow wave and a narrower wave with sharper crests sweep through Home’s grain in opposite directions on 7s and 10s loops. Start them in different parts of the viewport so motion is visible on arrival. Randomize the sideways travel at the start of each pass while the wave is off-screen. Keep the base grain round, render the middle wave as 2px squares, and render the foreground as 3px diamonds. The foreground also follows the desktop mouse by at most 18px per axis and eases back when it leaves.
+## About
 
-- Fade route content in over 200ms while the header and footer stay mounted. Reserve scrollbar space to keep the reading column centered as page lengths change. Leave scroll behavior and focus handling intact.
-- Fade Creative image reveals over 240ms and ease link color changes over 140ms without changing underline width.
-- Skip these transitions when the visitor prefers reduced motion.
+- Title "About". Three paragraphs, no heading:
+  P1: "I’m a product designer in Hyderabad. I studied chemical engineering
+  at NIT Nagpur and started at Tata Consulting Engineers, designing plants
+  for mining and metallurgy projects, and began exploring design on the
+  side. A mentor helped me prepare for a design masters, I took a short UX
+  workshop, and then I left to find a way in. After a few interviews with
+  no offers, the same mentor offered me an internship at Univ.AI."
+  P2: "Since then I’ve worked on AI and enterprise products at early-stage
+  teams, often as the only designer on the project: a legal workspace for
+  lawyers, and now a platform for high-stakes engineering decisions. I’ve
+  built design systems from scratch and ship small UI fixes to production
+  with AI coding tools."
+  P3: "In 2025 I did the NextLeap PM Fellowship to learn how product
+  managers frame problems, set metrics and prioritise."
+- Headings and text:
+  How I work: "I start with the problem and the person who has it. I
+  question long feature lists, because most of them are guesses. I like
+  seeing how a decision moves through a whole system, not just one screen,
+  and I want to know afterwards whether it worked."
+  What I’m looking for: "A product built for the long term and improved
+  with real users, where I’m close to the decisions and can see whether
+  they worked. The title matters less to me than that."
+  Outside work: "I read a lot about human behaviour and visual design, and
+  I photograph and sketch to unwind. Some of that lives on Creative. I
+  speak Telugu, Hindi and English." "Creative" links to /creative.
+- Closing line: "Find me on LinkedIn ↗".
 
-## Responsive behavior
+## 404
 
-- At 480px and wider, Work experience groups use a 176px metadata column and a flexible project column. Use a wrapping flex row for the header. Let the nav wrap beneath the name when space runs out. Keep type sizes fixed and links at least 44px tall.
-- Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored project type. Keep 15px body text.
-- Keep the container centered and capped at 640px up to the 1920px check.
-- The Home waves run on desktop and touch devices. Keep the composition still under reduced motion and pause both waves in hidden tabs.
-- Check 320, 360, 390, 768, 1280, and 1920px in Chromium. Report any horizontal overflow.
-
-## Work order
-
-1. IA, routes, navigation labels, copy, and data.
-2. Visual polish and responsive behavior.
-3. Tests for renamed routes and labels.
-
-After each step run build, lint, and tests, list the changed files, and stop for approval.
+- "That page doesn’t exist." with a "← Home" link.

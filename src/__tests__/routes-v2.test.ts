@@ -6,7 +6,8 @@ import { LEGACY_REDIRECTS, ROUTE_PATHS } from "@/config/route-paths";
 describe("v2 information architecture routes", () => {
   it("maps legacy routes to their approved destinations", () => {
     expect(LEGACY_REDIRECTS).toEqual({
-      "/product-thinking": "/product",
+      "/product": "/work#product-thinking",
+      "/product-thinking": "/work#product-thinking",
       "/beyond-work": "/creative",
       "/beyond-work/city-typefaces": "/creative/city-typefaces",
       "/beyond-work/evening-skies": "/creative/evening-skies",
@@ -27,7 +28,6 @@ describe("v2 information architecture routes", () => {
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.beyondWork);
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.beyondWorkSeries);
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.work);
-    expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.productThinking);
     expect(LEGACY_REDIRECTS).not.toHaveProperty(ROUTE_PATHS.workDetail);
   });
 
