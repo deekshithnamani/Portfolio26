@@ -1,30 +1,41 @@
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
+import { sortProjectsByYear } from "@/data/work-content";
 import { WorkIndex } from "@/pages/Work";
 
 describe("work index", () => {
-  it("renders three flat Work rows and two Product thinking rows", () => {
+  it("groups Work by company end year, putting ongoing work first", () => {
     render(
       <MemoryRouter>
         <WorkIndex />
       </MemoryRouter>,
     );
 
-    const [work, product] = screen
-      .getAllByRole("list")
-      .map((list) => within(list));
-    expect(work.getAllByRole("listitem")).toHaveLength(3);
+    const regions = screen.getAllByRole("region");
+    expect(
+      regions.map(
+        (region) =>
+          region.getAttribute("aria-label") ??
+          within(region).getByRole("heading").textContent,
+      ),
+    ).toEqual(["DAOSoft", "Stealth AI startup", "Univ.AI", "Product thinking"]);
+    const [daosoft, stealth, univ, product] = regions.map((region) =>
+      within(region),
+    );
+    for (const group of [daosoft, stealth, univ]) {
+      expect(group.getAllByRole("listitem")).toHaveLength(1);
+    }
     expect(product.getAllByRole("listitem")).toHaveLength(2);
     expect(
-      work.getByRole("link", { name: "Property-document checker" }),
+      stealth.getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
     expect(
-      work.getByRole("link", { name: "Univ.AI platform" }),
+      univ.getByRole("link", { name: "Univ.AI platform" }),
     ).toHaveAttribute("href", "/work/univ-ai-platform");
-    expect(work.getByText("New")).toBeInTheDocument();
-    expect(work.getByText("Decision workflows")).toBeInTheDocument();
-    expect(work.queryByRole("link", { name: "Decision workflows" })).toBeNull();
+    expect(stealth.getByText("New")).toBeInTheDocument();
+    expect(daosoft.getByText("Decision workflows")).toBeInTheDocument();
+    expect(daosoft.queryByRole("link")).toBeNull();
     expect(product.getByText("Zomato eco-features PRD")).toBeInTheDocument();
     expect(product.queryByRole("link", { name: /Zomato/ })).toBeNull();
     expect(
@@ -36,5 +47,22 @@ describe("work index", () => {
       ),
     ).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "Certificate ↗" })).toBeNull();
+  });
+  it("sorts ongoing, abbreviated ranges and newer years without mutating data", () => {
+    const projects = [
+      { year: "2025", title: "Fellowship" },
+      { year: "2022–2023", title: "Earlier project" },
+      { year: "2024–", title: "Ongoing project", status: "soon" },
+      { year: "2023–26", title: "Newer project" },
+      { year: "2026", title: "Latest start" },
+    ];
+    expect(sortProjectsByYear(projects).map(({ title }) => title)).toEqual([
+      "Ongoing project",
+      "Latest start",
+      "Newer project",
+      "Fellowship",
+      "Earlier project",
+    ]);
+    expect(projects[0].title).toBe("Fellowship");
   });
 });

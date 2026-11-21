@@ -21,6 +21,8 @@
   "entries": [
     {
       "year": "2023–24",
+      "company": "Stealth AI startup",
+      "featured": true,
       "title": "Property-document checker",
       "description": "Stealth AI startup · Flags issues in land documents that take lawyers weeks.",
       "status": "case study",
@@ -30,6 +32,8 @@
     },
     {
       "year": "2024–",
+      "company": "DAOSoft",
+      "featured": true,
       "title": "Decision workflows",
       "description": "DAOSoft · How a high-stakes engineering decision moves through one connected system.",
       "status": "soon",
@@ -37,6 +41,7 @@
     },
     {
       "year": "2022–23",
+      "company": "Univ.AI",
       "title": "Univ.AI platform",
       "description": "Univ.AI · A design system, a job portal and a staff tool for an edtech startup.",
       "status": "project note",

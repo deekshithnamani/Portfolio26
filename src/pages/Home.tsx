@@ -19,16 +19,18 @@ export default function Home() {
           {home.selectedLabel}
         </h1>
         <ul className="mt-link border-t border-line">
-          {entries.slice(0, 2).map(({ title, year, status, href, isNew }) => (
-            <ListRow
-              key={title}
-              title={title}
-              year={year}
-              status={status}
-              href={href}
-              newLabel={isNew ? newLabel : undefined}
-            />
-          ))}
+          {entries
+            .filter(({ featured }) => featured)
+            .map(({ title, year, status, href, isNew }) => (
+              <ListRow
+                key={title}
+                title={title}
+                year={year}
+                status={status}
+                href={href}
+                newLabel={isNew ? newLabel : undefined}
+              />
+            ))}
         </ul>
       </section>
     </PageContainer>

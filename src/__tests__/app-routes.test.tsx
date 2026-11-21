@@ -38,7 +38,7 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
-  it("shows the first two Work rows on Home", async () => {
+  it("shows only featured Work rows on Home, newest first", async () => {
     await renderAt(ROUTE_PATHS.home);
     const mainElement = screen.getByRole("main");
     const main = within(mainElement);
@@ -54,14 +54,14 @@ describe("app routes", () => {
     ).toBeInTheDocument();
     const rows = main.getAllByRole("listitem");
     expect(rows).toHaveLength(2);
-    expect(rows[0]).toHaveTextContent(
+    expect(rows[1]).toHaveTextContent(
       /2023–24.*Property-document checker.*case study/,
     );
-    expect(rows[1]).toHaveTextContent(/2024–.*Decision workflows.*soon/);
+    expect(rows[0]).toHaveTextContent(/2024–.*Decision workflows.*soon/);
     expect(
-      within(rows[0]).getByRole("link", { name: "Property-document checker" }),
+      within(rows[1]).getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
-    expect(within(rows[1]).queryByRole("link")).toBeNull();
+    expect(within(rows[0]).queryByRole("link")).toBeNull();
     expect(mainElement.querySelector(".home-dither")).toHaveAttribute(
       "aria-hidden",
       "true",
@@ -295,6 +295,7 @@ describe("app routes", () => {
         .map((heading) => heading.textContent),
     ).toEqual(["Background", "My part", "Outcome"]);
     expect(main.queryByRole("navigation")).toBeNull();
+    expect(main.getAllByRole("figure")).toHaveLength(3);
     expect(
       main.getByText("Product design · Univ.AI · Oct 2022 – Apr 2023"),
     ).toBeInTheDocument();
@@ -380,11 +381,14 @@ describe("app routes", () => {
     );
   });
 
-  it("omits sections with empty bodies and empty media captions", async () => {
+  it("restores image slots for populated sections and omits empty sections and captions", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
     const main = screen.getByRole("main");
     expect(within(main).queryByText("Tradeoffs")).toBeNull();
     expect(within(main).queryByText("In hindsight")).toBeNull();
+    expect(
+      main.querySelectorAll("figure .aspect-video.bg-case-image"),
+    ).toHaveLength(5);
     expect(main.querySelector("figcaption")).toBeNull();
   });
 

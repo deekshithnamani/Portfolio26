@@ -4,27 +4,33 @@ import { LinkLabel } from "@/components/ui/link-label";
 import { ListRow } from "@/components/ui/list-row";
 import { buildWorkDetailPath } from "@/config/route-paths";
 import { SITE_LINKS } from "@/data/site-links";
-import { PROJECT_PAGES, WORK_CONTENT } from "@/data/work-content";
+import { PROJECT_PAGES, WORK_CONTENT, WORK_GROUPS } from "@/data/work-content";
 import { CaseStudyPage } from "@/components/projects/project-page-template";
 import NotFound from "./NotFound";
 
 export function WorkIndex() {
-  const { entries, label, description, newLabel, productThinking } =
-    WORK_CONTENT;
+  const { label, description, newLabel, productThinking } = WORK_CONTENT;
 
   return (
     <PageContainer>
       <h1 className="page-title">{label}</h1>
       <p className="mt-link">{description}</p>
-      <ul className="mt-link border-t border-line">
-        {entries.map(({ isNew, ...entry }) => (
-          <ListRow
-            key={entry.title}
-            {...entry}
-            newLabel={isNew ? newLabel : undefined}
-          />
+      <div className="mt-gutter space-y-gutter">
+        {Array.from(WORK_GROUPS, ([company, projects]) => (
+          <section key={company} aria-label={company}>
+            <h2 className="section-title">{company}</h2>
+            <ul className="mt-link border-t border-line">
+              {projects.map(({ isNew, ...project }) => (
+                <ListRow
+                  key={project.title}
+                  {...project}
+                  newLabel={isNew ? newLabel : undefined}
+                />
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
       <section
         className="mt-page scroll-mt-gutter"
         id={productThinking.id}

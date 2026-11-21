@@ -1,4 +1,4 @@
-# Portfolio specification v6
+# Portfolio specification v6 with v7 addendum
 
 ## General
 
@@ -45,14 +45,17 @@
 - P2: "When I’m not working I photograph things, and some of those
   photographs are the background of this page." "photograph" links to
   /creative.
-- Label "Selected work", then the first two Work entries: year left,
-  status right.
+- Label "Selected work", then the Work entries marked `featured`, newest
+  first using the same sort as Work. Keep year left and status right.
 
 ## Work page
 
 - Intro: "Selected work, with the decisions behind it."
-- Replace the current list with this flat list (no company groups, no job
-  titles, years only). Remove every other row:
+- Group projects by company. Sort companies by their latest end year, putting
+  ongoing roles first. The current order is DAOSoft, Stealth AI startup, Univ.AI.
+- Sort projects within each company and the Product thinking section newest
+  first from the years in `work.json`. Items marked "soon" use the same sort.
+- Keep the following rows:
   Property-document checker | 2023–24 | Stealth AI startup · Flags issues
     in land documents that take lawyers weeks. | case study, "New" mark
   Decision workflows | 2024– | DAOSoft · How a high-stakes engineering
@@ -69,6 +72,9 @@
   fellows, 87%." Optional certificateUrl appends "Certificate ↗".
 
 ## Project pages
+
+- Give every populated section a 16:9 image slot using the existing tokens.
+  An image can fill the slot when supplied. Captions are optional.
 
 - Remove the top "← Work". At the end of the page add "← Work", then "Want
   to talk about this work? Find me on LinkedIn ↗".

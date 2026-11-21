@@ -59,7 +59,7 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
         </header>
 
         {sectionNav && sections.length > 0 && <SectionNav sections={sections} />}
-        {sections.map(({ id, title: heading, body, note, caption }) => (
+        {sections.map(({ id, title: heading, body, note, image, caption }) => (
           <section
             key={id}
             id={id}
@@ -70,7 +70,23 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
             <h2 id={`${id}-heading`} className="section-title">{heading}</h2>
             <p className="mt-link">{body}</p>
             {note?.trim() && <p className="mt-link pl-gutter text-text-2">{note}</p>}
-            {caption?.trim() && <p className="mt-gutter text-small text-text-2">{caption}</p>}
+            <figure className="mt-gutter">
+              {image?.src.trim() ? (
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                  className="aspect-video w-full bg-case-image object-contain"
+                />
+              ) : (
+                <div aria-hidden="true" className="aspect-video bg-case-image" />
+              )}
+              {caption?.trim() && (
+                <figcaption className="mt-link text-small text-text-2">
+                  {caption}
+                </figcaption>
+              )}
+            </figure>
           </section>
         ))}
 
