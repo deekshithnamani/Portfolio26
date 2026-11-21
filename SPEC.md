@@ -32,7 +32,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 ## Visual style
 
 - Keep the single light theme, centered reading column, and Inter at 15px with a 1.6 body line height. Home uses continuous off-white and procedural dither. Keep a faint base texture through the reading column and concentrate the two moving layers at the edges. Home uses no photographs.
-- On desktop the name is 16px in `--text` and the nav is 14px. Align them on one baseline. Use 20px semibold for main page headings, 18px medium for case-study and other section headings, 16px medium for project and gallery titles, and 12px for supporting text. Use 15px regular for prose and medium for inline links that need emphasis.
+- On desktop the name is 16px in `--text` and the header, footer, and case-study navigation links are 14px. Align them on one baseline. Use 20px semibold for main page headings, 18px medium for case-study and other section headings, 16px medium for project and gallery titles, and 12px for supporting text. Use 15px regular for prose and medium for inline links that need emphasis.
 - Wrap link arrows in a span with a `.25em` left margin. Keep anchor text and arrow adjacent in markup so the underline ends at the arrow. Use a muted 1px underline across links. Darken the color on hover while retaining the weight.
 - Use hairlines to separate Work experience groups and to mark the start of the Home selection. Use spacing between individual project rows and Creative grid tiles. Company names use body-sized, medium-weight text.
 - Use spacing values of 8, 16, 24, 40, 64, and 96px. The header has 40px below it. Paragraphs are 24px apart. Allow 40px from the Home intro to Selected projects and 16px from label to list. Desktop Home project rows are 56px high. Allow at least 96px above the footer, with a top hairline and 24px padding.
@@ -41,7 +41,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 
 ## Motion
 
-- Home’s ambient grain drifts slowly on desktop. The foreground grain follows the mouse by at most 8px per axis and settles at center when it leaves.
+- Home’s middle and foreground grain drift in different directions on desktop with 14s and 23s passes. The foreground also follows the mouse by at most 10px per axis and eases back when it leaves.
 
 - Fade route content in over 200ms while the header and footer stay mounted. Reserve scrollbar space to keep the reading column centered as page lengths change. Leave scroll behavior and focus handling intact.
 - Fade Creative image reveals over 240ms and ease link color changes over 140ms without changing underline width.
@@ -52,7 +52,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 - At 480px and wider, Work experience groups use a 176px metadata column and a flexible project column. Use a wrapping flex row for the header. Let the nav wrap beneath the name when space runs out. Keep type sizes fixed and links at least 44px tall.
 - Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored year and status, separated by a middle dot. Keep 15px body text.
 - Keep the container centered and capped at 640px up to the 1920px check.
-- On touch devices, narrow viewports, and under reduced motion, use a still Home dither. Pause the ambient layer in hidden tabs.
+- On touch devices, narrow viewports, and under reduced motion, use a still Home dither. Pause both drifting layers in hidden tabs.
 - Check 320, 360, 390, 768, 1280, and 1920px in Chromium. Report any horizontal overflow.
 
 ## Work order

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { clamp } from "@/lib/math";
 
-const POINTER_RANGE = 8;
+const POINTER_RANGE = 10;
 
 export function DitherBackground() {
   const backgroundRef = useRef<HTMLDivElement>(null);

@@ -161,7 +161,7 @@ body {
 .home-dither::before,
 .home-dither::after {
   position: absolute;
-  inset: -12px;
+  inset: -24px;
   content: "";
   mask-image: linear-gradient(
     to right,
@@ -177,7 +177,7 @@ body {
     var(--dither) 0.75px,
     transparent 1px
   );
-  background-size: 9px 9px;
+  background-size: 8px 10px;
   opacity: 0.48;
 }
 
@@ -187,9 +187,9 @@ body {
     var(--dither) 0.9px,
     transparent 1.15px
   );
-  background-size: 13px 13px;
+  background-size: 14px 17px;
   background-position: 3px 4px;
-  opacity: 0.35;
+  opacity: 0.44;
 }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -197,23 +197,37 @@ body {
     animation: grain-drift var(--motion-grain) ease-in-out infinite alternate;
   }
 
-  .home-dither[data-paused="true"]::before {
-    animation-play-state: paused;
+  .home-dither::after {
+    animation: grain-foreground var(--motion-grain-front) ease-in-out infinite
+      alternate;
+    animation-delay: -7s;
+    translate: var(--dither-x, 0px) var(--dither-y, 0px);
+    transition: translate var(--motion-parallax) var(--motion-ease-out);
   }
 
-  .home-dither::after {
-    transform: translate(var(--dither-x, 0px), var(--dither-y, 0px));
-    transition: transform var(--motion-parallax) var(--motion-ease-out);
+  .home-dither[data-paused="true"]::before,
+  .home-dither[data-paused="true"]::after {
+    animation-play-state: paused;
   }
 }
 
 @keyframes grain-drift {
   from {
-    transform: translate(-7px, 4px);
+    transform: translate(-11px, 6px);
   }
 
   to {
-    transform: translate(7px, -4px);
+    transform: translate(11px, -6px);
+  }
+}
+
+@keyframes grain-foreground {
+  from {
+    transform: translate(7px, 5px);
+  }
+
+  to {
+    transform: translate(-7px, -5px);
   }
 }
 

@@ -48,7 +48,7 @@ export function SectionNav({ sections }: { sections: readonly Section[] }) {
   return (
     <nav
       aria-label="Case study sections"
-      className="fixed top-1/2 hidden -translate-y-1/2 max-h-[calc(100dvh-var(--page-space)-var(--page-space))] w-44 overflow-y-auto p-1 text-small min-[1101px]:block"
+      className="fixed top-1/2 hidden -translate-y-1/2 max-h-[calc(100dvh-var(--page-space)-var(--page-space))] w-44 overflow-y-auto p-1 text-nav min-[1101px]:block"
       style={{ left: "calc(50% + var(--column-width) / 2 + var(--gutter))" }}
     >
       <ul className="space-y-2">
