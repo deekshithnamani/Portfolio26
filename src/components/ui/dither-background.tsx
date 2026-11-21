@@ -44,13 +44,38 @@ export function DitherBackground() {
       if (!event.relatedTarget) reset();
     }
 
+    function varyWave(
+      property: "--wave-middle-offset" | "--wave-front-offset",
+    ) {
+      const previous = Number.parseFloat(
+        background?.style.getPropertyValue(property) ?? "",
+      );
+      const direction = Number.isNaN(previous)
+        ? Math.random() < 0.5
+          ? -1
+          : 1
+        : -Math.sign(previous);
+      const distance = 14 + Math.random() * 14;
+      background?.style.setProperty(property, `${direction * distance}px`);
+    }
+
+    function onWaveIteration(event: AnimationEvent) {
+      if (event.animationName !== "dither-wave") return;
+      // The wave has cleared the viewport when its next pass starts.
+      if (event.pseudoElement === "::before") varyWave("--wave-middle-offset");
+      if (event.pseudoElement === "::after") varyWave("--wave-front-offset");
+    }
+
     function onVisibilityChange() {
       if (!background) return;
       background.dataset.paused = String(document.hidden);
       if (document.hidden) reset();
     }
 
+    varyWave("--wave-middle-offset");
+    varyWave("--wave-front-offset");
     onVisibilityChange();
+    background.addEventListener("animationiteration", onWaveIteration);
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("pointerout", onPointerOut);
     window.addEventListener("blur", reset);
@@ -59,6 +84,7 @@ export function DitherBackground() {
 
     return () => {
       window.cancelAnimationFrame(frame);
+      background.removeEventListener("animationiteration", onWaveIteration);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerout", onPointerOut);
       window.removeEventListener("blur", reset);

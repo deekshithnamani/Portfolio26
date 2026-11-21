@@ -173,11 +173,10 @@ body {
         calc(100% - clamp(24%, var(--reading-edge), 42%)),
       black
     ),
-    url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 240 96%22 preserveAspectRatio%3D%22none%22%3E%3Cg fill%3D%22none%22 stroke%3D%22white%22%3E%3Cpath d%3D%22M-32 63C10 10 34 6 62 31S102 84 140 64 180 12 208 35 237 83 272 55%22 stroke-width%3D%2232%22 opacity%3D%22.2%22/%3E%3Cpath d%3D%22M-32 63C10 10 34 6 62 31S102 84 140 64 180 12 208 35 237 83 272 55%22 stroke-width%3D%2222%22 opacity%3D%22.45%22/%3E%3Cpath d%3D%22M-32 63C10 10 34 6 62 31S102 84 140 64 180 12 208 35 237 83 272 55%22 stroke-width%3D%2212%22/%3E%3C/g%3E%3C/svg%3E"),
-    var(--grain-tile);
+    var(--wave-shape), var(--grain-tile);
   mask-size:
     100% 100%,
-    100% var(--wave-height),
+    calc(100% + 64px) var(--wave-height),
     var(--grain-size);
   mask-repeat: no-repeat, no-repeat, repeat;
   mask-position:
@@ -188,8 +187,10 @@ body {
 }
 
 .home-dither::before {
-  --wave-height: clamp(144px, 33vh, 300px);
+  --wave-shape: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 240 96%22 preserveAspectRatio%3D%22none%22%3E%3Cg fill%3D%22none%22 stroke%3D%22white%22%3E%3Cpath d%3D%22M-32 55C12 54 36 31 70 35S126 61 160 60S226 36 272 43%22 stroke-width%3D%2235%22 opacity%3D%22.2%22/%3E%3Cpath d%3D%22M-32 55C12 54 36 31 70 35S126 61 160 60S226 36 272 43%22 stroke-width%3D%2225%22 opacity%3D%22.45%22/%3E%3Cpath d%3D%22M-32 55C12 54 36 31 70 35S126 61 160 60S226 36 272 43%22 stroke-width%3D%2215%22 opacity%3D%221%22/%3E%3C/g%3E%3C/svg%3E");
+  --wave-height: clamp(144px, 36vh, 300px);
   --wave-rest: 32%;
+  --wave-offset: var(--wave-middle-offset, 0px);
 
   --grain-tile: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 7 8%22%3E%3Crect x%3D%223%22 y%3D%223%22 width%3D%222%22 height%3D%222%22 fill%3D%22white%22/%3E%3C/svg%3E");
   --grain-size: 7px 8px;
@@ -198,8 +199,10 @@ body {
 }
 
 .home-dither::after {
-  --wave-height: clamp(120px, 27vh, 240px);
+  --wave-shape: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 240 96%22 preserveAspectRatio%3D%22none%22%3E%3Cg fill%3D%22none%22 stroke%3D%22white%22%3E%3Cpath d%3D%22M-32 67C12 70 32 12 62 19S98 80 128 71S163 10 195 16S230 78 272 59%22 stroke-width%3D%2228%22 opacity%3D%22.2%22/%3E%3Cpath d%3D%22M-32 67C12 70 32 12 62 19S98 80 128 71S163 10 195 16S230 78 272 59%22 stroke-width%3D%2219%22 opacity%3D%22.45%22/%3E%3Cpath d%3D%22M-32 67C12 70 32 12 62 19S98 80 128 71S163 10 195 16S230 78 272 59%22 stroke-width%3D%2210%22 opacity%3D%221%22/%3E%3C/g%3E%3C/svg%3E");
+  --wave-height: clamp(120px, 25vh, 220px);
   --wave-rest: 66%;
+  --wave-offset: var(--wave-front-offset, 0px);
 
   transform: scaleX(-1);
   --grain-tile: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 11 13%22%3E%3Cpath d%3D%22M5.5 5 7 6.5 5.5 8 4 6.5Z%22 fill%3D%22white%22/%3E%3C/svg%3E");
@@ -210,11 +213,11 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .home-dither::before {
-    animation: dither-wave var(--motion-grain) linear -3s infinite;
+    animation: dither-wave var(--motion-grain) linear -2.45s infinite;
   }
 
   .home-dither::after {
-    animation: dither-wave var(--motion-grain-front) linear -6s infinite reverse;
+    animation: dither-wave var(--motion-grain-front) linear -2s infinite reverse;
   }
 
   .home-dither[data-paused="true"]::before,
@@ -234,14 +237,14 @@ body {
   from {
     mask-position:
       center,
-      center calc(0px - var(--wave-height)),
+      calc(50% - var(--wave-offset)) calc(0px - var(--wave-height)),
       var(--grain-origin);
   }
 
   to {
     mask-position:
       center,
-      center calc(100% + var(--wave-height)),
+      calc(50% + var(--wave-offset)) calc(100% + var(--wave-height)),
       var(--grain-origin);
   }
 }

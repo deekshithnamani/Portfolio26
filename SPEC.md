@@ -41,7 +41,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 
 ## Motion
 
-- Two curved wave bands sweep through Home’s grain in opposite directions on 7s and 10s loops. Keep the base grain round, render the middle wave as 2px squares, and render the foreground as 3px diamonds. The foreground also follows the desktop mouse by at most 18px per axis and eases back when it leaves.
+- A broad, shallow wave and a narrower wave with sharper crests sweep through Home’s grain in opposite directions on 7s and 10s loops. Start them in different parts of the viewport so motion is visible on arrival. Randomize the sideways travel at the start of each pass while the wave is off-screen. Keep the base grain round, render the middle wave as 2px squares, and render the foreground as 3px diamonds. The foreground also follows the desktop mouse by at most 18px per axis and eases back when it leaves.
 
 - Fade route content in over 200ms while the header and footer stay mounted. Reserve scrollbar space to keep the reading column centered as page lengths change. Leave scroll behavior and focus handling intact.
 - Fade Creative image reveals over 240ms and ease link color changes over 140ms without changing underline width.
