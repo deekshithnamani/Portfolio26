@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { clamp } from "@/lib/math";
 
-const POINTER_RANGE = 10;
+const POINTER_RANGE = 18;
 
 export function DitherBackground() {
   const backgroundRef = useRef<HTMLDivElement>(null);
@@ -11,7 +11,7 @@ export function DitherBackground() {
     if (!background) return;
 
     const motion = window.matchMedia(
-      "(width >= 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+      "(width >= 768px) and (prefers-reduced-motion: no-preference) and (not (pointer: coarse))",
     );
     let frame = 0;
 

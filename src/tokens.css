@@ -29,8 +29,8 @@
   --motion-page: 200ms;
   --motion-image: 240ms;
   --motion-link: 140ms;
-  --motion-grain: 14s;
-  --motion-grain-front: 23s;
+  --motion-grain: 7s;
+  --motion-grain-front: 10s;
   --motion-parallax: 420ms;
   --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --row-year: 96px;

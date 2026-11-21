@@ -143,6 +143,7 @@ body {
 }
 
 .home-dither {
+  --edge-grain: color-mix(in srgb, var(--dither) 52%, var(--text-2));
   --reading-edge: max(var(--gutter), calc((100% - var(--column-width)) / 2));
 
   position: fixed;
@@ -152,7 +153,7 @@ body {
   pointer-events: none;
   background-image: radial-gradient(
     circle,
-    color-mix(in srgb, var(--dither) 28%, transparent) 0.65px,
+    color-mix(in srgb, var(--dither) 19%, transparent) 0.65px,
     transparent 1px
   );
   background-size: 6px 6px;
@@ -163,46 +164,60 @@ body {
   position: absolute;
   inset: -24px;
   content: "";
-  mask-image: linear-gradient(
-    to right,
-    black,
-    rgb(0 0 0 / 10%) var(--reading-edge) calc(100% - var(--reading-edge)),
-    black
-  );
+  mask-image:
+    linear-gradient(
+      to right,
+      black,
+      rgb(0 0 0 / 26%) clamp(24%, var(--reading-edge), 42%)
+        calc(100% - clamp(24%, var(--reading-edge), 42%)),
+      black
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 viewBox%3D%220 0 240 96%22 preserveAspectRatio%3D%22none%22%3E%3Cg fill%3D%22none%22 stroke%3D%22white%22%3E%3Cpath d%3D%22M-32 63C10 10 34 6 62 31S102 84 140 64 180 12 208 35 237 83 272 55%22 stroke-width%3D%2232%22 opacity%3D%22.2%22/%3E%3Cpath d%3D%22M-32 63C10 10 34 6 62 31S102 84 140 64 180 12 208 35 237 83 272 55%22 stroke-width%3D%2222%22 opacity%3D%22.45%22/%3E%3Cpath d%3D%22M-32 63C10 10 34 6 62 31S102 84 140 64 180 12 208 35 237 83 272 55%22 stroke-width%3D%2212%22/%3E%3C/g%3E%3C/svg%3E");
+  mask-size:
+    100% 100%,
+    100% var(--wave-height);
+  mask-repeat: no-repeat;
+  mask-position:
+    center,
+    center var(--wave-rest);
+  mask-composite: intersect;
 }
 
 .home-dither::before {
+  --wave-height: clamp(144px, 33vh, 300px);
+  --wave-rest: 32%;
+
   background-image: radial-gradient(
     circle,
-    var(--dither) 0.75px,
-    transparent 1px
+    var(--edge-grain) 1.2px,
+    transparent 1.55px
   );
-  background-size: 8px 10px;
-  opacity: 0.48;
+  background-size: 7px 8px;
+  opacity: 0.95;
 }
 
 .home-dither::after {
+  --wave-height: clamp(120px, 27vh, 240px);
+  --wave-rest: 66%;
+
+  transform: scaleX(-1);
   background-image: radial-gradient(
     circle,
-    var(--dither) 0.9px,
-    transparent 1.15px
+    var(--edge-grain) 1.6px,
+    transparent 1.95px
   );
-  background-size: 14px 17px;
+  background-size: 11px 13px;
   background-position: 3px 4px;
-  opacity: 0.44;
+  opacity: 0.95;
 }
 
-@media (width >= 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
   .home-dither::before {
-    animation: grain-drift var(--motion-grain) ease-in-out infinite alternate;
+    animation: dither-wave var(--motion-grain) linear -3s infinite;
   }
 
   .home-dither::after {
-    animation: grain-foreground var(--motion-grain-front) ease-in-out infinite
-      alternate;
-    animation-delay: -7s;
-    translate: var(--dither-x, 0px) var(--dither-y, 0px);
-    transition: translate var(--motion-parallax) var(--motion-ease-out);
+    animation: dither-wave var(--motion-grain-front) linear -6s infinite reverse;
   }
 
   .home-dither[data-paused="true"]::before,
@@ -211,23 +226,24 @@ body {
   }
 }
 
-@keyframes grain-drift {
-  from {
-    transform: translate(-11px, 6px);
-  }
-
-  to {
-    transform: translate(11px, -6px);
+@media (width >= 768px) and (prefers-reduced-motion: no-preference) and (not (pointer: coarse)) {
+  .home-dither::after {
+    translate: var(--dither-x, 0px) var(--dither-y, 0px);
+    transition: translate var(--motion-parallax) var(--motion-ease-out);
   }
 }
 
-@keyframes grain-foreground {
+@keyframes dither-wave {
   from {
-    transform: translate(7px, 5px);
+    mask-position:
+      center,
+      center calc(0px - var(--wave-height));
   }
 
   to {
-    transform: translate(-7px, -5px);
+    mask-position:
+      center,
+      center calc(100% + var(--wave-height));
   }
 }
 

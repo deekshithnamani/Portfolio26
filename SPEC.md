@@ -5,7 +5,7 @@ Apply this specification to the existing portfolio with the smallest possible ch
 ## Information architecture
 
 - The site name links to `/`. The header navigation contains Work, Product, Creative, and About. The current page and its parent section use semibold `--text`; the other links use `--text-2`.
-- The footer links to LinkedIn ↗, GitHub ↗, and NextLeap ↗ on the left. The right reads “deekshithn007 © 2026”. The credit wraps below the links on narrow screens.
+- The footer links to LinkedIn ↗, GitHub ↗, and NextLeap ↗ on the left. The right reads “deekshithn007 © 2026”. The credit matches the 14px links and wraps below them on narrow screens.
 - Header and footer links are underlined on hover. Links in running text stay underlined.
 - Home introduces the portfolio and highlights recent projects. The active routes also include `/work`, `/work/property-document-checker`, `/product`, `/creative`, `/creative/:slug`, and `/about`. Unknown routes and unknown Work or series slugs show the shared 404.
 - Redirect the old photography index to `/creative`. Preserve known series links from the former `/beyond-work` URLs. Redirect `/product-thinking` to `/product`. Keep the other approved legacy redirects to `/work`. Retain retired page files and identify those that no longer serve a route.
@@ -41,7 +41,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 
 ## Motion
 
-- Home’s middle and foreground grain drift in different directions on desktop with 14s and 23s passes. The foreground also follows the mouse by at most 10px per axis and eases back when it leaves.
+- Two curved wave bands sweep through Home’s grain in opposite directions on 7s and 10s loops. The foreground also follows the desktop mouse by at most 18px per axis and eases back when it leaves.
 
 - Fade route content in over 200ms while the header and footer stay mounted. Reserve scrollbar space to keep the reading column centered as page lengths change. Leave scroll behavior and focus handling intact.
 - Fade Creative image reveals over 240ms and ease link color changes over 140ms without changing underline width.
@@ -52,7 +52,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 - At 480px and wider, Work experience groups use a 176px metadata column and a flexible project column. Use a wrapping flex row for the header. Let the nav wrap beneath the name when space runs out. Keep type sizes fixed and links at least 44px tall.
 - Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored year and status, separated by a middle dot. Keep 15px body text.
 - Keep the container centered and capped at 640px up to the 1920px check.
-- On touch devices, narrow viewports, and under reduced motion, use a still Home dither. Pause both drifting layers in hidden tabs.
+- The Home waves run on desktop and touch devices. Keep the composition still under reduced motion and pause both waves in hidden tabs.
 - Check 320, 360, 390, 768, 1280, and 1920px in Chromium. Report any horizontal overflow.
 
 ## Work order
