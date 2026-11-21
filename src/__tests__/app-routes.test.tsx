@@ -48,6 +48,10 @@ describe("app routes", () => {
     expect(
       main.getByRole("heading", { name: "Selected projects" }),
     ).toBeInTheDocument();
+    const rows = main.getAllByRole("listitem");
+    expect(within(rows[0]).getByText("Product")).toBeInTheDocument();
+    expect(within(rows[1]).getByText("Work")).toBeInTheDocument();
+    for (const row of rows) expect(row).not.toHaveTextContent(/20\d{2}/);
     const projects = main.getAllByRole("link");
     expect(projects.map((link) => link.getAttribute("href"))).toEqual([
       "/product",
@@ -88,6 +92,7 @@ describe("app routes", () => {
   it("renders the case study and its seven section links", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
     const main = within(screen.getByRole("main"));
+    expect(main.queryByText(/^Case study$/i)).toBeNull();
     expect(
       main.getByRole("heading", {
         name: "Property-document checker",

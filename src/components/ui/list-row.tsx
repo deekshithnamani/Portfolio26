@@ -5,7 +5,6 @@ import { NewMark } from "./new-mark";
 
 type ListRowProps = {
   title: string;
-  year?: string;
   status?: string;
   href?: string;
   newTab?: boolean;
@@ -16,7 +15,6 @@ type ListRowProps = {
 
 export function ListRow({
   title,
-  year,
   status,
   href,
   newTab,
@@ -56,13 +54,9 @@ export function ListRow({
           )}
         </div>
         {status && (
-          <div className="work-list-meta text-small text-text-2">
-            {year && <span className="work-list-year">{year}</span>}
-            {year && (
-              <span className="work-list-dot min-[480px]:hidden"> · </span>
-            )}
-            <span className="work-list-status">{status}</span>
-          </div>
+          <span className="text-small text-text-2 min-[480px]:text-right">
+            {status}
+          </span>
         )}
       </div>
     </li>

@@ -15,11 +15,11 @@ Apply this specification to the existing portfolio with the smallest possible ch
 
 I’m Deekshith, a product designer in Hyderabad. I work on AI and enterprise products, mostly as the only designer.
 
-Show a short list of published projects from Work and Product, newest first. The selected projects are the product fellowship PRD and the work case study. Each links to its page and offers a return to Home when opened from the selection. Directly opened Work detail pages return to Work, and Creative galleries return to Creative. Keep photo captions in `photos.json` for the series pages.
+Show a short list of published projects from Work and Product, newest first. Each row shows the title followed by the type. Use dates for ordering and omit them from the display. The selected projects are the product fellowship PRD and the work case study. Each links to its page and offers a return to Home when opened from the selection. Directly opened Work detail pages return to Work, and Creative galleries return to Creative. Keep photo captions in `photos.json` for the series pages.
 
 ## Product and About
 
-Product presents the existing fellowship project in a section with its NextLeap destination. About tells the career story in short paragraphs, mentions languages in the prose, and has a separate “How I work” section. Social profile links live in the footer. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative that scrolls to and focuses the corresponding tile’s title link. Back links use a leading left-arrow icon, muted supporting type and 16px of space before the heading or case-study label.
+Product presents the existing fellowship project in a section with its NextLeap destination. About tells the career story in short paragraphs, mentions languages in the prose, and has a separate “How I work” section. Social profile links live in the footer. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative that scrolls to and focuses the corresponding tile’s title link. Back links use a leading left-arrow icon, muted supporting type and 16px of space before the heading.
 
 ## Work
 
@@ -41,7 +41,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 
 ## Motion
 
-- Two curved wave bands sweep through Home’s grain in opposite directions on 7s and 10s loops. The foreground also follows the desktop mouse by at most 18px per axis and eases back when it leaves.
+- Two curved wave bands sweep through Home’s grain in opposite directions on 7s and 10s loops. Keep the base grain round, render the middle wave as 2px squares, and render the foreground as 3px diamonds. The foreground also follows the desktop mouse by at most 18px per axis and eases back when it leaves.
 
 - Fade route content in over 200ms while the header and footer stay mounted. Reserve scrollbar space to keep the reading column centered as page lengths change. Leave scroll behavior and focus handling intact.
 - Fade Creative image reveals over 240ms and ease link color changes over 140ms without changing underline width.
@@ -50,7 +50,7 @@ Keep the approved case-study sections and optional captions. Place desktop secti
 ## Responsive behavior
 
 - At 480px and wider, Work experience groups use a 176px metadata column and a flexible project column. Use a wrapping flex row for the header. Let the nav wrap beneath the name when space runs out. Keep type sizes fixed and links at least 44px tall.
-- Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored year and status, separated by a middle dot. Keep 15px body text.
+- Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored project type. Keep 15px body text.
 - Keep the container centered and capped at 640px up to the 1920px check.
 - The Home waves run on desktop and touch devices. Keep the composition still under reduced motion and pause both waves in hidden tabs.
 - Check 320, 360, 390, 768, 1280, and 1920px in Chromium. Report any horizontal overflow.

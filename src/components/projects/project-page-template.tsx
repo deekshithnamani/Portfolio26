@@ -47,7 +47,7 @@ export function ProjectPageTemplate({ project, children }: { project: ProjectTem
 }
 
 export function CaseStudyPage() {
-  const { label, title, summary, metadata, sections, contact } =
+  const { title, summary, metadata, sections, contact } =
     WORK_CONTENT.caseStudy;
   const { state } = useLocation();
   const backLink = state?.fromHome === true ? SITE_LINKS.backHome : SITE_LINKS.backToWork;
@@ -57,7 +57,6 @@ export function CaseStudyPage() {
       <article className="space-y-page">
         <header>
           <BackLink destination={backLink} />
-          <p className="mt-link text-text-2">{label}</p>
           <h1 className="item-title">{title}</h1>
           <p className="mt-link">{summary}</p>
           <dl className="mt-gutter text-text-2">

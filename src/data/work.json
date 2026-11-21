@@ -37,7 +37,6 @@
     "placeholder": true
   },
   "caseStudy": {
-    "label": "Case study",
     "title": "Property-document checker",
     "summary": "A legal workspace that helps surface issues in land documents before they become expensive problems.",
     "metadata": [

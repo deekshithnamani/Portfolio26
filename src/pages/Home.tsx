@@ -35,10 +35,9 @@ export default function Home() {
           {home.selectedLabel}
         </h1>
         <ul className="mt-link border-t border-line">
-          {selected.map(({ title, year, category, href }) => (
+          {selected.map(({ title, category, href }) => (
             <ListRow
               key={title}
-              year={year}
               title={title}
               status={category}
               href={href}

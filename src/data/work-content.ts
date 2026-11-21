@@ -53,7 +53,6 @@ type WorkContent = {
   };
   unpublishedStatus: string;
   caseStudy: {
-    label: string;
     title: string;
     summary: string;
     metadata: { label: string; value: string; placeholder: boolean }[];
