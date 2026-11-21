@@ -7,7 +7,12 @@ describe("v2 information architecture routes", () => {
   it("maps legacy routes to their approved destinations", () => {
     expect(LEGACY_REDIRECTS).toEqual({
       "/product-thinking": "/product",
-      "/practice/*": "/beyond-work",
+      "/beyond-work": "/creative",
+      "/beyond-work/city-typefaces": "/creative/city-typefaces",
+      "/beyond-work/evening-skies": "/creative/evening-skies",
+      "/beyond-work/colors-on-walks": "/creative/colors-on-walks",
+      "/beyond-work/live-sketches": "/creative/live-sketches",
+      "/practice/*": "/creative",
       "/make": "/work",
       "/writing": "/work",
       "/writing/:slug": "/work",

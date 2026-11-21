@@ -19,8 +19,8 @@
       "placeholder": true
     },
     "beyondWork": {
-      "label": "Beyond work",
-      "href": "/beyond-work",
+      "label": "Creative",
+      "href": "/creative",
       "appearsIn": ["header"],
       "placeholder": true
     },
@@ -78,6 +78,12 @@
       "label": "← Home",
       "href": "/",
       "appearsIn": ["notFound"],
+      "placeholder": true
+    },
+    "backToCreative": {
+      "label": "← Creative",
+      "href": "/creative",
+      "appearsIn": ["creativeSeries"],
       "placeholder": true
     }
   },

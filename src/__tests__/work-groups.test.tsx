@@ -14,15 +14,20 @@ describe("work index", () => {
     const groups = screen.getAllByRole("list");
     expect(
       groups.map((group) => within(group).getAllByRole("listitem").length),
-    ).toEqual([3, 2, 1]);
+    ).toEqual([3, 2, 2]);
     expect(
       screen.getByRole("link", { name: "Property-document checker →" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
     expect(screen.getByText("New")).toBeInTheDocument();
     expect(screen.getByText("Decision workflow")).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", { name: "Decision workflow" }),
-    ).toBeNull();
+      screen.getByRole("link", { name: "Decision workflow" }),
+    ).toHaveAttribute("href", "/work/decision-workflow");
+    for (const group of groups) {
+      expect(within(group).getAllByRole("link")).toHaveLength(
+        within(group).getAllByRole("listitem").length,
+      );
+    }
     expect(screen.queryByRole("link", { name: /Zomato|NextLeap/ })).toBeNull();
   });
 });

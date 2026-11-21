@@ -6,7 +6,7 @@ import {
   type MouseEvent,
   type PropsWithChildren,
 } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { UI_ANIMATION_TOKENS } from "@/design";
 import { clamp } from "@/lib/math";
 import { CursorCtx, useCursor } from "./layout-context";
@@ -70,6 +70,7 @@ export function MagneticButton({
 }
 
 export default function Layout() {
+  const { pathname } = useLocation();
   const mainRef = useRef<HTMLElement | null>(null);
   const [label, setLabel] = useState<string | null>(null);
   const cursorValue = useMemo(() => ({ label, setLabel }), [label]);
@@ -86,7 +87,9 @@ export default function Layout() {
           tabIndex={-1}
           className="min-w-0 flex-1"
         >
-          <Outlet />
+          <div key={pathname} className="route-content">
+            <Outlet />
+          </div>
         </main>
         <Footer />
       </div>

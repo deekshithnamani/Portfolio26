@@ -19,6 +19,14 @@
   --surface-card: var(--bg);
 }
 
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
+#root {
+  background-color: var(--bg);
+}
+
 body {
   @apply bg-bg font-sans text-body text-text;
 }
@@ -90,6 +98,38 @@ body {
     stroke-dasharray: 1;
     animation: draw-new-mark 700ms ease-out both;
   }
+
+  #root {
+    transition: background-color var(--motion-page) var(--motion-ease-out);
+  }
+
+  .route-content > .page-shell > :not(.home-dither) {
+    animation: page-enter var(--motion-page) var(--motion-ease-out) backwards;
+  }
+
+  .dither-image canvas {
+    transition: opacity var(--motion-image) var(--motion-ease-out);
+  }
+
+  a {
+    transition:
+      color var(--motion-link) ease-out,
+      text-decoration-color var(--motion-link) ease-out;
+  }
+
+  .link-arrow::after {
+    transition: border-bottom-color var(--motion-link) ease-out;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0.88;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes draw-new-mark {
@@ -104,7 +144,7 @@ body {
 
 #root:has(.home-dither) {
   isolation: isolate;
-  background: var(--home-paper);
+  background-color: var(--home-paper);
 }
 
 .home-dither {
@@ -225,4 +265,12 @@ a:hover .link-arrow::after {
       );
     column-gap: var(--gutter);
   }
+}
+
+.page-title {
+  @apply text-title leading-tight font-semibold text-text;
+}
+
+.section-title {
+  @apply text-section leading-snug font-medium text-text;
 }

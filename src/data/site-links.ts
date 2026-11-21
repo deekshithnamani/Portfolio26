@@ -1,7 +1,14 @@
 import data from "./links.json";
 
 type LinkLocation =
-  "header" | "footer" | "home" | "about" | "work" | "caseStudy" | "notFound";
+  | "header"
+  | "footer"
+  | "home"
+  | "about"
+  | "work"
+  | "caseStudy"
+  | "notFound"
+  | "creativeSeries";
 
 type SiteLink = {
   label: string;

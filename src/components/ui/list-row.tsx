@@ -1,6 +1,6 @@
 import { LinkLabel } from "@/components/ui/link-label";
 import type { ReactNode } from "react";
-import { Link } from "react-router";
+import { Link, type LinkProps } from "react-router";
 import { NewMark } from "./new-mark";
 
 type ListRowProps = {
@@ -9,6 +9,7 @@ type ListRowProps = {
   status?: string;
   href?: string;
   newTab?: boolean;
+  navigationState?: LinkProps["state"];
   newLabel?: string;
   preview?: ReactNode;
 };
@@ -19,6 +20,7 @@ export function ListRow({
   status,
   href,
   newTab,
+  navigationState,
   newLabel,
   preview,
 }: ListRowProps) {
@@ -49,7 +51,9 @@ export function ListRow({
                 {titleContent}
               </a>
             ) : (
-              <Link to={href}>{titleContent}</Link>
+              <Link to={href} state={navigationState}>
+                {titleContent}
+              </Link>
             )
           ) : (
             <span className="text-text-2">{titleContent}</span>

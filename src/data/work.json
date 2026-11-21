@@ -123,11 +123,6 @@
     "placeholder": true
   },
   "placeholder": true,
-  "howIWork": {
-    "label": "How I work",
-    "body": "I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.",
-    "placeholder": true
-  },
   "experience": [
     {
       "company": "Company B",
@@ -135,13 +130,16 @@
       "years": "2024–2025",
       "projects": [
         {
-          "title": "Workflow research"
+          "title": "Workflow research",
+          "slug": "workflow-research"
         },
         {
-          "title": "Decision workflow"
+          "title": "Decision workflow",
+          "slug": "decision-workflow"
         },
         {
-          "title": "Reporting dashboard"
+          "title": "Reporting dashboard",
+          "slug": "reporting-dashboard"
         }
       ],
       "placeholder": true
@@ -153,10 +151,11 @@
       "projects": [
         {
           "title": "Property-document checker →",
-          "link": "legalProof"
+          "slug": "property-document-checker"
         },
         {
-          "title": "Intake flow"
+          "title": "Intake flow",
+          "slug": "intake-flow"
         }
       ],
       "placeholder": true
@@ -167,10 +166,16 @@
       "years": "2022–2023",
       "projects": [
         {
-          "title": "Document review queue"
+          "title": "Document review queue",
+          "slug": "document-review-queue"
+        },
+        {
+          "title": "Design system",
+          "slug": "design-system"
         }
       ],
       "placeholder": true
     }
-  ]
+  ],
+  "unpublishedStatus": "Case study not yet published."
 }

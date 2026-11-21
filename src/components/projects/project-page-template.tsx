@@ -1,5 +1,5 @@
 import { LinkLabel } from "@/components/ui/link-label";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { PageContainer } from "@/components/ui";
 import type { WorkItem } from "@/data";
 import { UI_RECIPE_TOKENS } from "@/design";
@@ -49,7 +49,8 @@ export function ProjectPageTemplate({ project, children }: { project: ProjectTem
 export function CaseStudyPage() {
   const { label, title, summary, metadata, sections, contact } =
     WORK_CONTENT.caseStudy;
-  const backLink = SITE_LINKS.backToWork;
+  const { state } = useLocation();
+  const backLink = state?.fromHome === true ? SITE_LINKS.backHome : SITE_LINKS.backToWork;
 
   return (
     <PageContainer>
@@ -57,7 +58,7 @@ export function CaseStudyPage() {
         <header>
           <Link to={backLink.href}>{backLink.label}</Link>
           <p className="mt-gutter text-text-2">{label}</p>
-          <h1 className="text-title font-medium">{title}</h1>
+          <h1 className="page-title">{title}</h1>
           <p className="mt-link">{summary}</p>
           <dl className="mt-gutter text-text-2">
             {metadata.map(({ label: name, value }) => (
@@ -78,7 +79,7 @@ export function CaseStudyPage() {
             className="scroll-mt-gutter"
             tabIndex={-1}
           >
-            <h2 id={`${id}-heading`} className="font-medium">
+            <h2 id={`${id}-heading`} className="section-title">
               {heading}
             </h2>
             <p className="mt-link">{body}</p>

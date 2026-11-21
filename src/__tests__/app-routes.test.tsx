@@ -1,12 +1,7 @@
 import { readFileSync } from "node:fs";
-import {
-  render,
-  screen,
-  waitForElementToBeRemoved,
-  within,
-} from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "@/App";
 import {
   ROUTE_PATHS,
@@ -16,6 +11,10 @@ import {
 import { setMediaState } from "@/test/matchMedia";
 import { SITE_LINKS } from "@/data/site-links";
 
+beforeEach(() => {
+  vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+});
+
 afterEach(() => {
   setMediaState({ reduce: false });
   vi.restoreAllMocks();
@@ -23,14 +22,7 @@ afterEach(() => {
 
 async function renderAt(pathname: string) {
   window.history.pushState({}, "", pathname);
-  const view = render(<App />);
-  const loading = screen.queryByText("Loading page…");
-
-  if (loading) {
-    await waitForElementToBeRemoved(loading);
-  }
-
-  return view;
+  return render(<App />);
 }
 
 function getLinkByHref(href: string) {
@@ -68,6 +60,30 @@ describe("app routes", () => {
       "true",
     );
   });
+
+  it.each([
+    ["Property-document checker", "/work/property-document-checker"],
+    ["Zomato eco-features PRD", "/product"],
+  ])(
+    "returns to Home after opening %s from the selection",
+    async (title, destination) => {
+      const user = userEvent.setup();
+      await renderAt(ROUTE_PATHS.home);
+      await user.click(
+        within(screen.getByRole("main")).getByRole("link", { name: title }),
+      );
+      expect(window.location.pathname).toBe(destination);
+      const [back] = within(screen.getByRole("main")).getAllByRole("link", {
+        name: "← Home",
+      });
+      expect(back).toHaveAttribute("href", "/");
+      await user.click(back);
+      expect(
+        screen.getByRole("heading", { name: "Selected projects", level: 1 }),
+      ).toBeInTheDocument();
+      expect(screen.getByRole("main")).toHaveFocus();
+    },
+  );
 
   it("renders the case study and its seven section links", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
@@ -123,9 +139,11 @@ describe("app routes", () => {
     ],
     ["/curations/", "/work", "Work"],
     ["/concepts", "/work", "Work"],
-    ["/practice", "/beyond-work", "Beyond work"],
-    ["/practice/evening-skies", "/beyond-work", "Beyond work"],
-    ["/practice/archived/series", "/beyond-work", "Beyond work"],
+    ["/beyond-work", "/creative", "Creative"],
+    ["/beyond-work/evening-skies", "/creative/evening-skies", "Evening skies"],
+    ["/practice", "/creative", "Creative"],
+    ["/practice/evening-skies", "/creative", "Creative"],
+    ["/practice/archived/series", "/creative", "Creative"],
   ])("redirects legacy URL %s to %s", async (source, destination, heading) => {
     await renderAt(source);
     expect(
@@ -174,11 +192,11 @@ describe("app routes", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the Beyond work index and opens the Evening skies series", async () => {
+  it("renders the Creative index and opens the Evening skies series", async () => {
     const user = userEvent.setup();
     await renderAt(ROUTE_PATHS.beyondWork);
     expect(
-      screen.getByRole("heading", { name: "Beyond work", level: 1 }),
+      screen.getByRole("heading", { name: "Creative", level: 1 }),
     ).toBeInTheDocument();
     expect(
       screen.getByText("Photographs and studies I make to unwind."),
@@ -199,34 +217,56 @@ describe("app routes", () => {
     expect(reveal).toHaveAttribute("aria-pressed", "false");
     await user.click(reveal);
     expect(reveal).toHaveAttribute("aria-pressed", "true");
-    expect(window.location.pathname).toBe("/beyond-work");
+    expect(window.location.pathname).toBe("/creative");
 
+    const header = screen.getByRole("banner");
+    const footer = screen.getByRole("contentinfo");
     const eveningSkies = main.getByRole("link", { name: "Evening skies" });
-    expect(eveningSkies).toHaveAttribute("href", "/beyond-work/evening-skies");
+    expect(eveningSkies).toHaveAttribute("href", "/creative/evening-skies");
     await user.click(eveningSkies);
     expect(
       await screen.findByRole("heading", { name: "Evening skies" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("banner")).toBe(header);
+    expect(screen.getByRole("contentinfo")).toBe(footer);
+    expect(screen.getByRole("main")).toHaveFocus();
+    const back = within(screen.getByRole("main")).getByRole("link", {
+      name: "← Creative",
+    });
+    expect(back).toHaveAttribute("href", "/creative");
     expect(document.title).toBe("Deekshith Namani · Evening skies");
     expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
       "content",
       "Photographs and studies I make to unwind.",
     );
+    await user.click(back);
+    expect(
+      await screen.findByRole("heading", { name: "Creative", level: 1 }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("banner")).toBe(header);
+    expect(screen.getByRole("contentinfo")).toBe(footer);
   });
 
-  it("places How I work after the experience groups on Work", async () => {
+  it("opens an unpublished project from Work and returns to the project index", async () => {
+    const user = userEvent.setup();
     await renderAt(ROUTE_PATHS.work);
     const main = within(screen.getByRole("main"));
+    expect(main.queryByRole("heading", { name: "How I work" })).toBeNull();
+    await user.click(main.getByRole("link", { name: "Decision workflow" }));
     expect(
-      main
-        .getAllByRole("heading", { level: 2 })
-        .map((heading) => heading.textContent),
-    ).toEqual(["Company B", "Company A", "Company C", "How I work"]);
+      await screen.findByRole("heading", {
+        name: "Decision workflow",
+        level: 1,
+      }),
+    ).toBeInTheDocument();
     expect(
-      main.getByText(
-        /I question long feature lists, because most of them are guesses/,
-      ),
-    ).toHaveClass("mt-link");
+      screen.getByText("Case study not yet published."),
+    ).toBeInTheDocument();
+    expect(document.title).toBe("Deekshith Namani · Decision workflow");
+    await user.click(screen.getByRole("link", { name: "← Work" }));
+    expect(
+      await screen.findByRole("heading", { name: "Work", level: 1 }),
+    ).toBeInTheDocument();
   });
 
   it.each([
@@ -246,13 +286,7 @@ describe("app routes", () => {
 
   it("scrolls to the top when navigating between routes", async () => {
     const user = userEvent.setup();
-    const scrollTo = vi.fn();
-
-    Object.defineProperty(window, "scrollTo", {
-      configurable: true,
-      writable: true,
-      value: scrollTo,
-    });
+    const scrollTo = vi.mocked(window.scrollTo);
 
     await renderAt(ROUTE_PATHS.work);
     await user.click(getLinkByHref(SITE_LINKS.legalProof.href));
@@ -273,11 +307,11 @@ describe("app routes", () => {
     expect(screen.queryByTestId("custom-cursor")).not.toBeInTheDocument();
     await user.click(
       within(screen.getByRole("navigation")).getByRole("link", {
-        name: "Beyond work",
+        name: "Creative",
       }),
     );
     expect(
-      await screen.findByRole("heading", { name: "Beyond work" }),
+      await screen.findByRole("heading", { name: "Creative" }),
     ).toBeInTheDocument();
     expect(screen.queryByTestId("custom-cursor")).not.toBeInTheDocument();
   });

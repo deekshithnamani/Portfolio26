@@ -28,7 +28,7 @@ type ExperienceGroup = {
   company: string;
   role: string;
   years: string;
-  projects: { title: string; link?: SiteLinkId }[];
+  projects: { title: string; slug: string }[];
   placeholder: boolean;
 };
 
@@ -51,7 +51,7 @@ type WorkContent = {
     note: string;
     placeholder: boolean;
   };
-  howIWork: { label: string; body: string; placeholder: boolean };
+  unpublishedStatus: string;
   caseStudy: {
     label: string;
     title: string;
@@ -65,14 +65,6 @@ type WorkContent = {
 
 export const WORK_CONTENT: WorkContent = {
   ...data,
-  experience: data.experience.map((group) => ({
-    ...group,
-    projects: group.projects.map((project) => ({
-      ...project,
-      link:
-        project.link === undefined ? undefined : readSiteLinkId(project.link),
-    })),
-  })),
   productThinking: {
     ...data.productThinking,
     entries: data.productThinking.entries.map((entry) => ({

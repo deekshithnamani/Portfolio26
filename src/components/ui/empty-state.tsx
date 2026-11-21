@@ -9,7 +9,7 @@ export function EmptyState({
 }) {
   return (
     <div className="space-y-link">
-      <h1>{title}</h1>
+      <h1 className="page-title">{title}</h1>
       {action && <p>{action}</p>}
     </div>
   );

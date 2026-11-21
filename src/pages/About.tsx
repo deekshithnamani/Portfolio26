@@ -6,11 +6,11 @@ import { SITE_LINKS } from "@/data/site-links";
 export default function About() {
   return (
     <PageContainer>
-      <h1 className="text-text-2">{ABOUT_CONTENT.label}</h1>
+      <h1 className="page-title">{ABOUT_CONTENT.label}</h1>
       <div className="mt-gutter space-y-gutter">
         {ABOUT_CONTENT.sections.map(({ title, body, links }) => (
           <section key={title}>
-            <h2 className="font-medium">{title}</h2>
+            <h2 className="section-title">{title}</h2>
             <p className="mt-link">{body}</p>
             {links && (
               <ul className="mt-link flex flex-wrap gap-x-gutter gap-y-link">

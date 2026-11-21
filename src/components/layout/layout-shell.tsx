@@ -1,4 +1,4 @@
-import { useEffect, useRef, type RefObject } from "react";
+import { useLayoutEffect, useRef, type RefObject } from "react";
 import { useLocation } from "react-router";
 import { resolveDocumentMetadata } from "@/config/navigation";
 import { useCursor } from "./layout-context";
@@ -12,7 +12,7 @@ export function RouteEffects({
   const { setLabel } = useCursor();
   const previousPathname = useRef(pathname);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const { title, description } = resolveDocumentMetadata(pathname);
     document.title = title;
     let meta = document.querySelector<HTMLMetaElement>(

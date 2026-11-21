@@ -9,12 +9,11 @@ import { CaseStudyPage } from "@/components/projects/project-page-template";
 import NotFound from "./NotFound";
 
 export function WorkIndex() {
-  const { experience, entries, label, description, newLabel, howIWork } =
-    WORK_CONTENT;
+  const { experience, entries, label, description, newLabel } = WORK_CONTENT;
 
   return (
     <PageContainer>
-      <h1 className="text-text-2">{label}</h1>
+      <h1 className="page-title">{label}</h1>
       <p className="mt-link">{description}</p>
       <div className="mt-link border-t border-line">
         {experience.map(({ company, role, years, projects }) => (
@@ -23,21 +22,13 @@ export function WorkIndex() {
             className="experience-group border-b border-line py-gutter"
           >
             <div>
-              <h2 className="font-medium">{company}</h2>
+              <h2 className="section-title">{company}</h2>
               <p className="text-small text-text-2">{role}</p>
               <p className="text-small text-text-2">{years}</p>
             </div>
             <ul className="experience-projects">
-              {projects.map(({ title, link }) => {
-                if (link === undefined) {
-                  return (
-                    <li key={title} className="text-text-2">
-                      {title}
-                    </li>
-                  );
-                }
-
-                const { href } = SITE_LINKS[link];
+              {projects.map(({ title, slug }) => {
+                const href = buildWorkDetailPath(slug);
                 const marked = entries.some(
                   (entry) => entry.href === href && entry.isNew,
                 );
@@ -54,20 +45,27 @@ export function WorkIndex() {
           </section>
         ))}
       </div>
-      <section className="mt-page" aria-labelledby="how-i-work">
-        <h2 id="how-i-work" className="text-text-2">
-          {howIWork.label}
-        </h2>
-        <p className="mt-link">{howIWork.body}</p>
-      </section>
     </PageContainer>
   );
 }
 
 export function WorkDetail() {
   const { slug } = useParams();
-  if (!slug || buildWorkDetailPath(slug) !== SITE_LINKS.legalProof.href) {
-    return <NotFound />;
+  if (slug && buildWorkDetailPath(slug) === SITE_LINKS.legalProof.href) {
+    return <CaseStudyPage />;
   }
-  return <CaseStudyPage />;
+
+  const project = WORK_CONTENT.experience
+    .flatMap((group) => group.projects)
+    .find((item) => item.slug === slug);
+  if (!project) return <NotFound />;
+
+  const back = SITE_LINKS.backToWork;
+  return (
+    <PageContainer>
+      <Link to={back.href}>{back.label}</Link>
+      <h1 className="page-title mt-gutter">{project.title}</h1>
+      <p className="mt-link text-text-2">{WORK_CONTENT.unpublishedStatus}</p>
+    </PageContainer>
+  );
 }

@@ -105,24 +105,24 @@ describe("layout shell", () => {
       within(header)
         .getAllByRole("link")
         .map((link) => link.textContent),
-    ).toEqual(["Deekshith Namani", "Work", "Product", "Beyond work", "About"]);
+    ).toEqual(["Deekshith Namani", "Work", "Product", "Creative", "About"]);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
 
-  it("marks Beyond work as current on series pages", () => {
-    renderLayout(["/beyond-work/evening-skies"]);
+  it("marks Creative as current on series pages", () => {
+    renderLayout(["/creative/evening-skies"]);
     expect(
       within(screen.getByRole("navigation")).getByRole("link", {
-        name: "Beyond work",
+        name: "Creative",
       }),
     ).toHaveAttribute("aria-current", "page");
   });
 
-  it("moves focus to Beyond work after following its header link", async () => {
+  it("moves focus to Creative after following its header link", async () => {
     const user = userEvent.setup();
     renderLayout();
-    await user.click(screen.getByRole("link", { name: "Beyond work" }));
+    await user.click(screen.getByRole("link", { name: "Creative" }));
     expect(screen.getByRole("main")).toHaveFocus();
     expect(screen.getByText("beyond work screen")).toBeInTheDocument();
   });

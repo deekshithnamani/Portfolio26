@@ -3,11 +3,11 @@ import { getVisibleNavItems } from "@/config/navigation";
 import { SOCIALS } from "@/data/socials";
 
 describe("navigation configuration", () => {
-  it("keeps Work, Product, Beyond work and About in the primary navigation", () => {
+  it("keeps Work, Product, Creative and About in the primary navigation", () => {
     expect(getVisibleNavItems("main").map(({ label }) => label)).toEqual([
       "Work",
       "Product",
-      "Beyond work",
+      "Creative",
       "About",
     ]);
   });

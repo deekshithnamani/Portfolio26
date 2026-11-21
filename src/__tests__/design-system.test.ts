@@ -91,7 +91,7 @@ describe("navigation metadata", () => {
     expect(NAV_ITEMS.map((item) => item.path)).toEqual([
       "/work",
       "/product",
-      "/beyond-work",
+      "/creative",
       "/about",
     ]);
   });
@@ -104,9 +104,7 @@ describe("navigation metadata", () => {
     for (const path of ["/make", "/curations", "/concepts", "/writing/essay"]) {
       expect(resolveDocumentTitle(path)).toBe(DOCUMENT_TITLES.work);
     }
-    expect(resolveDocumentTitle("/beyond-work")).toBe(
-      DOCUMENT_TITLES.beyondWork,
-    );
+    expect(resolveDocumentTitle("/creative")).toBe(DOCUMENT_TITLES.beyondWork);
     expect(resolveDocumentTitle("/practice")).toBe(DOCUMENT_TITLES.beyondWork);
     expect(resolveDocumentTitle("/missing")).toBe(DOCUMENT_TITLES.notFound);
   });

@@ -1,11 +1,13 @@
+import { BEYOND_WORK_CONTENT } from "@/data/beyond-work-content";
+
 export const ROUTE_SEGMENTS = {
   home: "",
   work: "work",
   productThinking: "product",
-  beyondWork: "beyond-work",
+  beyondWork: "creative",
   make: "make",
   curations: "curations",
-  beyondWorkSeries: "beyond-work/:slug",
+  beyondWorkSeries: "creative/:slug",
   concepts: "concepts",
   about: "about",
   writing: "writing",
@@ -20,10 +22,10 @@ export const ROUTE_PATHS = {
   home: "/",
   work: "/work",
   productThinking: "/product",
-  beyondWork: "/beyond-work",
+  beyondWork: "/creative",
   make: "/make",
   curations: "/curations",
-  beyondWorkSeries: "/beyond-work/:slug",
+  beyondWorkSeries: "/creative/:slug",
   concepts: "/concepts",
   about: "/about",
   writing: "/writing",
@@ -41,12 +43,12 @@ export const ROUTE_IDS = {
   home: "home",
   work: "work",
   productThinking: "product",
-  beyondWork: "beyond-work",
+  beyondWork: "creative",
   workDetail: "work-detail",
   daosoftProject: "daosoft-project",
   make: "make",
   curations: "curations",
-  beyondWorkSeries: "beyond-work-series",
+  beyondWorkSeries: "creative-series",
   concepts: "concepts",
   about: "about",
   writing: "writing",
@@ -59,6 +61,13 @@ export type RouteId = (typeof ROUTE_IDS)[keyof typeof ROUTE_IDS];
 
 export const LEGACY_REDIRECTS = {
   "/product-thinking": ROUTE_PATHS.productThinking,
+  ...Object.fromEntries(
+    BEYOND_WORK_CONTENT.series.map(({ slug }) => [
+      `/beyond-work/${slug}`,
+      buildBeyondWorkSeriesPath(slug),
+    ]),
+  ),
+  "/beyond-work": ROUTE_PATHS.beyondWork,
   "/practice/*": ROUTE_PATHS.beyondWork,
   [ROUTE_PATHS.make]: ROUTE_PATHS.work,
   [ROUTE_PATHS.writing]: ROUTE_PATHS.work,

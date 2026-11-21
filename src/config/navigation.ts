@@ -5,6 +5,7 @@ import { SITE_LINKS } from "@/data/site-links";
 import { WORK_CONTENT } from "@/data/work-content";
 import {
   buildBeyondWorkSeriesPath,
+  buildWorkDetailPath,
   LEGACY_REDIRECTS,
   ROUTE_PATHS,
 } from "./route-paths";
@@ -30,7 +31,7 @@ export const DOCUMENT_TITLES = {
   work: "Deekshith Namani · Work",
   productThinking: "Deekshith Namani · Product",
   about: "Deekshith Namani · About",
-  beyondWork: "Deekshith Namani · Beyond work",
+  beyondWork: "Deekshith Namani · Creative",
   notFound: "Deekshith Namani · Page Not Found",
 } as const;
 
@@ -81,6 +82,13 @@ export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
     title: DOCUMENT_TITLES.propertyChecker,
     description: WORK_CONTENT.caseStudy.summary,
   },
+  ...WORK_CONTENT.experience.flatMap(({ projects }) =>
+    projects.map(({ slug, title }) => ({
+      match: (pathname: string) => pathname === buildWorkDetailPath(slug),
+      title: `${SITE_LINKS.brand.label} · ${title}`,
+      description: WORK_CONTENT.unpublishedStatus,
+    })),
+  ),
   ...BEYOND_WORK_CONTENT.series.map(({ slug, title, description }) => ({
     match: (pathname: string) => pathname === buildBeyondWorkSeriesPath(slug),
     title: `${SITE_LINKS.brand.label} · ${title}`,

@@ -31,7 +31,7 @@ export default function Home() {
       <p>{home.intro}</p>
 
       <section className="mt-page" aria-labelledby="home-projects">
-        <h1 id="home-projects" className="text-text-2">
+        <h1 id="home-projects" className="page-title">
           {home.selectedLabel}
         </h1>
         <ul className="mt-link border-t border-line">
@@ -42,6 +42,7 @@ export default function Home() {
               title={title}
               status={category}
               href={href}
+              navigationState={{ fromHome: true }}
             />
           ))}
         </ul>
