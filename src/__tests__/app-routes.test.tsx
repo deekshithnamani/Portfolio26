@@ -170,6 +170,23 @@ describe("app routes", () => {
     expect(link).toHaveAttribute("aria-current", "page");
   });
 
+  it("reads About as a story with a separate approach section", async () => {
+    await renderAt(ROUTE_PATHS.about);
+    const main = within(screen.getByRole("main"));
+    expect(
+      main.getByText(/trained as a chemical engineer/),
+    ).toBeInTheDocument();
+    expect(
+      main.getByText(/I speak Telugu, Hindi and English/),
+    ).toBeInTheDocument();
+    expect(
+      main
+        .getAllByRole("heading", { level: 2 })
+        .map((heading) => heading.textContent),
+    ).toEqual(["How I work"]);
+    expect(main.queryByRole("link", { name: /linkedin|github/i })).toBeNull();
+  });
+
   it("renders the not-found page for unknown routes", async () => {
     await renderAt("/missing");
 
@@ -245,6 +262,11 @@ describe("app routes", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("banner")).toBe(header);
     expect(screen.getByRole("contentinfo")).toBe(footer);
+    expect(
+      within(screen.getByRole("main")).getByRole("link", {
+        name: "Evening skies",
+      }),
+    ).toHaveFocus();
   });
 
   it("opens an unpublished project from Work and returns to the project index", async () => {

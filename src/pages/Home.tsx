@@ -30,7 +30,7 @@ export default function Home() {
       <DitherBackground />
       <p>{home.intro}</p>
 
-      <section className="mt-page" aria-labelledby="home-projects">
+      <section className="mt-home-projects" aria-labelledby="home-projects">
         <h1 id="home-projects" className="page-title">
           {home.selectedLabel}
         </h1>

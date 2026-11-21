@@ -112,11 +112,14 @@ describe("layout shell", () => {
 
   it("marks Creative as current on series pages", () => {
     renderLayout(["/creative/evening-skies"]);
-    expect(
-      within(screen.getByRole("navigation")).getByRole("link", {
+    const activeLink = within(screen.getByRole("navigation")).getByRole(
+      "link",
+      {
         name: "Creative",
-      }),
-    ).toHaveAttribute("aria-current", "page");
+      },
+    );
+    expect(activeLink).toHaveAttribute("aria-current", "page");
+    expect(activeLink).toHaveClass("font-semibold", "text-text");
   });
 
   it("moves focus to Creative after following its header link", async () => {

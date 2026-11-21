@@ -4,7 +4,7 @@ Apply this specification to the existing portfolio with the smallest possible ch
 
 ## Information architecture
 
-- The site name links to `/`. The header navigation contains Work, Product, Creative, and About. The current page uses `--text`; the other links use `--text-2`.
+- The site name links to `/`. The header navigation contains Work, Product, Creative, and About. The current page and its parent section use semibold `--text`; the other links use `--text-2`.
 - The footer links to LinkedIn ↗, GitHub ↗, and NextLeap ↗ on the left. The right reads “deekshithn007 © 2026”. The credit wraps below the links on narrow screens.
 - Header and footer links are underlined on hover. Links in running text stay underlined.
 - Home introduces the portfolio and highlights recent projects. The active routes also include `/work`, `/work/property-document-checker`, `/product`, `/creative`, `/creative/:slug`, and `/about`. Unknown routes and unknown Work or series slugs show the shared 404.
@@ -19,7 +19,7 @@ Show a short list of published projects from Work and Product, newest first. The
 
 ## Product and About
 
-Product presents the existing fellowship project in a section with its NextLeap destination. About uses the existing background and contact copy. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative.
+Product presents the existing fellowship project in a section with its NextLeap destination. About tells the career story in short paragraphs, mentions languages in the prose, and has a separate “How I work” section. Social profile links live in the footer. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative that scrolls to and focuses the corresponding tile’s title link. Back links use muted supporting type and 16px of space before the heading or case-study label.
 
 ## Work
 
@@ -32,10 +32,10 @@ Keep the approved case-study sections, optional captions, and desktop section na
 ## Visual style
 
 - Keep the single light theme, centered reading column, and Inter at 16px with a 1.6 body line height. The desktop Home background has a white reading column and edge-only dither. Keep the existing desktop rotation and crossfade and honor reduced motion and hidden tabs.
-- On desktop the name is 16px in `--text` and the nav is 14px. Align them on one baseline. Use 23px semibold page headings, 18px medium section headings, and 13px muted supporting text.
+- On desktop the name is 16px in `--text` and the nav is 14px. Align them on one baseline. Use 21px semibold page headings, 18px medium section headings, and 13px muted supporting text.
 - Wrap link arrows in a span with a `.25em` left margin. Keep anchor text and arrow adjacent in markup so the underline ends at the arrow. Use a muted 1px underline across links. Darken the color on hover while retaining the weight.
-- Use hairlines around the Work experience groups and above the first row and below each row in the Home selection.
-- Use spacing values of 8, 16, 24, 48, 64, and 96px. The header has 48px below it. Paragraphs are 24px apart. Allow 64px from intro to section label and 16px from label to list. Desktop Home project rows are 56px high. Allow at least 96px above the footer, with a top hairline and 24px padding.
+- Use hairlines to separate Work experience groups and to mark the start of the Home selection. Use spacing between individual project rows and Creative grid tiles. Company names use body-sized, medium-weight text.
+- Use spacing values of 8, 16, 24, 40, 64, and 96px. The header has 40px below it. Paragraphs are 24px apart. Allow 40px from the Home intro to Selected projects and 16px from label to list. Desktop Home project rows are 56px high. Allow at least 96px above the footer, with a top hairline and 24px padding.
 - Draw the New mark with `--pen` set to `#E6128F` and an 8px gap from the title.
 - Use typographic apostrophes and en dashes for ranges in data and markup.
 

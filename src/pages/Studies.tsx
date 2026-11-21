@@ -7,6 +7,10 @@ import { BEYOND_WORK_CONTENT } from "@/data/beyond-work-content";
 import { SITE_LINKS } from "@/data/site-links";
 import NotFound from "./NotFound";
 
+function seriesLinkId(slug: string) {
+  return `creative-series-${slug}`;
+}
+
 export default function BeyondWorkIndex() {
   return (
     <PageContainer>
@@ -18,10 +22,15 @@ export default function BeyondWorkIndex() {
             ({ id }) => id === photoIds[0],
           );
           return (
-            <li key={slug} className="min-w-0 border-b border-line pb-link">
+            <li key={slug} className="min-w-0">
               {cover && <DitherImage src={cover.file} label={title} />}
               <h2 className="section-title">
-                <Link to={buildBeyondWorkSeriesPath(slug)}>{title}</Link>
+                <Link
+                  id={seriesLinkId(slug)}
+                  to={buildBeyondWorkSeriesPath(slug)}
+                >
+                  {title}
+                </Link>
               </h2>
             </li>
           );
@@ -44,10 +53,14 @@ export function BeyondWorkSeriesPage() {
 
   return (
     <PageContainer>
-      <Link to={back.href} className="text-small text-text-2">
+      <Link
+        to={back.href}
+        state={{ returnToId: seriesLinkId(series.slug) }}
+        className="back-link"
+      >
         {back.label}
       </Link>
-      <h1 className="page-title mt-gutter">{series.title}</h1>
+      <h1 className="page-title">{series.title}</h1>
       {series.description && <p className="mt-link">{series.description}</p>}
       {photos.length > 0 && (
         <div className="mt-gutter grid gap-gutter">

@@ -2,8 +2,8 @@
   color-scheme: light;
   --bg: #f8f8f6;
   --home-paper: #ffffff;
-  --text: #111111;
-  --text-2: #5f5f5a;
+  --text: #252525;
+  --text-2: #62625e;
   --line: #e3e3dd;
   --dither: #cfcfc7;
   --pen: #e6128f;
@@ -16,12 +16,13 @@
   --page-space: 64px;
   --link-gap: 16px;
   --row-gap-small: 8px;
-  --header-space: 48px;
+  --header-space: 40px;
+  --home-project-space: 40px;
   --footer-space: 96px;
   --row-height: 56px;
   --tap-height: 44px;
   --nav-size: 14px;
-  --title-size: 23px;
+  --title-size: 21px;
   --section-size: 18px;
   --link-underline: #85857e;
   --link-underline-width: 1px;
@@ -61,6 +62,7 @@
   --spacing-gutter: var(--gutter);
   --spacing-page: var(--page-space);
   --spacing-header: var(--header-space);
+  --spacing-home-projects: var(--home-project-space);
   --spacing-footer: var(--footer-space);
   --spacing-row: var(--row-height);
   --spacing-tap: var(--tap-height);

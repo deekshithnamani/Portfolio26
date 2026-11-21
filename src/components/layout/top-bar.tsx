@@ -24,7 +24,7 @@ export function Header() {
             key={href}
             to={href}
             className={({ isActive }) =>
-              `inline-flex min-h-tap shrink-0 items-center no-underline hover:underline ${isActive ? "text-text" : "text-text-2"}`
+              `inline-flex min-h-tap shrink-0 items-center no-underline hover:underline ${isActive ? "font-semibold text-text" : "text-text-2"}`
             }
           >
             {label}

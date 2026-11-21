@@ -37,11 +37,7 @@ export function ListRow({
   );
 
   return (
-    <li
-      className={
-        status ? "border-b border-line" : "border-b border-line py-link"
-      }
-    >
+    <li className={status ? undefined : "py-link"}>
       {preview}
       <div className={status ? "work-list-row" : undefined}>
         <div className="work-list-title">

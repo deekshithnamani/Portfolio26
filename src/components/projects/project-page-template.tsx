@@ -56,8 +56,8 @@ export function CaseStudyPage() {
     <PageContainer>
       <article className="space-y-page">
         <header>
-          <Link to={backLink.href}>{backLink.label}</Link>
-          <p className="mt-gutter text-text-2">{label}</p>
+          <Link to={backLink.href} className="back-link">{backLink.label}</Link>
+          <p className="mt-link text-text-2">{label}</p>
           <h1 className="page-title">{title}</h1>
           <p className="mt-link">{summary}</p>
           <dl className="mt-gutter text-text-2">
@@ -96,7 +96,7 @@ export function CaseStudyPage() {
         ))}
 
         <div className="space-y-link">
-          <Link to={backLink.href}>{backLink.label}</Link>
+          <Link to={backLink.href} className="back-link">{backLink.label}</Link>
           <p>
             {contact.map(({ text, link }, index) => {
               if (link === undefined) return text;

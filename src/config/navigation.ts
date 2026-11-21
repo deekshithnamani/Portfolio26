@@ -118,7 +118,7 @@ export const DOCUMENT_TITLE_RULES: DocumentTitleRule[] = [
   {
     match: (pathname) => pathname === ROUTE_PATHS.about,
     title: DOCUMENT_TITLES.about,
-    description: ABOUT_CONTENT.sections[0].body,
+    description: ABOUT_CONTENT.story[0],
   },
 ];
 

@@ -1,39 +1,23 @@
-import { LinkLabel } from "@/components/ui/link-label";
 import { PageContainer } from "@/components/ui";
 import { ABOUT_CONTENT } from "@/data/about-content";
-import { SITE_LINKS } from "@/data/site-links";
 
 export default function About() {
+  const { label, story, howIWork } = ABOUT_CONTENT;
+
   return (
     <PageContainer>
-      <h1 className="page-title">{ABOUT_CONTENT.label}</h1>
+      <h1 className="page-title">{label}</h1>
       <div className="mt-gutter space-y-gutter">
-        {ABOUT_CONTENT.sections.map(({ title, body, links }) => (
-          <section key={title}>
-            <h2 className="section-title">{title}</h2>
-            <p className="mt-link">{body}</p>
-            {links && (
-              <ul className="mt-link flex flex-wrap gap-x-gutter gap-y-link">
-                {links.map((id) => {
-                  const { href, label, labels, newTab } = SITE_LINKS[id];
-                  return (
-                    <li key={id}>
-                      <a
-                        href={href}
-                        target={newTab ? "_blank" : undefined}
-                        rel={newTab ? "noreferrer" : undefined}
-                      >
-                        <LinkLabel label={labels?.about ?? label} />
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </section>
+        {story.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
         ))}
-        <p>{ABOUT_CONTENT.languages}</p>
       </div>
+      <section className="mt-page" aria-labelledby="about-how-i-work">
+        <h2 id="about-how-i-work" className="section-title">
+          {howIWork.heading}
+        </h2>
+        <p className="mt-link">{howIWork.body}</p>
+      </section>
     </PageContainer>
   );
 }

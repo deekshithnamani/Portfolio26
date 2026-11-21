@@ -8,7 +8,9 @@ export function RouteEffects({
 }: {
   mainRef: RefObject<HTMLElement | null>;
 }) {
-  const pathname = useLocation().pathname;
+  const { pathname, state } = useLocation();
+  const returnToId =
+    typeof state?.returnToId === "string" ? state.returnToId : undefined;
   const { setLabel } = useCursor();
   const previousPathname = useRef(pathname);
 
@@ -27,11 +29,20 @@ export function RouteEffects({
     setLabel(null);
 
     if (previousPathname.current !== pathname) {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      mainRef.current?.focus({ preventScroll: true });
+      const target = returnToId ? document.getElementById(returnToId) : null;
+      if (
+        target instanceof HTMLAnchorElement &&
+        mainRef.current?.contains(target)
+      ) {
+        target.scrollIntoView?.({ block: "center", behavior: "auto" });
+        target.focus({ preventScroll: true });
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        mainRef.current?.focus({ preventScroll: true });
+      }
       previousPathname.current = pathname;
     }
-  }, [mainRef, pathname, setLabel]);
+  }, [mainRef, pathname, returnToId, setLabel]);
 
   return null;
 }

@@ -1,29 +1,14 @@
 {
   "label": "About",
-  "sections": [
-    {
-      "title": "Who I am",
-      "body": "I’m a product designer in Hyderabad. I trained as a chemical engineer and worked at Tata Consulting Engineers before moving into design. I taught myself the rest through a mentor, courses and a lot of reading, and my first design role was at Univ.AI. In 2025 I completed the NextLeap PM Fellowship, which sharpened how I think about problems, metrics and prioritisation.",
-      "placeholder": true
-    },
-    {
-      "title": "What I care about",
-      "body": "Products built for the long term and improved with real users, where I can see whether a decision worked.",
-      "placeholder": true
-    },
-    {
-      "title": "What I’d cut",
-      "body": "Features nobody asked for, documents nobody reads, and metrics nobody can act on.",
-      "placeholder": true
-    },
-    {
-      "title": "Get in touch",
-      "body": "I’m looking for a product team where design and product thinking go hand in hand.",
-      "links": ["linkedin", "github"],
-      "placeholder": true
-    }
+  "story": [
+    "I’m a product designer in Hyderabad. I trained as a chemical engineer and worked at Tata Consulting Engineers before moving into design. I learned through a mentor, courses and a lot of reading, and my first design role was at Univ.AI.",
+    "In 2025 I completed the NextLeap PM Fellowship, which sharpened how I think about problems, metrics and prioritisation. I’m looking for a product team where design and product thinking go hand in hand. I speak Telugu, Hindi and English."
   ],
-  "languages": "Languages: Telugu, Hindi, English",
+  "howIWork": {
+    "heading": "How I work",
+    "body": "I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.",
+    "placeholder": true
+  },
   "notFound": {
     "message": "That page doesn’t exist.",
     "link": "backHome",

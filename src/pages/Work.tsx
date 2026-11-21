@@ -22,7 +22,7 @@ export function WorkIndex() {
             className="experience-group border-b border-line py-gutter"
           >
             <div>
-              <h2 className="section-title">{company}</h2>
+              <h2 className="text-body font-medium text-text">{company}</h2>
               <p className="text-small text-text-2">{role}</p>
               <p className="text-small text-text-2">{years}</p>
             </div>
@@ -63,8 +63,10 @@ export function WorkDetail() {
   const back = SITE_LINKS.backToWork;
   return (
     <PageContainer>
-      <Link to={back.href}>{back.label}</Link>
-      <h1 className="page-title mt-gutter">{project.title}</h1>
+      <Link to={back.href} className="back-link">
+        {back.label}
+      </Link>
+      <h1 className="page-title">{project.title}</h1>
       <p className="mt-link text-text-2">{WORK_CONTENT.unpublishedStatus}</p>
     </PageContainer>
   );

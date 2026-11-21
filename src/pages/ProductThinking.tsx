@@ -11,9 +11,9 @@ export default function ProductThinking() {
   return (
     <PageContainer>
       {back && (
-        <p className="mb-gutter text-small text-text-2">
-          <Link to={back.href}>{back.label}</Link>
-        </p>
+        <Link to={back.href} className="back-link">
+          {back.label}
+        </Link>
       )}
       <h1 className="page-title">{WORK_CONTENT.productThinking.label}</h1>
       <div className="mt-link border-t border-line">

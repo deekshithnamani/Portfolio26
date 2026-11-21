@@ -208,7 +208,7 @@ a:hover .link-arrow::after {
 
 @media (width >= 480px) {
   .work-list-row {
-    min-height: calc(var(--row-height) - 1px);
+    min-height: var(--row-height);
     grid-template-columns: var(--row-year) minmax(0, 1fr) auto;
     column-gap: var(--link-gap);
     align-items: center;
@@ -241,6 +241,7 @@ a:hover .link-arrow::after {
 
 .experience-group {
   display: grid;
+  align-items: start;
   gap: var(--link-gap);
 }
 
@@ -273,4 +274,12 @@ a:hover .link-arrow::after {
 
 .section-title {
   @apply text-section leading-snug font-medium text-text;
+}
+
+.back-link {
+  @apply inline-block text-small text-text-2;
+}
+
+.back-link + .page-title {
+  margin-top: var(--link-gap);
 }

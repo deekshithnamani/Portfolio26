@@ -56,8 +56,8 @@ describe("light theme tokens", () => {
       ),
     ).toEqual([
       "#F8F8F6",
-      "#111111",
-      "#5F5F5A",
+      "#252525",
+      "#62625E",
       "#E3E3DD",
       "#CFCFC7",
       "#E6128F",
