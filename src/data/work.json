@@ -24,7 +24,6 @@
       "featured": true,
       "title": "Property-document checker",
       "type": "Case study",
-      "description": "Stealth AI startup · Flags issues in land documents that take lawyers weeks.",
       "placeholder": true,
       "href": "/work/property-document-checker"
     },
@@ -34,14 +33,12 @@
       "featured": true,
       "title": "Decision workflows",
       "type": "Product design",
-      "description": "DAOSoft · How a high-stakes engineering decision moves through one connected system.",
       "placeholder": true
     },
     {
       "year": "2022–23",
       "company": "Univ.AI",
       "title": "Univ.AI platform",
-      "description": "Univ.AI · A design system, a job portal and a staff tool for an edtech startup.",
       "placeholder": true,
       "href": "/work/univ-ai-platform"
     }

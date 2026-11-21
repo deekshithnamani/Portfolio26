@@ -10,12 +10,15 @@ type WorkEntry = {
   year?: string;
   type?: string;
   title: string;
-  description: string;
+  description?: string;
   href?: string;
   placeholder: boolean;
 };
 
-type CompanyProject = WorkEntry & { company?: string; featured?: boolean };
+export type CompanyProject = WorkEntry & {
+  company?: string;
+  featured?: boolean;
+};
 
 function projectYears(year?: string) {
   if (!year?.trim()) return { start: -Infinity, end: -Infinity };
@@ -104,13 +107,18 @@ export const WORK_CONTENT: WorkContent = {
   },
 };
 
-export const WORK_GROUPS = new Map<string, CompanyProject[]>();
-for (const project of WORK_CONTENT.entries) {
-  if (!project.company) continue;
-  const group = WORK_GROUPS.get(project.company);
-  if (group) group.push(project);
-  else WORK_GROUPS.set(project.company, [project]);
+export function groupProjectsByCompany(projects: readonly CompanyProject[]) {
+  const groups = new Map<string, CompanyProject[]>();
+  for (const project of projects) {
+    if (!project.company) continue;
+    const group = groups.get(project.company);
+    if (group) group.push(project);
+    else groups.set(project.company, [project]);
+  }
+  return groups;
 }
+
+export const WORK_GROUPS = groupProjectsByCompany(WORK_CONTENT.entries);
 
 export const PROJECT_PAGES: Readonly<Record<string, ProjectContent>> = {
   "/work/property-document-checker": WORK_CONTENT.caseStudy,

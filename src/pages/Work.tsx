@@ -29,11 +29,12 @@ export function WorkIndex() {
           {productThinking.label}
         </h2>
         <ul role="list" className="mt-link space-y-row-small">
-          {productThinking.entries.map(({ link, ...entry }) => (
+          {productThinking.entries.map(({ title, description, link }) => (
             <ListRow
-              key={entry.title}
-              {...entry}
-              href={link ? SITE_LINKS[link].href : entry.href}
+              key={title}
+              title={title}
+              description={description}
+              href={link ? SITE_LINKS[link].href : undefined}
               newTab={link ? SITE_LINKS[link].newTab : undefined}
             />
           ))}

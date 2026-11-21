@@ -1,7 +1,11 @@
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
-import { sortProjectsByYear } from "@/data/work-content";
+import {
+  groupProjectsByCompany,
+  sortProjectsByYear,
+  WORK_CONTENT,
+} from "@/data/work-content";
 import { WorkIndex } from "@/pages/Work";
 
 describe("work index", () => {
@@ -32,7 +36,7 @@ describe("work index", () => {
     expect(thinkingRows[0].firstElementChild).toHaveTextContent(
       "Zomato eco-features PRD",
     );
-    expect(within(thinkingRows[0]).getByText("2025")).toBeInTheDocument();
+    expect(within(thinkingRows[0]).queryByText("2025")).toBeNull();
     expect(
       stealth.getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
@@ -57,6 +61,34 @@ describe("work index", () => {
       ),
     ).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "Certificate ↗" })).toBeNull();
+  });
+
+  it("keeps every project assigned to the same company", () => {
+    const groups = groupProjectsByCompany([
+      {
+        company: "Example company",
+        title: "Latest project",
+        placeholder: true,
+      },
+      {
+        company: "Example company",
+        title: "Earlier project",
+        placeholder: true,
+      },
+      { title: "Personal project", placeholder: true },
+    ]);
+
+    expect(groups.get("Example company")?.map(({ title }) => title)).toEqual([
+      "Latest project",
+      "Earlier project",
+    ]);
+    expect(groups.has("Personal project")).toBe(false);
+  });
+
+  it("keeps company context at group level instead of repeating descriptions", () => {
+    for (const project of WORK_CONTENT.entries) {
+      expect(project.description).toBeUndefined();
+    }
   });
   it("sorts ongoing, abbreviated ranges and newer years without mutating data", () => {
     const projects = [

@@ -51,17 +51,29 @@ describe("light theme tokens", () => {
 
   it("exposes the specified light palette", () => {
     expect(
-      ["bg", "text", "text-2", "line", "dither", "pen"].map((name) =>
-        color(name).toUpperCase(),
-      ),
+      [
+        "bg",
+        "text",
+        "text-2",
+        "line",
+        "dither",
+        "case-image",
+        "link-underline",
+      ].map((name) => color(name).toUpperCase()),
     ).toEqual([
       "#F8F8F6",
       "#252525",
       "#62625E",
       "#E3E3DD",
       "#CFCFC7",
-      "#E6128F",
+      "#EFEFEA",
+      "#85857E",
     ]);
+  });
+
+  it("omits retired New-mark and year-first row tokens", () => {
+    expect(css).not.toContain("--pen:");
+    expect(css).not.toContain("--row-height:");
   });
 });
 

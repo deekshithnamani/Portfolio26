@@ -1,10 +1,12 @@
-# Portfolio specification v6 with v7 addendum
+# Portfolio specification v7
 
 ## General
 
 - All copy goes in the data files (work.json, about.json, practice.json,
   site.json, photos.json). Remove copy hardcoded in components.
-- Do not change any font sizes or spacing; use the existing tokens.
+- Define visual values in `tokens.css` and use the existing token utilities in
+  components. The current type and spacing scales are documented in
+  `src/design/README.md`.
 - A section with an empty body, and any empty optional field, does not
   render and does not appear in the section nav.
 - Use ’ for apostrophes and – for ranges in all copy.
@@ -13,7 +15,7 @@
 ## Header and footer
 
 - Header nav: Work, Creative, About. Remove Product.
-- Footer left: LinkedIn ↗  GitHub ↗. Footer right: © 2026. Remove NextLeap
+- Footer left: LinkedIn ↗ GitHub ↗. Footer right: © 2026. Remove NextLeap
   and the handle.
 - /product redirects to /work#product-thinking. /practice and
   /beyond-work redirect to /creative. List unused pages; don't delete files
@@ -55,26 +57,25 @@
 - Intro: "Selected work, with the decisions behind it."
 - Group projects by company. Sort companies by their latest end year, putting
   ongoing roles first. The current order is DAOSoft, Stealth AI startup, Univ.AI.
+- A company can contain any number of projects. Do not repeat the company name
+  or add a project description below those titles.
 - Sort projects within each company and the Product thinking section newest
   first from the years in `work.json`.
 - Put company, role and duration beside the project list on wider screens, and
   above it on narrow screens. Use “UX/UI Designer” for every company role.
   Use muted text for company names, roles and year-only durations, with more
   emphasis on project titles. Use dividers only between companies.
-- Keep the following rows and omit status tags:
-  Property-document checker | 2023–24 | Stealth AI startup · Flags issues
-    in land documents that take lawyers weeks.
-  Decision workflows | 2024– | DAOSoft · How a high-stakes engineering
-    decision moves through one connected system. | no link
-  Univ.AI platform | 2022–23 | Univ.AI · A design system, a job portal and
-    a staff tool for an edtech startup.
+- Keep these company projects and omit project descriptions and status tags:
+  DAOSoft | Decision workflows | 2024– | no link
+  Stealth AI startup | Property-document checker | 2023–24 | case-study link
+  Univ.AI | Univ.AI platform | 2022–23 | project-note link
 - Section "Product thinking" (id product-thinking) follows the company groups.
-  Put project titles first, with years as supporting text:
+  Put project titles first and keep years only for sorting, not display:
   Zomato eco-features PRD | 2025 | Graduation project on driving
-    eco-feature adoption in Zomato: KPI tree, PRD and experimentation
-    roadmap. | gray, no link
+  eco-feature adoption in Zomato: KPI tree, PRD and experimentation
+  roadmap. | gray, no link
   NextLeap portfolio ↗ | 2025 | The rest of my fellowship projects. |
-    link https://nextleap.app/portfolio/n-deekshith
+  link https://nextleap.app/portfolio/n-deekshith
   Line below: "NextLeap PM Fellowship, Feb–May 2025. Top ~12% of 200+
   fellows, 87%." Optional certificateUrl appends "Certificate ↗".
 
@@ -141,10 +142,10 @@
 - Series (slug | title | line): each is a small dithered image with a
   caption linking to its series page.
   city-typefaces | City typefaces | Lettering on shopfronts, signs and
-    walls around the city.
+  walls around the city.
   evening-skies | Evening skies | A daily photograph of the evening sky.
   colors-on-walks | Colors on walks | Colors that catch my eye, collected
-    as photographs.
+  as photographs.
   live-sketches | Live sketches | Sketches made on location.
 - Series page: title, the one line, then the image grid. Captions optional
   and empty. Use the existing neutral placeholder images.

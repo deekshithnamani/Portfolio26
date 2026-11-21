@@ -8,11 +8,14 @@
 ## Portfolio layout
 
 - Keep the content centered within 640px. Body text uses 15px Inter and a 1.6 line height. Use `--text` for headings and links and `--text-2` for supporting metadata. The scale uses 12px for supporting text, 14px for page descriptions and navigation links, 15px medium for Creative grid titles, 16px for project and series titles, 18px for section headings, and 20px semibold for main page headings. The header name uses 16px. The header has 40px below it, and the current nav item is semibold. Home uses 40px between its intro and the project list heading.
-- Home shows a divider-free list of featured projects with titles first, followed by their type and optional period. On Work, company, role and duration sit beside the project list from 480px and stack above it at narrower widths. Company names use muted 14px text. Roles, year-only durations, and project details use muted 12px text.
+- Home shows a divider-free list of featured projects with titles first, followed by their type and optional period. On Work, company, role and duration sit beside one or more project titles from 480px and stack above them at narrower widths. Company names use muted 14px text. Roles and year-only durations use muted 12px text. Company-project rows do not repeat the company or add descriptions. Product thinking keeps years in data for sorting and omits them from the interface.
 - Use the 4px heading gap between page titles and their descriptions.
 - Use `--line` between Work companies. Keep individual project rows divider-free. Keep supporting copy and unpublished titles in `--text-2`. Use `LinkLabel` for trailing arrows. Body links and their arrows share a muted 1px underline that changes color on hover.
 - The footer uses flex wrap to keep the external profiles on the left and the 14px credit on the right when space permits.
 - Preserve visible focus, header tap height, and reduced-motion and hidden-tab behavior when editing the shell or dither.
+- The active palette is `--bg`, `--text`, `--text-2`, `--line`, `--dither`,
+  `--case-image`, and `--link-underline`. The removed New badge has no retained
+  color or sizing tokens.
 
 ## Motion
 

@@ -25,13 +25,8 @@ export function CompanyWorkList() {
               )}
             </div>
             <ul role="list" className="space-y-row-small">
-              {projects.map(({ title, description, href }) => (
-                <ListRow
-                  key={title}
-                  title={title}
-                  description={description}
-                  href={href}
-                />
+              {projects.map(({ title, href }) => (
+                <ListRow key={title} title={title} href={href} />
               ))}
             </ul>
           </section>
