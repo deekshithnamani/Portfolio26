@@ -52,7 +52,8 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
     <PageContainer>
       <article className="space-y-page">
         <header>
-          <div className="space-y-heading-gap">
+          <BackLink destination={SITE_LINKS.backToWork} />
+          <div className="mt-link space-y-heading-gap">
             <h1 className="page-title">{title}</h1>
             {summary?.trim() && <p className="text-nav text-text-2">{summary}</p>}
           </div>
@@ -91,9 +92,6 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
           </section>
         ))}
 
-        <div>
-          <BackLink destination={SITE_LINKS.backToWork} />
-        </div>
       </article>
     </PageContainer>
   );

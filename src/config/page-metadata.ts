@@ -2,6 +2,8 @@ import { matchRoutes } from "react-router";
 // eslint-disable-next-line no-restricted-imports -- Vite loads this module before resolving app aliases.
 import { BEYOND_WORK_CONTENT } from "../data/beyond-work-content";
 // eslint-disable-next-line no-restricted-imports -- Vite loads this module before resolving app aliases.
+import { PROJECT_PAGES } from "../data/work-content";
+// eslint-disable-next-line no-restricted-imports -- Vite loads this module before resolving app aliases.
 import {
   NOT_FOUND_CONTENT,
   SITE_LINKS,
@@ -19,6 +21,19 @@ const pages = [
   [ROUTE_PATHS.work, SITE_METADATA.work],
   [SITE_LINKS.legalProof.href, SITE_METADATA.propertyChecker],
   [buildWorkDetailPath("univ-ai-platform"), SITE_METADATA.univPlatform],
+  ...Object.entries(PROJECT_PAGES).flatMap(([path, project]) =>
+    project.sections.length || !project.summary
+      ? []
+      : [
+          [
+            path,
+            {
+              title: `${SITE_LINKS.brand.label} · ${project.title}`,
+              description: project.summary,
+            },
+          ] as const,
+        ],
+  ),
   [ROUTE_PATHS.beyondWork, SITE_METADATA.beyondWork],
   [ROUTE_PATHS.about, SITE_METADATA.about],
   ...BEYOND_WORK_CONTENT.series.map(

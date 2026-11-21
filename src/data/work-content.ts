@@ -121,6 +121,24 @@ export function groupProjectsByCompany(projects: readonly CompanyProject[]) {
 export const WORK_GROUPS = groupProjectsByCompany(WORK_CONTENT.entries);
 
 export const PROJECT_PAGES: Readonly<Record<string, ProjectContent>> = {
+  ...Object.fromEntries(
+    [...WORK_CONTENT.entries, ...WORK_CONTENT.productThinking.entries].flatMap(
+      ({ href, title, placeholder }) =>
+        href
+          ? [
+              [
+                href,
+                {
+                  title,
+                  summary: "Details coming soon.",
+                  sections: [],
+                  placeholder,
+                },
+              ],
+            ]
+          : [],
+    ),
+  ),
   "/work/property-document-checker": WORK_CONTENT.caseStudy,
   "/work/univ-ai-platform": WORK_CONTENT.univPlatform,
 };

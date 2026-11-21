@@ -28,15 +28,20 @@ describe("work index", () => {
       within(region),
     );
     for (const group of [daosoft, stealth, univ]) {
-      expect(group.getAllByRole("listitem")).toHaveLength(1);
+      expect(group.getAllByRole("listitem")).toHaveLength(2);
+      expect(group.getAllByRole("link")).toHaveLength(2);
       expect(group.getByText("UX/UI Designer")).toBeInTheDocument();
     }
     const thinkingRows = product.getAllByRole("listitem");
-    expect(thinkingRows).toHaveLength(2);
+    expect(thinkingRows).toHaveLength(5);
     expect(thinkingRows[0].firstElementChild).toHaveTextContent(
       "Zomato eco-features PRD",
     );
-    expect(within(thinkingRows[0]).queryByText("2025")).toBeNull();
+    expect(
+      within(thinkingRows[0]).getByText("Fellowship · 2025"),
+    ).toBeInTheDocument();
+    expect(product.getAllByText(/· TBD/)).toHaveLength(3);
+    expect(product.queryByText(/Graduation project on/)).toBeNull();
     expect(
       stealth.getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
@@ -49,7 +54,6 @@ describe("work index", () => {
     );
     expect(univ.getByText("2022–23")).toBeInTheDocument();
     expect(daosoft.getByText("Decision workflows")).toBeInTheDocument();
-    expect(daosoft.queryByRole("link")).toBeNull();
     expect(product.getByText("Zomato eco-features PRD")).toBeInTheDocument();
     expect(product.queryByRole("link", { name: /Zomato/ })).toBeNull();
     expect(

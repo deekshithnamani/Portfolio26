@@ -60,16 +60,15 @@ describe("app routes", () => {
       "Decision workflows",
       "Property-document checker",
     ]);
-    expect(
-      within(rows[0]).getByText("Product design · 2024–"),
-    ).toBeInTheDocument();
-    expect(
-      within(rows[1]).getByText("Case study · 2023–24"),
-    ).toBeInTheDocument();
+    expect(within(rows[0]).getByText("Product design")).toBeInTheDocument();
+    expect(within(rows[1]).getByText("Case study")).toBeInTheDocument();
     expect(
       within(rows[1]).getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
-    expect(within(rows[0]).queryByRole("link")).toBeNull();
+    expect(within(rows[0]).getByRole("link")).toHaveAttribute(
+      "href",
+      "/work/decision-workflow",
+    );
     expect(mainElement.querySelector(".home-dither")).toHaveAttribute(
       "aria-hidden",
       "true",
@@ -160,6 +159,12 @@ describe("app routes", () => {
     }
     const backLinks = main.getAllByRole("link", { name: "Back to Work" });
     expect(backLinks).toHaveLength(1);
+    const heading = main.getByRole("heading", { level: 1 });
+    expect(backLinks[0].closest("header")).toContainElement(heading);
+    expect(
+      backLinks[0].compareDocumentPosition(heading) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
     expect(backLinks[0].querySelector("svg")).toHaveAttribute(
       "aria-hidden",
       "true",
@@ -418,12 +423,13 @@ describe("app routes", () => {
     expect(screen.queryByRole("link", { name: /resume|résumé/i })).toBeNull();
   });
 
-  it("omits status tags from Work rows", async () => {
+  it("shows project types without status tags in Work rows", async () => {
     await renderAt(ROUTE_PATHS.work);
     const main = within(screen.getByRole("main"));
     expect(
-      main.queryByText(/^(new|case study|project note|soon|fellowship)$/i),
+      main.queryByText(/^(new|soon)$/i),
     ).toBeNull();
+    expect(main.getByText("Case study")).toBeInTheDocument();
   });
 
   it("restores image slots for populated sections and omits empty sections and captions", async () => {

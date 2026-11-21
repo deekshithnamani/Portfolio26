@@ -33,14 +33,37 @@
       "featured": true,
       "title": "Decision workflows",
       "type": "Product design",
-      "placeholder": true
+      "placeholder": true,
+      "href": "/work/decision-workflow"
     },
     {
       "year": "2022–23",
       "company": "Univ.AI",
       "title": "Univ.AI platform",
       "placeholder": true,
-      "href": "/work/univ-ai-platform"
+      "href": "/work/univ-ai-platform",
+      "type": "Product design"
+    },
+    {
+      "company": "DAOSoft",
+      "title": "Workflow planning",
+      "href": "/work/workflow-planning",
+      "type": "Project",
+      "placeholder": true
+    },
+    {
+      "company": "Stealth AI startup",
+      "title": "Legal research workspace",
+      "href": "/work/legal-research-workspace",
+      "type": "Project",
+      "placeholder": true
+    },
+    {
+      "company": "Univ.AI",
+      "title": "Learner dashboard",
+      "href": "/work/learner-dashboard",
+      "type": "Project",
+      "placeholder": true
     }
   ],
   "productThinking": {
@@ -51,14 +74,37 @@
         "year": "2025",
         "title": "Zomato eco-features PRD",
         "description": "Graduation project on driving eco-feature adoption in Zomato: KPI tree, PRD and experimentation roadmap.",
-        "placeholder": true
+        "placeholder": true,
+        "type": "Fellowship"
       },
       {
         "year": "2025",
         "title": "NextLeap portfolio ↗",
         "description": "The rest of my fellowship projects.",
         "placeholder": true,
-        "link": "nextLeap"
+        "link": "nextLeap",
+        "type": "Fellowship"
+      },
+      {
+        "title": "Improving first-run onboarding",
+        "href": "/work/first-run-onboarding",
+        "type": "Product teardown",
+        "description": "Explore friction in the first session.",
+        "placeholder": true
+      },
+      {
+        "title": "Measuring feature adoption",
+        "href": "/work/measuring-feature-adoption",
+        "type": "Metrics exercise",
+        "description": "Outline ways to measure adoption after launch.",
+        "placeholder": true
+      },
+      {
+        "title": "Prioritizing a retention roadmap",
+        "href": "/work/retention-roadmap",
+        "type": "Prioritization exercise",
+        "description": "Compare opportunities to improve retention.",
+        "placeholder": true
       }
     ],
     "note": "NextLeap PM Fellowship, Feb–May 2025. Top ~12% of 200+ fellows, 87%.",

@@ -21,14 +21,8 @@ export default function Home() {
         <ul role="list" className="mt-link space-y-row-small">
           {entries
             .filter(({ featured }) => featured)
-            .map(({ title, href, type, year }) => (
-              <ListRow
-                key={title}
-                title={title}
-                href={href}
-                type={type}
-                year={year}
-              />
+            .map(({ title, href, type }) => (
+              <ListRow key={title} title={title} href={href} type={type} />
             ))}
         </ul>
       </section>
