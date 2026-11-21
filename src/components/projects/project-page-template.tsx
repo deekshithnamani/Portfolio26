@@ -1,8 +1,8 @@
+import { BackLink } from "@/components/ui/back-link";
 import { LinkLabel } from "@/components/ui/link-label";
-import { Link, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { PageContainer } from "@/components/ui";
 import type { WorkItem } from "@/data";
-import { UI_RECIPE_TOKENS } from "@/design";
 import { SITE_LINKS } from "@/data/site-links";
 import { WORK_CONTENT } from "@/data/work-content";
 import { SectionNav } from "./section-nav";
@@ -37,7 +37,7 @@ export function projectToTemplate(item: WorkItem): ProjectTemplateData {
 }
 
 export function ProjectPageTemplate({ project, children }: { project: ProjectTemplateData; children?: React.ReactNode }) {
-  return <PageContainer variant="wide"><Link to="/work" className={UI_RECIPE_TOKENS.actionLinkMuted}>← Work</Link><header className="mt-8 max-w-4xl"><h1 className="text-4xl leading-tight tracking-[-0.05em] md:text-6xl">{project.title}</h1><p className="mt-6 text-xl leading-relaxed text-[var(--surface-fg-mid)]">{project.problem}</p></header>{children}
+  return <PageContainer variant="wide"><BackLink destination={SITE_LINKS.backToWork} /><header className="mt-8 max-w-4xl"><h1 className="text-4xl leading-tight tracking-[-0.05em] md:text-6xl">{project.title}</h1><p className="mt-6 text-xl leading-relaxed text-[var(--surface-fg-mid)]">{project.problem}</p></header>{children}
     <section aria-label="Project artifacts" className="mt-12 grid gap-6">{project.artifacts.map((artifact, index) => <figure key={`${artifact.caption}-${index}`} className="border border-[var(--surface-border)] p-4"><img src={artifact.src} alt={artifact.caption} loading="lazy" className="aspect-video w-full object-cover" />{artifact.designIntent ? <p className="mt-3 text-xs uppercase tracking-wider text-[var(--surface-accent)]">Design intent — {artifact.designIntent}</p> : null}<figcaption className="mt-3 text-[var(--surface-fg-mid)]">{artifact.caption}</figcaption></figure>)}</section>
     <aside className="mt-12 border-l-2 border-[var(--surface-accent)] bg-[var(--surface-card)] p-5"><h2 className="text-sm uppercase tracking-wider">Product decision</h2><p className="mt-2">{project.productDecision}</p></aside>
     <p className="mt-8 text-lg"><strong>Outcome —</strong> {project.outcome}</p>
@@ -56,9 +56,9 @@ export function CaseStudyPage() {
     <PageContainer>
       <article className="space-y-page">
         <header>
-          <Link to={backLink.href} className="back-link">{backLink.label}</Link>
+          <BackLink destination={backLink} />
           <p className="mt-link text-text-2">{label}</p>
-          <h1 className="page-title">{title}</h1>
+          <h1 className="item-title">{title}</h1>
           <p className="mt-link">{summary}</p>
           <dl className="mt-gutter text-text-2">
             {metadata.map(({ label: name, value }) => (
@@ -96,7 +96,7 @@ export function CaseStudyPage() {
         ))}
 
         <div className="space-y-link">
-          <Link to={backLink.href} className="back-link">{backLink.label}</Link>
+          <BackLink destination={backLink} />
           <p>
             {contact.map(({ text, link }, index) => {
               if (link === undefined) return text;

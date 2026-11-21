@@ -69,19 +69,19 @@
       "placeholder": true
     },
     "backToWork": {
-      "label": "← Work",
+      "label": "Work",
       "href": "/work",
       "appearsIn": ["caseStudy"],
       "placeholder": true
     },
     "backHome": {
-      "label": "← Home",
+      "label": "Home",
       "href": "/",
       "appearsIn": ["notFound"],
       "placeholder": true
     },
     "backToCreative": {
-      "label": "← Creative",
+      "label": "Creative",
       "href": "/creative",
       "appearsIn": ["creativeSeries"],
       "placeholder": true

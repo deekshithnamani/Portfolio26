@@ -31,7 +31,7 @@ export default function Home() {
       <p>{home.intro}</p>
 
       <section className="mt-home-projects" aria-labelledby="home-projects">
-        <h1 id="home-projects" className="page-title">
+        <h1 id="home-projects" className="section-title">
           {home.selectedLabel}
         </h1>
         <ul className="mt-link border-t border-line">

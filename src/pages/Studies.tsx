@@ -1,3 +1,4 @@
+import { BackLink } from "@/components/ui/back-link";
 import { Link, useParams } from "react-router";
 import { PageContainer } from "@/components/ui";
 import { DitherImage } from "@/components/ui/dither-image";
@@ -24,7 +25,7 @@ export default function BeyondWorkIndex() {
           return (
             <li key={slug} className="min-w-0">
               {cover && <DitherImage src={cover.file} label={title} />}
-              <h2 className="section-title">
+              <h2 className="item-title">
                 <Link
                   id={seriesLinkId(slug)}
                   to={buildBeyondWorkSeriesPath(slug)}
@@ -53,14 +54,11 @@ export function BeyondWorkSeriesPage() {
 
   return (
     <PageContainer>
-      <Link
-        to={back.href}
+      <BackLink
+        destination={back}
         state={{ returnToId: seriesLinkId(series.slug) }}
-        className="back-link"
-      >
-        {back.label}
-      </Link>
-      <h1 className="page-title">{series.title}</h1>
+      />
+      <h1 className="item-title">{series.title}</h1>
       {series.description && <p className="mt-link">{series.description}</p>}
       {photos.length > 0 && (
         <div className="mt-gutter grid gap-gutter">

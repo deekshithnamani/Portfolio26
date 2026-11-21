@@ -3,10 +3,6 @@
     {
       "id": "sky",
       "file": "/images/sky.webp",
-      "homeCrop": {
-        "focalX": 0.68,
-        "focalY": 0.73
-      },
       "caption": "",
       "place": "Hyderabad",
       "date": "",
@@ -16,10 +12,6 @@
     {
       "id": "signage",
       "file": "/images/signage.webp",
-      "homeCrop": {
-        "focalX": 0.52,
-        "focalY": 0.46
-      },
       "caption": "",
       "place": "",
       "date": "",
@@ -29,10 +21,6 @@
     {
       "id": "skyline",
       "file": "/images/skyline.webp",
-      "homeCrop": {
-        "focalX": 0.42,
-        "focalY": 0.78
-      },
       "caption": "",
       "place": "",
       "date": "",
@@ -42,10 +30,6 @@
     {
       "id": "wall",
       "file": "/images/wall.webp",
-      "homeCrop": {
-        "focalX": 0.65,
-        "focalY": 0.53
-      },
       "caption": "",
       "place": "",
       "date": "",
@@ -55,10 +39,6 @@
     {
       "id": "street",
       "file": "/images/street.webp",
-      "homeCrop": {
-        "focalX": 0.5,
-        "focalY": 0.76
-      },
       "caption": "",
       "place": "",
       "date": "",

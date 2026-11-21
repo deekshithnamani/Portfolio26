@@ -55,7 +55,7 @@ describe("app routes", () => {
     ]);
     expect(projects[0]).toHaveAccessibleName("Zomato eco-features PRD");
     expect(projects[1]).toHaveAccessibleName("Property-document checker");
-    expect(mainElement.querySelector("canvas")).toHaveAttribute(
+    expect(mainElement.querySelector(".home-dither")).toHaveAttribute(
       "aria-hidden",
       "true",
     );
@@ -74,7 +74,7 @@ describe("app routes", () => {
       );
       expect(window.location.pathname).toBe(destination);
       const [back] = within(screen.getByRole("main")).getAllByRole("link", {
-        name: "← Home",
+        name: "Back to Home",
       });
       expect(back).toHaveAttribute("href", "/");
       await user.click(back);
@@ -119,7 +119,12 @@ describe("app routes", () => {
         main.getByRole("heading", { name: title }),
       );
     }
-    expect(main.getAllByRole("link", { name: "← Work" })).toHaveLength(2);
+    const backLinks = main.getAllByRole("link", { name: "Back to Work" });
+    expect(backLinks).toHaveLength(2);
+    expect(backLinks[0].querySelector("svg")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
     expect(main.getByRole("link", { name: "LinkedIn ↗" })).toHaveAttribute(
       "href",
       SITE_LINKS.linkedin.href,
@@ -193,7 +198,7 @@ describe("app routes", () => {
     expect(
       screen.getByRole("heading", { name: "That page doesn’t exist." }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "← Home" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Back to Home" })).toHaveAttribute(
       "href",
       "/",
     );
@@ -248,7 +253,7 @@ describe("app routes", () => {
     expect(screen.getByRole("contentinfo")).toBe(footer);
     expect(screen.getByRole("main")).toHaveFocus();
     const back = within(screen.getByRole("main")).getByRole("link", {
-      name: "← Creative",
+      name: "Back to Creative",
     });
     expect(back).toHaveAttribute("href", "/creative");
     expect(document.title).toBe("Deekshith Namani · Evening skies");
@@ -285,7 +290,7 @@ describe("app routes", () => {
       screen.getByText("Case study not yet published."),
     ).toBeInTheDocument();
     expect(document.title).toBe("Deekshith Namani · Decision workflow");
-    await user.click(screen.getByRole("link", { name: "← Work" }));
+    await user.click(screen.getByRole("link", { name: "Back to Work" }));
     expect(
       await screen.findByRole("heading", { name: "Work", level: 1 }),
     ).toBeInTheDocument();
@@ -299,7 +304,7 @@ describe("app routes", () => {
     expect(
       screen.getByRole("heading", { name: "That page doesn’t exist." }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "← Home" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Back to Home" })).toHaveAttribute(
       "href",
       "/",
     );

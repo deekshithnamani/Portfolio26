@@ -1,3 +1,4 @@
+import { BackLink } from "@/components/ui/back-link";
 import { Link, useParams } from "react-router";
 import { PageContainer } from "@/components/ui";
 import { LinkLabel } from "@/components/ui/link-label";
@@ -22,7 +23,7 @@ export function WorkIndex() {
             className="experience-group border-b border-line py-gutter"
           >
             <div>
-              <h2 className="text-body font-medium text-text">{company}</h2>
+              <h2 className="text-item font-medium text-text">{company}</h2>
               <p className="text-small text-text-2">{role}</p>
               <p className="text-small text-text-2">{years}</p>
             </div>
@@ -63,10 +64,8 @@ export function WorkDetail() {
   const back = SITE_LINKS.backToWork;
   return (
     <PageContainer>
-      <Link to={back.href} className="back-link">
-        {back.label}
-      </Link>
-      <h1 className="page-title">{project.title}</h1>
+      <BackLink destination={back} />
+      <h1 className="item-title">{project.title}</h1>
       <p className="mt-link text-text-2">{WORK_CONTENT.unpublishedStatus}</p>
     </PageContainer>
   );

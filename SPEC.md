@@ -19,7 +19,7 @@ Show a short list of published projects from Work and Product, newest first. The
 
 ## Product and About
 
-Product presents the existing fellowship project in a section with its NextLeap destination. About tells the career story in short paragraphs, mentions languages in the prose, and has a separate “How I work” section. Social profile links live in the footer. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative that scrolls to and focuses the corresponding tile’s title link. Back links use muted supporting type and 16px of space before the heading or case-study label.
+Product presents the existing fellowship project in a section with its NextLeap destination. About tells the career story in short paragraphs, mentions languages in the prose, and has a separate “How I work” section. Social profile links live in the footer. Creative uses a two-column preview grid from 480px and a single column below. Each series opens a full-width gallery with a back link to Creative that scrolls to and focuses the corresponding tile’s title link. Back links use a leading left-arrow icon, muted supporting type and 16px of space before the heading or case-study label.
 
 ## Work
 
@@ -27,12 +27,12 @@ Group projects by experience, newest first. Each group shows company, role, and 
 
 I start with the problem and the person who has it. I question long feature lists, because most of them are guesses. I like to see how a decision moves through a whole system, not just one screen, and I want to know afterwards whether it worked.
 
-Keep the approved case-study sections, optional captions, and desktop section navigation.
+Keep the approved case-study sections and optional captions. Place desktop section navigation in the right margin, vertically centered.
 
 ## Visual style
 
-- Keep the single light theme, centered reading column, and Inter at 16px with a 1.6 body line height. The desktop Home background has a white reading column and edge-only dither. Keep the existing desktop rotation and crossfade and honor reduced motion and hidden tabs.
-- On desktop the name is 16px in `--text` and the nav is 14px. Align them on one baseline. Use 21px semibold page headings, 18px medium section headings, and 13px muted supporting text.
+- Keep the single light theme, centered reading column, and Inter at 15px with a 1.6 body line height. Home uses continuous off-white and procedural dither. Keep a faint base texture through the reading column and concentrate the two moving layers at the edges. Home uses no photographs.
+- On desktop the name is 16px in `--text` and the nav is 14px. Align them on one baseline. Use 20px semibold for main page headings, 18px medium for case-study and other section headings, 16px medium for project and gallery titles, and 12px for supporting text. Use 15px regular for prose and medium for inline links that need emphasis.
 - Wrap link arrows in a span with a `.25em` left margin. Keep anchor text and arrow adjacent in markup so the underline ends at the arrow. Use a muted 1px underline across links. Darken the color on hover while retaining the weight.
 - Use hairlines to separate Work experience groups and to mark the start of the Home selection. Use spacing between individual project rows and Creative grid tiles. Company names use body-sized, medium-weight text.
 - Use spacing values of 8, 16, 24, 40, 64, and 96px. The header has 40px below it. Paragraphs are 24px apart. Allow 40px from the Home intro to Selected projects and 16px from label to list. Desktop Home project rows are 56px high. Allow at least 96px above the footer, with a top hairline and 24px padding.
@@ -41,6 +41,8 @@ Keep the approved case-study sections, optional captions, and desktop section na
 
 ## Motion
 
+- Home’s ambient grain drifts slowly on desktop. The foreground grain follows the mouse by at most 8px per axis and settles at center when it leaves.
+
 - Fade route content in over 200ms while the header and footer stay mounted. Reserve scrollbar space to keep the reading column centered as page lengths change. Leave scroll behavior and focus handling intact.
 - Fade Creative image reveals over 240ms and ease link color changes over 140ms without changing underline width.
 - Skip these transitions when the visitor prefers reduced motion.
@@ -48,9 +50,9 @@ Keep the approved case-study sections, optional captions, and desktop section na
 ## Responsive behavior
 
 - At 480px and wider, Work experience groups use a 176px metadata column and a flexible project column. Use a wrapping flex row for the header. Let the nav wrap beneath the name when space runs out. Keep type sizes fixed and links at least 44px tall.
-- Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored year and status, separated by a middle dot. Keep 16px body text.
+- Below 480px, use 20px gutters and stack list rows with the title above the secondary-colored year and status, separated by a middle dot. Keep 15px body text.
 - Keep the container centered and capped at 640px up to the 1920px check.
-- On mobile, use uniform 0.18 dither opacity and a still frame.
+- On touch devices, narrow viewports, and under reduced motion, use a still Home dither. Pause the ambient layer in hidden tabs.
 - Check 320, 360, 390, 768, 1280, and 1920px in Chromium. Report any horizontal overflow.
 
 ## Work order

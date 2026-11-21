@@ -11,7 +11,7 @@ export function Header() {
     <header className="mb-header flex flex-wrap items-baseline justify-between gap-x-gutter gap-y-row-small pt-gutter">
       <Link
         to={brand.href}
-        className="shrink-0 text-body text-text no-underline hover:underline"
+        className="shrink-0 text-item text-text no-underline hover:underline"
       >
         {brand.label}
       </Link>

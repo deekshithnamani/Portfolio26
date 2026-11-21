@@ -99,10 +99,6 @@ body {
     animation: draw-new-mark 700ms ease-out both;
   }
 
-  #root {
-    transition: background-color var(--motion-page) var(--motion-ease-out);
-  }
-
   .route-content > .page-shell > :not(.home-dither) {
     animation: page-enter var(--motion-page) var(--motion-ease-out) backwards;
   }
@@ -144,26 +140,81 @@ body {
 
 #root:has(.home-dither) {
   isolation: isolate;
-  background-color: var(--home-paper);
 }
 
 .home-dither {
-  --edge-width: max(var(--gutter), calc((100% - var(--column-width)) / 2));
-  --edge-fade: max(0px, calc(var(--edge-width) - 80px));
+  --reading-edge: max(var(--gutter), calc((100% - var(--column-width)) / 2));
 
   position: fixed;
   inset: 0;
   z-index: -1;
-  width: 100%;
-  height: 100%;
+  overflow: clip;
   pointer-events: none;
-  image-rendering: pixelated;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--dither) 28%, transparent) 0.65px,
+    transparent 1px
+  );
+  background-size: 6px 6px;
+}
+
+.home-dither::before,
+.home-dither::after {
+  position: absolute;
+  inset: -12px;
+  content: "";
   mask-image: linear-gradient(
     to right,
-    black var(--edge-fade),
-    transparent var(--edge-width) calc(100% - var(--edge-width)),
-    black calc(100% - var(--edge-fade))
+    black,
+    rgb(0 0 0 / 10%) var(--reading-edge) calc(100% - var(--reading-edge)),
+    black
   );
+}
+
+.home-dither::before {
+  background-image: radial-gradient(
+    circle,
+    var(--dither) 0.75px,
+    transparent 1px
+  );
+  background-size: 9px 9px;
+  opacity: 0.48;
+}
+
+.home-dither::after {
+  background-image: radial-gradient(
+    circle,
+    var(--dither) 0.9px,
+    transparent 1.15px
+  );
+  background-size: 13px 13px;
+  background-position: 3px 4px;
+  opacity: 0.35;
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-dither::before {
+    animation: grain-drift var(--motion-grain) ease-in-out infinite alternate;
+  }
+
+  .home-dither[data-paused="true"]::before {
+    animation-play-state: paused;
+  }
+
+  .home-dither::after {
+    transform: translate(var(--dither-x, 0px), var(--dither-y, 0px));
+    transition: transform var(--motion-parallax) var(--motion-ease-out);
+  }
+}
+
+@keyframes grain-drift {
+  from {
+    transform: translate(-7px, 4px);
+  }
+
+  to {
+    transform: translate(7px, -4px);
+  }
 }
 
 .dither-image canvas {
@@ -202,6 +253,7 @@ a:hover .link-arrow::after {
 }
 
 .work-list-title {
+  @apply text-item font-medium;
   min-width: 0;
   overflow-wrap: anywhere;
 }
@@ -215,6 +267,7 @@ a:hover .link-arrow::after {
   }
 
   .work-list-title {
+    @apply text-item font-medium;
     grid-area: 1 / 2;
   }
 
@@ -232,13 +285,6 @@ a:hover .link-arrow::after {
   }
 }
 
-@media (width < 768px) {
-  .home-dither {
-    mask-image: none;
-    opacity: 0.18;
-  }
-}
-
 .experience-group {
   display: grid;
   align-items: start;
@@ -246,6 +292,7 @@ a:hover .link-arrow::after {
 }
 
 .experience-projects {
+  @apply text-item font-medium;
   display: grid;
   align-content: start;
   gap: var(--row-gap-small);
@@ -276,10 +323,23 @@ a:hover .link-arrow::after {
   @apply text-section leading-snug font-medium text-text;
 }
 
-.back-link {
-  @apply inline-block text-small text-text-2;
+.item-title {
+  @apply text-item leading-snug font-medium text-text;
 }
 
-.back-link + .page-title {
+.back-link {
+  @apply inline-flex items-center gap-row-small text-small text-text-2 no-underline;
+}
+
+.back-link span {
+  text-decoration: underline var(--link-underline) var(--link-underline-width);
+  text-underline-offset: 0.16em;
+}
+
+.back-link:hover span {
+  text-decoration-color: var(--text-2);
+}
+
+.back-link + :is(.page-title, .item-title) {
   margin-top: var(--link-gap);
 }

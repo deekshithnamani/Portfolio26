@@ -1,7 +1,6 @@
 :root {
   color-scheme: light;
   --bg: #f8f8f6;
-  --home-paper: #ffffff;
   --text: #252525;
   --text-2: #62625e;
   --line: #e3e3dd;
@@ -10,9 +9,9 @@
   --case-image: #efefea;
   --column-width: 640px;
   --gutter: 24px;
-  --body-size: 16px;
+  --body-size: 15px;
   --body-leading: 1.6;
-  --small-size: 13px;
+  --small-size: 12px;
   --page-space: 64px;
   --link-gap: 16px;
   --row-gap-small: 8px;
@@ -22,13 +21,16 @@
   --row-height: 56px;
   --tap-height: 44px;
   --nav-size: 14px;
-  --title-size: 21px;
+  --title-size: 20px;
   --section-size: 18px;
+  --item-size: 16px;
   --link-underline: #85857e;
   --link-underline-width: 1px;
   --motion-page: 200ms;
   --motion-image: 240ms;
   --motion-link: 140ms;
+  --motion-grain: 18s;
+  --motion-parallax: 320ms;
   --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --row-year: 96px;
   --experience-meta-width: 176px;
@@ -42,7 +44,6 @@
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-home-paper: var(--home-paper);
   --color-text: var(--text);
   --color-text-2: var(--text-2);
   --color-line: var(--line);
@@ -58,6 +59,7 @@
   --text-nav: var(--nav-size);
   --text-title: var(--title-size);
   --text-section: var(--section-size);
+  --text-item: var(--item-size);
   --container-column: var(--column-width);
   --spacing-gutter: var(--gutter);
   --spacing-page: var(--page-space);

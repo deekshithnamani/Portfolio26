@@ -9,23 +9,11 @@ const BAYER_8 = [
   [42, 26, 38, 22, 41, 25, 37, 21],
 ];
 
-export function loadDitherSource(
-  src: string,
-): Promise<HTMLImageElement | null> {
-  return new Promise((resolve) => {
-    const image = new Image();
-    image.onload = () => resolve(image);
-    image.onerror = () => resolve(null);
-    image.src = src;
-  });
-}
-
 export function drawDither(
   canvas: HTMLCanvasElement,
   image: HTMLImageElement,
   width: number,
   height: number,
-  { densityScale = 1, focalX = 0.5, focalY = 0.5 } = {},
 ) {
   canvas.width = width;
   canvas.height = height;
@@ -52,8 +40,8 @@ export function drawDither(
   const scaledHeight = scale * image.naturalHeight;
   context.drawImage(
     image,
-    (width - scaledWidth) * focalX,
-    (height - scaledHeight) * focalY,
+    (width - scaledWidth) / 2,
+    (height - scaledHeight) / 2,
     scaledWidth,
     scaledHeight,
   );
@@ -69,7 +57,7 @@ export function drawDither(
           data[offset + 2] * 0.0722) /
         255;
       // At most 25 of the 64 Bayer positions may be inked, even over solid black.
-      const density = Math.min(25, (1 - gray) * 32 * densityScale);
+      const density = Math.min(25, (1 - gray) * 32);
       const color = BAYER_8[y % 8][x % 8] + 0.5 < density ? dot : background;
       data[offset] = color[0];
       data[offset + 1] = color[1];

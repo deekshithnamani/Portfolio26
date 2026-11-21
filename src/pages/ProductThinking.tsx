@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router";
+import { BackLink } from "@/components/ui/back-link";
+import { useLocation } from "react-router";
 import { PageContainer } from "@/components/ui";
 import { LinkLabel } from "@/components/ui/link-label";
 import { PRODUCT_THINKING } from "@/data";
@@ -10,11 +11,7 @@ export default function ProductThinking() {
   const back = state?.fromHome === true ? SITE_LINKS.backHome : undefined;
   return (
     <PageContainer>
-      {back && (
-        <Link to={back.href} className="back-link">
-          {back.label}
-        </Link>
-      )}
+      {back && <BackLink destination={back} />}
       <h1 className="page-title">{WORK_CONTENT.productThinking.label}</h1>
       <div className="mt-link border-t border-line">
         {PRODUCT_THINKING.map(
@@ -27,7 +24,7 @@ export default function ProductThinking() {
                 <span>{tag}</span>
                 <span>{duration}</span>
               </p>
-              <h2 className="section-title">{title}</h2>
+              <h2 className="item-title">{title}</h2>
               <p>{context}</p>
               <p className="text-text-2">{tldr}</p>
               <a href={portfolioUrl} target="_blank" rel="noreferrer">
