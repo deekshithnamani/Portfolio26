@@ -8,7 +8,7 @@ type ListRowProps = {
   href?: string;
   newTab?: boolean;
   newLabel?: string;
-  year: string;
+  year?: string;
   description?: string;
 };
 
@@ -24,11 +24,17 @@ export function ListRow({
   const titleContent = <LinkLabel label={title} />;
 
   return (
-    <li className="border-b border-line">
-      <div className="work-list-row">
-        <span className="work-list-year text-small text-text-2">{year}</span>
+    <li>
+      <div className={year ? "work-list-row" : "company-project-row"}>
+        {year && (
+          <span className="work-list-year text-small text-text-2">{year}</span>
+        )}
         <div className="work-list-project">
-          <div className="work-list-title">
+          <div
+            className={
+              year ? "work-list-title" : "text-small font-medium wrap-anywhere"
+            }
+          >
             {href ? (
               newTab ? (
                 <a href={href} target="_blank" rel="noreferrer">
@@ -42,7 +48,9 @@ export function ListRow({
             )}
             {newLabel && <NewMark label={newLabel} />}
           </div>
-          {description?.trim() && <p className="text-text-2">{description}</p>}
+          {description?.trim() && (
+            <p className="text-small text-text-2">{description}</p>
+          )}
         </div>
         {status && (
           <span className="work-list-status text-small text-text-2">

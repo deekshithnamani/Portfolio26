@@ -1,9 +1,8 @@
 import { BackLink } from "@/components/ui/back-link";
-import { InlineCopy } from "@/components/ui/inline-copy";
 import { PageContainer } from "@/components/ui";
 import type { WorkItem } from "@/data";
 import { SITE_LINKS } from "@/data/site-links";
-import { WORK_CONTENT, type ProjectContent } from "@/data/work-content";
+import type { ProjectContent } from "@/data/work-content";
 import { SectionNav } from "./section-nav";
 
 export type ProjectTemplateData = {
@@ -53,8 +52,10 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
     <PageContainer>
       <article className="space-y-page">
         <header>
-          <h1 className="item-title">{title}</h1>
-          {summary?.trim() && <p className="mt-link">{summary}</p>}
+          <div className="space-y-row-small">
+            <h1 className="page-title">{title}</h1>
+            {summary?.trim() && <p className="text-text-2">{summary}</p>}
+          </div>
           {meta?.trim() && <p className="mt-gutter text-small text-text-2">{meta}</p>}
         </header>
 
@@ -90,9 +91,8 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
           </section>
         ))}
 
-        <div className="space-y-link">
+        <div>
           <BackLink destination={SITE_LINKS.backToWork} />
-          <p><InlineCopy parts={WORK_CONTENT.projectContact} /></p>
         </div>
       </article>
     </PageContainer>

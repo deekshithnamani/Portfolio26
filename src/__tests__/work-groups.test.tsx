@@ -33,6 +33,11 @@ describe("work index", () => {
     expect(
       univ.getByRole("link", { name: "Univ.AI platform" }),
     ).toHaveAttribute("href", "/work/univ-ai-platform");
+    expect(univ.getByText("UX/UI Design Intern").parentElement).toHaveClass(
+      "text-small",
+      "text-text-2",
+    );
+    expect(univ.getByText("Oct 2022 – Apr 2023")).toBeInTheDocument();
     expect(stealth.getByText("New")).toBeInTheDocument();
     expect(daosoft.getByText("Decision workflows")).toBeInTheDocument();
     expect(daosoft.queryByRole("link")).toBeNull();

@@ -15,8 +15,10 @@ function seriesLinkId(slug: string) {
 export default function BeyondWorkIndex() {
   return (
     <PageContainer>
-      <h1 className="page-title">{BEYOND_WORK_CONTENT.label}</h1>
-      <p className="mt-link">{BEYOND_WORK_CONTENT.description}</p>
+      <div className="space-y-row-small">
+        <h1 className="page-title">{BEYOND_WORK_CONTENT.label}</h1>
+        <p className="text-text-2">{BEYOND_WORK_CONTENT.description}</p>
+      </div>
       <ul className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
         {BEYOND_WORK_CONTENT.series.map(
           ({ slug, title, description, photoIds }) => {
@@ -65,8 +67,10 @@ export function BeyondWorkSeriesPage() {
         destination={back}
         state={{ returnToId: seriesLinkId(series.slug) }}
       />
-      <h1 className="item-title">{series.title}</h1>
-      <p className="mt-link">{series.description}</p>
+      <div className="space-y-row-small">
+        <h1 className="item-title">{series.title}</h1>
+        <p className="text-text-2">{series.description}</p>
+      </div>
       {photos.length > 0 && (
         <div className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
           {photos.map(({ id, file, alt, caption }) => (

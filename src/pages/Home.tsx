@@ -1,11 +1,11 @@
 import { PageContainer } from "@/components/ui";
 import { DitherBackground } from "@/components/ui/dither-background";
 import { InlineCopy } from "@/components/ui/inline-copy";
-import { ListRow } from "@/components/ui/list-row";
+import { CompanyWorkList } from "@/components/ui/company-work-list";
 import { WORK_CONTENT } from "@/data/work-content";
 
 export default function Home() {
-  const { home, entries, newLabel } = WORK_CONTENT;
+  const { home } = WORK_CONTENT;
 
   return (
     <PageContainer>
@@ -18,20 +18,7 @@ export default function Home() {
         <h1 id="home-projects" className="section-title">
           {home.selectedLabel}
         </h1>
-        <ul className="mt-link border-t border-line">
-          {entries
-            .filter(({ featured }) => featured)
-            .map(({ title, year, status, href, isNew }) => (
-              <ListRow
-                key={title}
-                title={title}
-                year={year}
-                status={status}
-                href={href}
-                newLabel={isNew ? newLabel : undefined}
-              />
-            ))}
-        </ul>
+        <CompanyWorkList featuredOnly />
       </section>
     </PageContainer>
   );

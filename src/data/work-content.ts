@@ -74,6 +74,7 @@ type WorkContent = {
     placeholder: boolean;
   };
   entries: CompanyProject[];
+  companies: Partial<Record<string, { role: string; duration: string }>>;
   productThinking: {
     label: string;
     id: string;
@@ -85,7 +86,6 @@ type WorkContent = {
   };
   caseStudy: ProjectContent;
   univPlatform: ProjectContent;
-  projectContact: LinkedText[];
 };
 
 export const WORK_CONTENT: WorkContent = {
@@ -102,7 +102,6 @@ export const WORK_CONTENT: WorkContent = {
       link: entry.link === undefined ? undefined : readSiteLinkId(entry.link),
     })),
   },
-  projectContact: data.projectContact.map(readLinkedText),
 };
 
 export const WORK_GROUPS = new Map<string, CompanyProject[]>();

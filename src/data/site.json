@@ -27,7 +27,7 @@
     "linkedin": {
       "label": "LinkedIn ↗",
       "href": "https://www.linkedin.com/in/deekshithnamani",
-      "appearsIn": ["footer", "caseStudy", "about"],
+      "appearsIn": ["footer", "about"],
       "newTab": true,
       "placeholder": true
     },

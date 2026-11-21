@@ -20,7 +20,7 @@
 }
 
 html {
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
 }
 
 #root {
@@ -153,7 +153,7 @@ body {
   pointer-events: none;
   background-image: radial-gradient(
     circle,
-    color-mix(in srgb, var(--dither) 19%, transparent) 0.65px,
+    color-mix(in srgb, var(--dither) 32%, transparent) 0.65px,
     transparent 1px
   );
   background-size: 6px 6px;
@@ -316,6 +316,26 @@ a:hover .link-arrow::after {
     grid-template-areas: "year project status";
     column-gap: var(--link-gap);
     align-items: center;
+  }
+}
+
+.company-work-group {
+  display: grid;
+  gap: var(--link-gap);
+}
+
+.company-project-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--row-gap-small) var(--link-gap);
+}
+
+@media (width >= 480px) {
+  .company-work-group {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--gutter);
   }
 }
 

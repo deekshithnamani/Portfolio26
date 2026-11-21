@@ -52,12 +52,20 @@ describe("app routes", () => {
     expect(
       main.getByRole("heading", { name: "Selected work" }),
     ).toBeInTheDocument();
+    const companies = within(
+      main.getByRole("region", { name: "Selected work" }),
+    ).getAllByRole("region");
+    expect(companies.map((group) => group.getAttribute("aria-label"))).toEqual([
+      "DAOSoft",
+      "Stealth AI startup",
+    ]);
+    expect(
+      within(companies[0]).getByText("Mar 2024 – Present"),
+    ).toBeInTheDocument();
     const rows = main.getAllByRole("listitem");
     expect(rows).toHaveLength(2);
-    expect(rows[1]).toHaveTextContent(
-      /2023–24.*Property-document checker.*case study/,
-    );
-    expect(rows[0]).toHaveTextContent(/2024–.*Decision workflows.*soon/);
+    expect(rows[1]).toHaveTextContent(/Property-document checker.*case study/);
+    expect(rows[0]).toHaveTextContent(/Decision workflows.*soon/);
     expect(
       within(rows[1]).getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
@@ -127,10 +135,7 @@ describe("app routes", () => {
       "aria-hidden",
       "true",
     );
-    expect(main.getByRole("link", { name: "LinkedIn ↗" })).toHaveAttribute(
-      "href",
-      SITE_LINKS.linkedin.href,
-    );
+    expect(main.queryByRole("link", { name: "LinkedIn ↗" })).toBeNull();
   });
 
   it.each([

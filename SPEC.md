@@ -46,7 +46,7 @@
   photographs are the background of this page." "photograph" links to
   /creative.
 - Label "Selected work", then the Work entries marked `featured`, newest
-  first using the same sort as Work. Keep year left and status right.
+  first using the same sort and company layout as Work.
 
 ## Work page
 
@@ -55,6 +55,9 @@
   ongoing roles first. The current order is DAOSoft, Stealth AI startup, Univ.AI.
 - Sort projects within each company and the Product thinking section newest
   first from the years in `work.json`. Items marked "soon" use the same sort.
+- Put company, role and duration beside the project list on wider screens, and
+  above it on narrow screens. Role, duration and project details use secondary
+  type. Use dividers at group and section boundaries, with none on individual rows.
 - Keep the following rows:
   Property-document checker | 2023–24 | Stealth AI startup · Flags issues
     in land documents that take lawyers weeks. | case study, "New" mark
@@ -76,8 +79,7 @@
 - Give every populated section a 16:9 image slot using the existing tokens.
   An image can fill the slot when supplied. Captions are optional.
 
-- Remove the top "← Work". At the end of the page add "← Work", then "Want
-  to talk about this work? Find me on LinkedIn ↗".
+- End the page with "← Work".
 - Replace Role/Context/Period with one meta line (small token).
 - Section nav labels match the section headings below.
 

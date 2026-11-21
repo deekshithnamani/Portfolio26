@@ -150,12 +150,18 @@
     ],
     "placeholder": true
   },
-  "projectContact": [
-    {
-      "text": "Want to talk about this work? Find me on "
+  "companies": {
+    "DAOSoft": {
+      "role": "Product Designer (doing PM work)",
+      "duration": "Mar 2024 – Present"
     },
-    {
-      "link": "linkedin"
+    "Stealth AI startup": {
+      "role": "Product Designer (MVP scoping & strategy)",
+      "duration": "Aug 2023 – Feb 2024"
+    },
+    "Univ.AI": {
+      "role": "UX/UI Design Intern",
+      "duration": "Oct 2022 – Apr 2023"
     }
-  ]
+  }
 }
