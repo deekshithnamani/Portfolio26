@@ -69,5 +69,6 @@
   --spacing-row: var(--row-height);
   --spacing-tap: var(--tap-height);
   --spacing-link: var(--link-gap);
+  --spacing-heading-gap: calc(var(--row-gap-small) / 2);
   --spacing-row-small: var(--row-gap-small);
 }

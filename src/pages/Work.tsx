@@ -14,7 +14,7 @@ export function WorkIndex() {
 
   return (
     <PageContainer>
-      <div className="space-y-row-small">
+      <div className="space-y-heading-gap">
         <h1 className="page-title">{label}</h1>
         <p className="text-text-2">{description}</p>
       </div>
@@ -28,7 +28,7 @@ export function WorkIndex() {
         <h2 className="section-title" id="product-thinking-heading">
           {productThinking.label}
         </h2>
-        <ul className="mt-link">
+        <ul role="list" className="mt-link">
           {productThinking.entries.map(({ link, ...entry }) => (
             <ListRow
               key={entry.title}
@@ -60,6 +60,6 @@ export function WorkIndex() {
 
 export function WorkDetail() {
   const { slug } = useParams();
-  const project = slug ? PROJECT_PAGES[buildWorkDetailPath(slug)] : undefined;
+  const project = slug ? PROJECT_PAGES[buildWorkDetailPath(slug.toLowerCase())] : undefined;
   return project ? <CaseStudyPage project={project} /> : <NotFound />;
 }

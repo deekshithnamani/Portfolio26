@@ -1,20 +1,12 @@
 import { WORK_CONTENT, WORK_GROUPS } from "@/data/work-content";
 import { ListRow } from "./list-row";
 
-export function CompanyWorkList({
-  featuredOnly = false,
-}: {
-  featuredOnly?: boolean;
-}) {
-  const { companies, newLabel } = WORK_CONTENT;
+export function CompanyWorkList() {
+  const { companies } = WORK_CONTENT;
 
   return (
     <div className="mt-link divide-y divide-line border-y border-line">
-      {Array.from(WORK_GROUPS, ([company, entries]) => {
-        const projects = featuredOnly
-          ? entries.filter(({ featured }) => featured)
-          : entries;
-        if (!projects.length) return null;
+      {Array.from(WORK_GROUPS, ([company, projects]) => {
         const experience = companies[company];
 
         return (
@@ -32,15 +24,14 @@ export function CompanyWorkList({
                 </div>
               )}
             </div>
-            <ul className="space-y-row-small">
-              {projects.map(({ title, status, description, href, isNew }) => (
+            <ul role="list" className="space-y-row-small">
+              {projects.map(({ title, description, href }) => (
                 <ListRow
                   key={title}
                   title={title}
-                  status={status}
-                  description={featuredOnly ? undefined : description}
+                  description={description}
                   href={href}
-                  newLabel={isNew ? newLabel : undefined}
+                  compact
                 />
               ))}
             </ul>

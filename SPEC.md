@@ -46,7 +46,8 @@
   photographs are the background of this page." "photograph" links to
   /creative.
 - Label "Selected work", then the Work entries marked `featured`, newest
-  first using the same sort and company layout as Work.
+  first using the same sort as Work. Show titles in a flat list. Personal
+  projects can omit the company field.
 
 ## Work page
 
@@ -54,23 +55,24 @@
 - Group projects by company. Sort companies by their latest end year, putting
   ongoing roles first. The current order is DAOSoft, Stealth AI startup, Univ.AI.
 - Sort projects within each company and the Product thinking section newest
-  first from the years in `work.json`. Items marked "soon" use the same sort.
+  first from the years in `work.json`.
 - Put company, role and duration beside the project list on wider screens, and
-  above it on narrow screens. Role, duration and project details use secondary
+  above it on narrow screens. Use “UX/UI Designer” for every company role.
+  Role, duration and project details use secondary
   type. Use dividers at group and section boundaries, with none on individual rows.
-- Keep the following rows:
+- Keep the following rows and omit status tags:
   Property-document checker | 2023–24 | Stealth AI startup · Flags issues
-    in land documents that take lawyers weeks. | case study, "New" mark
+    in land documents that take lawyers weeks.
   Decision workflows | 2024– | DAOSoft · How a high-stakes engineering
-    decision moves through one connected system. | soon, no link
+    decision moves through one connected system. | no link
   Univ.AI platform | 2022–23 | Univ.AI · A design system, a job portal and
-    a staff tool for an edtech startup. | project note
+    a staff tool for an edtech startup.
 - Section "Product thinking" (id product-thinking):
   Zomato eco-features PRD | 2025 | Graduation project on driving
     eco-feature adoption in Zomato: KPI tree, PRD and experimentation
-    roadmap. | fellowship, gray, no link
+    roadmap. | gray, no link
   NextLeap portfolio ↗ | 2025 | The rest of my fellowship projects. |
-    fellowship, link https://nextleap.app/portfolio/n-deekshith
+    link https://nextleap.app/portfolio/n-deekshith
   Line below: "NextLeap PM Fellowship, Feb–May 2025. Top ~12% of 200+
   fellows, 87%." Optional certificateUrl appends "Certificate ↗".
 

@@ -52,14 +52,14 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
     <PageContainer>
       <article className="space-y-page">
         <header>
-          <div className="space-y-row-small">
+          <div className="space-y-heading-gap">
             <h1 className="page-title">{title}</h1>
             {summary?.trim() && <p className="text-text-2">{summary}</p>}
           </div>
           {meta?.trim() && <p className="mt-gutter text-small text-text-2">{meta}</p>}
+          {sectionNav && sections.length > 0 && <SectionNav sections={sections} />}
         </header>
 
-        {sectionNav && sections.length > 0 && <SectionNav sections={sections} />}
         {sections.map(({ id, title: heading, body, note, image, caption }) => (
           <section
             key={id}

@@ -1,7 +1,6 @@
 {
   "label": "Work",
   "description": "Selected work, with the decisions behind it.",
-  "newLabel": "New",
   "home": {
     "intro": "I’m Deekshith, a product designer in Hyderabad. I started as a chemical engineer, moved into design, and for the last three years have worked on AI and enterprise products, mostly as the only designer on the project.",
     "photography": [
@@ -25,9 +24,7 @@
       "featured": true,
       "title": "Property-document checker",
       "description": "Stealth AI startup · Flags issues in land documents that take lawyers weeks.",
-      "status": "case study",
       "placeholder": true,
-      "isNew": true,
       "href": "/work/property-document-checker"
     },
     {
@@ -36,7 +33,6 @@
       "featured": true,
       "title": "Decision workflows",
       "description": "DAOSoft · How a high-stakes engineering decision moves through one connected system.",
-      "status": "soon",
       "placeholder": true
     },
     {
@@ -44,7 +40,6 @@
       "company": "Univ.AI",
       "title": "Univ.AI platform",
       "description": "Univ.AI · A design system, a job portal and a staff tool for an edtech startup.",
-      "status": "project note",
       "placeholder": true,
       "href": "/work/univ-ai-platform"
     }
@@ -57,14 +52,12 @@
         "year": "2025",
         "title": "Zomato eco-features PRD",
         "description": "Graduation project on driving eco-feature adoption in Zomato: KPI tree, PRD and experimentation roadmap.",
-        "status": "fellowship",
         "placeholder": true
       },
       {
         "year": "2025",
         "title": "NextLeap portfolio ↗",
         "description": "The rest of my fellowship projects.",
-        "status": "fellowship",
         "placeholder": true,
         "link": "nextLeap"
       }
@@ -152,15 +145,15 @@
   },
   "companies": {
     "DAOSoft": {
-      "role": "Product Designer (doing PM work)",
+      "role": "UX/UI Designer",
       "duration": "Mar 2024 – Present"
     },
     "Stealth AI startup": {
-      "role": "Product Designer (MVP scoping & strategy)",
+      "role": "UX/UI Designer",
       "duration": "Aug 2023 – Feb 2024"
     },
     "Univ.AI": {
-      "role": "UX/UI Design Intern",
+      "role": "UX/UI Designer",
       "duration": "Oct 2022 – Apr 2023"
     }
   }

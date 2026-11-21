@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -52,20 +51,15 @@ describe("app routes", () => {
     expect(
       main.getByRole("heading", { name: "Selected work" }),
     ).toBeInTheDocument();
-    const companies = within(
+    const selected = within(
       main.getByRole("region", { name: "Selected work" }),
-    ).getAllByRole("region");
-    expect(companies.map((group) => group.getAttribute("aria-label"))).toEqual([
-      "DAOSoft",
-      "Stealth AI startup",
+    );
+    expect(selected.queryByRole("region")).toBeNull();
+    const rows = selected.getAllByRole("listitem");
+    expect(rows.map((row) => row.textContent)).toEqual([
+      "Decision workflows",
+      "Property-document checker",
     ]);
-    expect(
-      within(companies[0]).getByText("Mar 2024 – Present"),
-    ).toBeInTheDocument();
-    const rows = main.getAllByRole("listitem");
-    expect(rows).toHaveLength(2);
-    expect(rows[1]).toHaveTextContent(/Property-document checker.*case study/);
-    expect(rows[0]).toHaveTextContent(/Decision workflows.*soon/);
     expect(
       within(rows[1]).getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", SITE_LINKS.legalProof.href);
@@ -102,6 +96,36 @@ describe("app routes", () => {
     },
   );
 
+  it.each([
+    [
+      "/Work/",
+      "Work",
+      "Selected work by Deekshith Namani, with the decisions behind it.",
+    ],
+    [
+      "/WORK/PROPERTY-DOCUMENT-CHECKER",
+      "Property-document checker",
+      "A case study on a tool that surfaces issues in land documents.",
+    ],
+    [
+      "/Creative/EVENING-SKIES",
+      "Evening skies",
+      "A daily photograph of the evening sky.",
+    ],
+  ])(
+    "keeps the page and metadata aligned at %s",
+    async (path, heading, description) => {
+      await renderAt(path);
+      expect(
+        screen.getByRole("heading", { level: 1, name: heading }),
+      ).toBeInTheDocument();
+      expect(document.title).toBe(`Deekshith Namani · ${heading}`);
+      expect(
+        document.querySelector('meta[name="description"]'),
+      ).toHaveAttribute("content", description);
+    },
+  );
+
   it("renders the case study and the five populated section links", async () => {
     await renderAt(SITE_LINKS.legalProof.href);
     const main = within(screen.getByRole("main"));
@@ -122,9 +146,8 @@ describe("app routes", () => {
       main.getByRole("navigation", { name: "Case study sections" }),
     );
     for (const title of titles) {
-      const id =
-        nav.getByRole("link", { name: title }).getAttribute("href")?.slice(1) ??
-        "";
+      const link = nav.getByRole("link", { name: title }) as HTMLAnchorElement;
+      const id = link.hash.slice(1);
       expect(document.getElementById(id)).toContainElement(
         main.getByRole("heading", { name: title }),
       );
@@ -136,6 +159,20 @@ describe("app routes", () => {
       "true",
     );
     expect(main.queryByRole("link", { name: "LinkedIn ↗" })).toBeNull();
+  });
+
+  it("moves keyboard focus to the case study section and preserves the query", async () => {
+    const user = userEvent.setup();
+    await renderAt(SITE_LINKS.legalProof.href + "?view=case");
+    const main = within(screen.getByRole("main"));
+    const nav = within(
+      main.getByRole("navigation", { name: "Case study sections" }),
+    );
+    nav.getByRole("link", { name: "Options" }).focus();
+    await user.keyboard("{Enter}");
+    expect(window.location.hash).toBe("#options");
+    expect(window.location.search).toBe("?view=case");
+    expect(main.getByRole("region", { name: "Options" })).toHaveFocus();
   });
 
   it.each([
@@ -375,15 +412,12 @@ describe("app routes", () => {
     expect(screen.queryByRole("link", { name: /resume|résumé/i })).toBeNull();
   });
 
-  it("limits the New mark animation to visitors who allow motion", async () => {
+  it("omits status tags from Work rows", async () => {
     await renderAt(ROUTE_PATHS.work);
+    const main = within(screen.getByRole("main"));
     expect(
-      screen.getByRole("main").querySelector(".new-mark-stroke"),
-    ).toBeInTheDocument();
-    const styles = readFileSync("src/index.css", "utf8");
-    expect(styles).toMatch(
-      /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*\.new-mark-stroke\s*\{[^}]*animation: draw-new-mark/,
-    );
+      main.queryByText(/^(new|case study|project note|soon|fellowship)$/i),
+    ).toBeNull();
   });
 
   it("restores image slots for populated sections and omits empty sections and captions", async () => {

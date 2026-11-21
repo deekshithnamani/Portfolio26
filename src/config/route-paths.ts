@@ -1,4 +1,5 @@
-import { BEYOND_WORK_CONTENT } from "@/data/beyond-work-content";
+// eslint-disable-next-line no-restricted-imports -- Vite loads this module before resolving app aliases.
+import { BEYOND_WORK_CONTENT } from "../data/beyond-work-content";
 
 export const ROUTE_SEGMENTS = {
   home: "",

@@ -94,11 +94,6 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .new-mark-stroke {
-    stroke-dasharray: 1;
-    animation: draw-new-mark 700ms ease-out both;
-  }
-
   .route-content > .page-shell > :not(.home-dither) {
     animation: page-enter var(--motion-page) var(--motion-ease-out) backwards;
   }
@@ -125,16 +120,6 @@ body {
 
   to {
     opacity: 1;
-  }
-}
-
-@keyframes draw-new-mark {
-  from {
-    stroke-dashoffset: 1;
-  }
-
-  to {
-    stroke-dashoffset: 0;
   }
 }
 
@@ -279,14 +264,24 @@ a:hover .link-arrow::after {
   border-bottom-color: var(--text-2);
 }
 
+@media (width >= 1101px) {
+  .case-section-nav {
+    position: fixed;
+    top: 50%;
+    left: calc(50% + var(--column-width) / 2 + var(--gutter));
+    translate: 0 -50%;
+    max-height: calc(100dvh - 2 * var(--page-space));
+    width: calc(var(--footer-space) + var(--page-space) + var(--link-gap));
+    overflow-y: auto;
+    padding: 0.25rem;
+  }
+}
+
 .work-list-row {
   display: grid;
   gap: var(--row-gap-small);
   padding-block: var(--row-gap-small);
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    "project project"
-    "year status";
+  grid-template-areas: "project" "year";
 }
 
 .work-list-year {
@@ -298,11 +293,6 @@ a:hover .link-arrow::after {
   min-width: 0;
 }
 
-.work-list-status {
-  grid-area: status;
-  text-align: right;
-}
-
 .work-list-title {
   @apply text-item font-medium;
   min-width: 0;
@@ -312,8 +302,8 @@ a:hover .link-arrow::after {
 @media (width >= 480px) {
   .work-list-row {
     min-height: var(--row-height);
-    grid-template-columns: var(--work-year-width) minmax(0, 1fr) auto;
-    grid-template-areas: "year project status";
+    grid-template-columns: var(--work-year-width) minmax(0, 1fr);
+    grid-template-areas: "year project";
     column-gap: var(--link-gap);
     align-items: center;
   }
@@ -322,14 +312,6 @@ a:hover .link-arrow::after {
 .company-work-group {
   display: grid;
   gap: var(--link-gap);
-}
-
-.company-project-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--row-gap-small) var(--link-gap);
 }
 
 @media (width >= 480px) {

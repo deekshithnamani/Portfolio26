@@ -1,9 +1,11 @@
 import { SITE_LABELS } from "@/data/site-links";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
 
 type Section = { id: string; title: string };
 
 export function SectionNav({ sections }: { sections: readonly Section[] }) {
+  const { hash, search } = useLocation();
   const [activeId, setActiveId] = useState(sections[0]?.id);
 
   useEffect(() => {
@@ -33,10 +35,6 @@ export function SectionNav({ sections }: { sections: readonly Section[] }) {
       setActiveId(current?.id);
     };
 
-    const fragmentTarget = targets.find(
-      ({ id }) => window.location.hash === `#${id}`,
-    );
-    fragmentTarget?.scrollIntoView?.();
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
@@ -44,24 +42,26 @@ export function SectionNav({ sections }: { sections: readonly Section[] }) {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [sections]);
+  }, [hash, sections]);
 
   return (
     <nav
       aria-label={SITE_LABELS.projectNav}
-      className="fixed top-1/2 hidden -translate-y-1/2 max-h-[calc(100dvh-var(--page-space)-var(--page-space))] w-44 overflow-y-auto p-1 text-nav min-[1101px]:block"
-      style={{ left: "calc(50% + var(--column-width) / 2 + var(--gutter))" }}
+      className="case-section-nav mt-link text-nav min-[1101px]:mt-0"
     >
-      <ul className="space-y-2">
+      <ul
+        role="list"
+        className="flex flex-wrap gap-x-link gap-y-row-small min-[1101px]:block min-[1101px]:space-y-2"
+      >
         {sections.map(({ id, title }) => (
           <li key={id}>
-            <a
-              href={`#${id}`}
+            <Link
+              to={{ search, hash: `#${id}` }}
               aria-current={activeId === id ? "location" : undefined}
-              className={`no-underline hover:underline ${activeId === id ? "font-semibold text-text" : "text-text-2"}`}
+              className={`inline-flex items-center min-h-tap min-[1101px]:min-h-0 no-underline hover:underline ${activeId === id ? "font-semibold text-text" : "text-text-2"}`}
             >
               {title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

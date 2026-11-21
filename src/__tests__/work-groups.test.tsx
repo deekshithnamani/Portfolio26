@@ -25,6 +25,7 @@ describe("work index", () => {
     );
     for (const group of [daosoft, stealth, univ]) {
       expect(group.getAllByRole("listitem")).toHaveLength(1);
+      expect(group.getByText("UX/UI Designer")).toBeInTheDocument();
     }
     expect(product.getAllByRole("listitem")).toHaveLength(2);
     expect(
@@ -33,12 +34,11 @@ describe("work index", () => {
     expect(
       univ.getByRole("link", { name: "Univ.AI platform" }),
     ).toHaveAttribute("href", "/work/univ-ai-platform");
-    expect(univ.getByText("UX/UI Design Intern").parentElement).toHaveClass(
+    expect(univ.getByText("UX/UI Designer").parentElement).toHaveClass(
       "text-small",
       "text-text-2",
     );
     expect(univ.getByText("Oct 2022 – Apr 2023")).toBeInTheDocument();
-    expect(stealth.getByText("New")).toBeInTheDocument();
     expect(daosoft.getByText("Decision workflows")).toBeInTheDocument();
     expect(daosoft.queryByRole("link")).toBeNull();
     expect(product.getByText("Zomato eco-features PRD")).toBeInTheDocument();

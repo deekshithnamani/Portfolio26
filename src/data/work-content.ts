@@ -10,13 +10,11 @@ type WorkEntry = {
   year: string;
   title: string;
   description: string;
-  status: string;
   href?: string;
-  isNew?: boolean;
   placeholder: boolean;
 };
 
-type CompanyProject = WorkEntry & { company: string; featured?: boolean };
+type CompanyProject = WorkEntry & { company?: string; featured?: boolean };
 
 function projectYears(year: string) {
   const [firstYear, lastYear] = year.split("–").map((part) => part.trim());
@@ -65,7 +63,6 @@ export type ProjectContent = {
 type WorkContent = {
   label: string;
   description: string;
-  newLabel: string;
   placeholder: boolean;
   home: {
     intro: string;
@@ -106,6 +103,7 @@ export const WORK_CONTENT: WorkContent = {
 
 export const WORK_GROUPS = new Map<string, CompanyProject[]>();
 for (const project of WORK_CONTENT.entries) {
+  if (!project.company) continue;
   const group = WORK_GROUPS.get(project.company);
   if (group) group.push(project);
   else WORK_GROUPS.set(project.company, [project]);
