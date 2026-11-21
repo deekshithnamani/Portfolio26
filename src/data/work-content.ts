@@ -7,7 +7,8 @@ import {
 } from "./site-links";
 
 type WorkEntry = {
-  year: string;
+  year?: string;
+  type?: string;
   title: string;
   description: string;
   href?: string;
@@ -16,7 +17,8 @@ type WorkEntry = {
 
 type CompanyProject = WorkEntry & { company?: string; featured?: boolean };
 
-function projectYears(year: string) {
+function projectYears(year?: string) {
+  if (!year?.trim()) return { start: -Infinity, end: -Infinity };
   const [firstYear, lastYear] = year.split("–").map((part) => part.trim());
   const start = Number(firstYear);
   if (lastYear === undefined) return { start, end: start };
@@ -29,12 +31,13 @@ function projectYears(year: string) {
   return { start, end };
 }
 
-export function sortProjectsByYear<T extends { year: string }>(
+export function sortProjectsByYear<T extends { year?: string }>(
   projects: readonly T[],
 ) {
   return [...projects].sort((a, b) => {
     const first = projectYears(a.year);
     const second = projectYears(b.year);
+    if (first.start === second.start && first.end === second.end) return 0;
     return first.end === second.end
       ? second.start - first.start
       : second.end - first.end;

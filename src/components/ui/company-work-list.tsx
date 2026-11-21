@@ -5,7 +5,7 @@ export function CompanyWorkList() {
   const { companies } = WORK_CONTENT;
 
   return (
-    <div className="mt-link divide-y divide-line border-y border-line">
+    <div className="mt-link divide-y divide-line">
       {Array.from(WORK_GROUPS, ([company, projects]) => {
         const experience = companies[company];
 
@@ -16,7 +16,7 @@ export function CompanyWorkList() {
             className="company-work-group py-link"
           >
             <div>
-              <h2 className="item-title">{company}</h2>
+              <h2 className="text-nav font-medium text-text-2">{company}</h2>
               {experience && (
                 <div className="text-small text-text-2">
                   <p>{experience.role}</p>
@@ -31,7 +31,6 @@ export function CompanyWorkList() {
                   title={title}
                   description={description}
                   href={href}
-                  compact
                 />
               ))}
             </ul>

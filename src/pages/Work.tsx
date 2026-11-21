@@ -16,11 +16,11 @@ export function WorkIndex() {
     <PageContainer>
       <div className="space-y-heading-gap">
         <h1 className="page-title">{label}</h1>
-        <p className="text-text-2">{description}</p>
+        <p className="text-nav text-text-2">{description}</p>
       </div>
       <CompanyWorkList />
       <section
-        className="mt-page scroll-mt-gutter border-t border-line pt-gutter"
+        className="mt-page scroll-mt-gutter"
         id={productThinking.id}
         tabIndex={-1}
         aria-labelledby="product-thinking-heading"
@@ -28,7 +28,7 @@ export function WorkIndex() {
         <h2 className="section-title" id="product-thinking-heading">
           {productThinking.label}
         </h2>
-        <ul role="list" className="mt-link">
+        <ul role="list" className="mt-link space-y-row-small">
           {productThinking.entries.map(({ link, ...entry }) => (
             <ListRow
               key={entry.title}
@@ -60,6 +60,8 @@ export function WorkIndex() {
 
 export function WorkDetail() {
   const { slug } = useParams();
-  const project = slug ? PROJECT_PAGES[buildWorkDetailPath(slug.toLowerCase())] : undefined;
+  const project = slug
+    ? PROJECT_PAGES[buildWorkDetailPath(slug.toLowerCase())]
+    : undefined;
   return project ? <CaseStudyPage project={project} /> : <NotFound />;
 }

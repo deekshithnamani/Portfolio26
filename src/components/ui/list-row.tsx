@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 type ListRowProps = {
   title: string;
-  compact?: boolean;
+  type?: string;
   href?: string;
   newTab?: boolean;
   year?: string;
@@ -12,7 +12,7 @@ type ListRowProps = {
 
 export function ListRow({
   title,
-  compact,
+  type,
   href,
   newTab,
   year,
@@ -20,33 +20,27 @@ export function ListRow({
 }: ListRowProps) {
   const titleContent = <LinkLabel label={title} />;
 
+  const metadata = [type, year].filter((value) => value?.trim()).join(" · ");
+
   return (
-    <li className={year ? "work-list-row" : undefined}>
-      {year && (
-        <span className="work-list-year text-small text-text-2">{year}</span>
-      )}
-      <div className="work-list-project">
-        <div
-          className={
-            compact ? "text-small font-medium wrap-anywhere" : "work-list-title"
-          }
-        >
-          {href ? (
-            newTab ? (
-              <a href={href} target="_blank" rel="noreferrer">
-                {titleContent}
-              </a>
-            ) : (
-              <Link to={href}>{titleContent}</Link>
-            )
+    <li className="min-w-0">
+      <div className="work-list-title">
+        {href ? (
+          newTab ? (
+            <a href={href} target="_blank" rel="noreferrer">
+              {titleContent}
+            </a>
           ) : (
-            <span className="text-text-2">{titleContent}</span>
-          )}
-        </div>
-        {description?.trim() && (
-          <p className="text-small text-text-2">{description}</p>
+            <Link to={href}>{titleContent}</Link>
+          )
+        ) : (
+          <span className="text-text-2">{titleContent}</span>
         )}
       </div>
+      {metadata && <p className="text-small text-text-2">{metadata}</p>}
+      {description?.trim() && (
+        <p className="text-small text-text-2">{description}</p>
+      )}
     </li>
   );
 }

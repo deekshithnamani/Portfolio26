@@ -277,36 +277,10 @@ a:hover .link-arrow::after {
   }
 }
 
-.work-list-row {
-  display: grid;
-  gap: var(--row-gap-small);
-  padding-block: var(--row-gap-small);
-  grid-template-areas: "project" "year";
-}
-
-.work-list-year {
-  grid-area: year;
-}
-
-.work-list-project {
-  grid-area: project;
-  min-width: 0;
-}
-
 .work-list-title {
   @apply text-item font-medium;
   min-width: 0;
   overflow-wrap: anywhere;
-}
-
-@media (width >= 480px) {
-  .work-list-row {
-    min-height: var(--row-height);
-    grid-template-columns: var(--work-year-width) minmax(0, 1fr);
-    grid-template-areas: "year project";
-    column-gap: var(--link-gap);
-    align-items: center;
-  }
 }
 
 .company-work-group {

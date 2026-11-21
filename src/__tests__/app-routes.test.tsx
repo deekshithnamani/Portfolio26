@@ -56,10 +56,16 @@ describe("app routes", () => {
     );
     expect(selected.queryByRole("region")).toBeNull();
     const rows = selected.getAllByRole("listitem");
-    expect(rows.map((row) => row.textContent)).toEqual([
+    expect(rows.map((row) => row.firstElementChild?.textContent)).toEqual([
       "Decision workflows",
       "Property-document checker",
     ]);
+    expect(
+      within(rows[0]).getByText("Product design · 2024–"),
+    ).toBeInTheDocument();
+    expect(
+      within(rows[1]).getByText("Case study · 2023–24"),
+    ).toBeInTheDocument();
     expect(
       within(rows[1]).getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", SITE_LINKS.legalProof.href);

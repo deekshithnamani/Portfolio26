@@ -23,6 +23,7 @@
       "company": "Stealth AI startup",
       "featured": true,
       "title": "Property-document checker",
+      "type": "Case study",
       "description": "Stealth AI startup · Flags issues in land documents that take lawyers weeks.",
       "placeholder": true,
       "href": "/work/property-document-checker"
@@ -32,6 +33,7 @@
       "company": "DAOSoft",
       "featured": true,
       "title": "Decision workflows",
+      "type": "Product design",
       "description": "DAOSoft · How a high-stakes engineering decision moves through one connected system.",
       "placeholder": true
     },
@@ -146,15 +148,15 @@
   "companies": {
     "DAOSoft": {
       "role": "UX/UI Designer",
-      "duration": "Mar 2024 – Present"
+      "duration": "2024–present"
     },
     "Stealth AI startup": {
       "role": "UX/UI Designer",
-      "duration": "Aug 2023 – Feb 2024"
+      "duration": "2023–24"
     },
     "Univ.AI": {
       "role": "UX/UI Designer",
-      "duration": "Oct 2022 – Apr 2023"
+      "duration": "2022–23"
     }
   }
 }

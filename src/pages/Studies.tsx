@@ -17,9 +17,14 @@ export default function BeyondWorkIndex() {
     <PageContainer>
       <div className="space-y-heading-gap">
         <h1 className="page-title">{BEYOND_WORK_CONTENT.label}</h1>
-        <p className="text-text-2">{BEYOND_WORK_CONTENT.description}</p>
+        <p className="text-nav text-text-2">
+          {BEYOND_WORK_CONTENT.description}
+        </p>
       </div>
-      <ul role="list" className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
+      <ul
+        role="list"
+        className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2"
+      >
         {BEYOND_WORK_CONTENT.series.map(
           ({ slug, title, description, photoIds }) => {
             const cover = PHOTO_CONTENT.images.find(
@@ -29,8 +34,8 @@ export default function BeyondWorkIndex() {
               <li key={slug} className="min-w-0">
                 <figure>
                   {cover && <DitherImage src={cover.file} label={title} />}
-                  <figcaption>
-                    <h2 className="item-title">
+                  <figcaption className="space-y-heading-gap">
+                    <h2 className="text-body leading-snug font-medium text-text">
                       <Link
                         id={seriesLinkId(slug)}
                         to={buildBeyondWorkSeriesPath(slug)}
@@ -38,7 +43,7 @@ export default function BeyondWorkIndex() {
                         {title}
                       </Link>
                     </h2>
-                    <p className="text-text-2">{description}</p>
+                    <p className="text-nav text-text-2">{description}</p>
                   </figcaption>
                 </figure>
               </li>
@@ -52,7 +57,9 @@ export default function BeyondWorkIndex() {
 
 export function BeyondWorkSeriesPage() {
   const { slug } = useParams();
-  const series = BEYOND_WORK_CONTENT.series.find((item) => item.slug === slug?.toLowerCase());
+  const series = BEYOND_WORK_CONTENT.series.find(
+    (item) => item.slug === slug?.toLowerCase(),
+  );
 
   if (!series) return <NotFound />;
 
@@ -67,9 +74,9 @@ export function BeyondWorkSeriesPage() {
         destination={back}
         state={{ returnToId: seriesLinkId(series.slug) }}
       />
-      <div className="space-y-heading-gap">
+      <div className="mt-link space-y-heading-gap">
         <h1 className="item-title">{series.title}</h1>
-        <p className="text-text-2">{series.description}</p>
+        <p className="text-nav text-text-2">{series.description}</p>
       </div>
       {photos.length > 0 && (
         <div className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">

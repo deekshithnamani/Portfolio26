@@ -27,7 +27,12 @@ describe("work index", () => {
       expect(group.getAllByRole("listitem")).toHaveLength(1);
       expect(group.getByText("UX/UI Designer")).toBeInTheDocument();
     }
-    expect(product.getAllByRole("listitem")).toHaveLength(2);
+    const thinkingRows = product.getAllByRole("listitem");
+    expect(thinkingRows).toHaveLength(2);
+    expect(thinkingRows[0].firstElementChild).toHaveTextContent(
+      "Zomato eco-features PRD",
+    );
+    expect(within(thinkingRows[0]).getByText("2025")).toBeInTheDocument();
     expect(
       stealth.getByRole("link", { name: "Property-document checker" }),
     ).toHaveAttribute("href", "/work/property-document-checker");
@@ -38,7 +43,7 @@ describe("work index", () => {
       "text-small",
       "text-text-2",
     );
-    expect(univ.getByText("Oct 2022 – Apr 2023")).toBeInTheDocument();
+    expect(univ.getByText("2022–23")).toBeInTheDocument();
     expect(daosoft.getByText("Decision workflows")).toBeInTheDocument();
     expect(daosoft.queryByRole("link")).toBeNull();
     expect(product.getByText("Zomato eco-features PRD")).toBeInTheDocument();
@@ -55,6 +60,7 @@ describe("work index", () => {
   });
   it("sorts ongoing, abbreviated ranges and newer years without mutating data", () => {
     const projects = [
+      { title: "Undated project" },
       { year: "2025", title: "Fellowship" },
       { year: "2022–2023", title: "Earlier project" },
       { year: "2024–", title: "Ongoing project", status: "soon" },
@@ -67,7 +73,8 @@ describe("work index", () => {
       "Newer project",
       "Fellowship",
       "Earlier project",
+      "Undated project",
     ]);
-    expect(projects[0].title).toBe("Fellowship");
+    expect(projects[0].title).toBe("Undated project");
   });
 });

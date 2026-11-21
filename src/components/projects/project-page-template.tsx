@@ -54,7 +54,7 @@ export function CaseStudyPage({ project }: { project: ProjectContent }) {
         <header>
           <div className="space-y-heading-gap">
             <h1 className="page-title">{title}</h1>
-            {summary?.trim() && <p className="text-text-2">{summary}</p>}
+            {summary?.trim() && <p className="text-nav text-text-2">{summary}</p>}
           </div>
           {meta?.trim() && <p className="mt-gutter text-small text-text-2">{meta}</p>}
           {sectionNav && sections.length > 0 && <SectionNav sections={sections} />}

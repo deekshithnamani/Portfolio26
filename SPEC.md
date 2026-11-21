@@ -46,8 +46,9 @@
   photographs are the background of this page." "photograph" links to
   /creative.
 - Label "Selected work", then the Work entries marked `featured`, newest
-  first using the same sort as Work. Show titles in a flat list. Personal
-  projects can omit the company field.
+  first using the same sort as Work. Use a 20px heading and a flat list without
+  dividers. Show the title first, then its type and optional year or period.
+  Personal projects can omit the company field.
 
 ## Work page
 
@@ -58,8 +59,8 @@
   first from the years in `work.json`.
 - Put company, role and duration beside the project list on wider screens, and
   above it on narrow screens. Use “UX/UI Designer” for every company role.
-  Role, duration and project details use secondary
-  type. Use dividers at group and section boundaries, with none on individual rows.
+  Use muted text for company names, roles and year-only durations, with more
+  emphasis on project titles. Use dividers only between companies.
 - Keep the following rows and omit status tags:
   Property-document checker | 2023–24 | Stealth AI startup · Flags issues
     in land documents that take lawyers weeks.
@@ -67,7 +68,8 @@
     decision moves through one connected system. | no link
   Univ.AI platform | 2022–23 | Univ.AI · A design system, a job portal and
     a staff tool for an edtech startup.
-- Section "Product thinking" (id product-thinking):
+- Section "Product thinking" (id product-thinking) follows the company groups.
+  Put project titles first, with years as supporting text:
   Zomato eco-features PRD | 2025 | Graduation project on driving
     eco-feature adoption in Zomato: KPI tree, PRD and experimentation
     roadmap. | gray, no link
