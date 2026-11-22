@@ -23,7 +23,7 @@ export function ListRow({
   const metadata = [type, year].filter((value) => value?.trim()).join(" · ");
 
   return (
-    <li className="min-w-0">
+    <li className="work-list-row">
       <div className="work-list-title">
         {href ? (
           newTab ? (
@@ -36,10 +36,12 @@ export function ListRow({
         ) : (
           <span className="text-text-2">{titleContent}</span>
         )}
+        {description?.trim() && (
+          <p className="text-small font-normal text-text-2">{description}</p>
+        )}
       </div>
-      {metadata && <p className="text-small text-text-2">{metadata}</p>}
-      {description?.trim() && (
-        <p className="text-small text-text-2">{description}</p>
+      {metadata && (
+        <p className="work-list-metadata text-small text-text-2">{metadata}</p>
       )}
     </li>
   );

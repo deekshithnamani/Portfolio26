@@ -277,6 +277,19 @@ a:hover .link-arrow::after {
   }
 }
 
+.work-list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) fit-content(42%);
+  align-items: baseline;
+  gap: var(--link-gap);
+  min-width: 0;
+}
+
+.work-list-metadata {
+  text-align: end;
+  overflow-wrap: anywhere;
+}
+
 .work-list-title {
   @apply text-item font-medium;
   min-width: 0;
