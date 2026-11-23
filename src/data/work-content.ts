@@ -47,11 +47,19 @@ export function sortProjectsByYear<T extends { year?: string }>(
   });
 }
 
+export type ProjectVideo = {
+  src: string;
+  alt: string;
+  poster?: string;
+  tracks?: { src: string; srcLang: string; label: string }[];
+};
+
 type CaseStudySection = {
   id: string;
   title: string;
   body: string;
   image?: { src: string; alt: string };
+  video?: ProjectVideo;
   caption?: string;
   note?: string;
   placeholder: boolean;

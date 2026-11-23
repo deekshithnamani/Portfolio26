@@ -37,6 +37,34 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
+  it("opens the next project from the end of a case study", async () => {
+    const user = userEvent.setup();
+    await renderAt(SITE_LINKS.legalProof.href);
+    const navigation = screen.getByRole("navigation", {
+      name: "Project navigation",
+    });
+    const next = within(navigation).getByRole("link");
+    const href = next.getAttribute("href");
+    expect(href).not.toBe(SITE_LINKS.legalProof.href);
+    await user.click(next);
+    expect(window.location.pathname).toBe(href);
+  });
+  it("changes the background when returning Home from another page", async () => {
+    const user = userEvent.setup();
+    const { container } = await renderAt("/");
+    const first = container
+      .querySelector(".home-dither")
+      ?.getAttribute("data-effect");
+    await user.click(
+      within(screen.getByRole("banner")).getByRole("link", { name: "Work" }),
+    );
+    expect(container.querySelector(".home-dither")).toBeNull();
+    await user.click(screen.getByRole("link", { name: "Deekshith Namani" }));
+    expect(container.querySelector(".home-dither")).not.toHaveAttribute(
+      "data-effect",
+      first,
+    );
+  });
   it("shows only featured Work rows on Home, newest first", async () => {
     await renderAt(ROUTE_PATHS.home);
     const mainElement = screen.getByRole("main");
@@ -48,6 +76,9 @@ describe("app routes", () => {
       "href",
       "/creative",
     );
+    expect(
+      main.getByText(/see some of those photographs in Creative/),
+    ).toBeInTheDocument();
     expect(
       main.getByRole("heading", { name: "Selected work" }),
     ).toBeInTheDocument();
@@ -100,6 +131,28 @@ describe("app routes", () => {
       expect(section).toHaveFocus();
     },
   );
+
+  it("focuses a section from an encoded fragment", async () => {
+    await renderAt(SITE_LINKS.legalProof.href + "#%6Fptions");
+    expect(screen.getByRole("region", { name: "Options" })).toHaveFocus();
+  });
+
+  it("focuses the section when its current anchor is activated again", async () => {
+    const user = userEvent.setup();
+    await renderAt(SITE_LINKS.legalProof.href + "#options");
+    const nav = within(
+      screen.getByRole("navigation", { name: "Case study sections" }),
+    );
+    const link = nav.getByRole("link", { name: "Options" });
+    link.focus();
+    await user.keyboard("{Enter}");
+    expect(screen.getByRole("region", { name: "Options" })).toHaveFocus();
+  });
+
+  it("handles a malformed fragment without interrupting navigation", async () => {
+    await renderAt(SITE_LINKS.legalProof.href + "#%ZZ");
+    expect(screen.getByRole("main")).toHaveFocus();
+  });
 
   it.each([
     [
@@ -347,7 +400,9 @@ describe("app routes", () => {
         .getAllByRole("heading", { level: 2 })
         .map((heading) => heading.textContent),
     ).toEqual(["Background", "My part", "Outcome"]);
-    expect(main.queryByRole("navigation")).toBeNull();
+    expect(
+      main.queryByRole("navigation", { name: "Case study sections" }),
+    ).toBeNull();
     expect(main.getAllByRole("figure")).toHaveLength(3);
     expect(
       main.getByText("Product design · Univ.AI · Oct 2022 – Apr 2023"),
@@ -426,9 +481,7 @@ describe("app routes", () => {
   it("shows project types without status tags in Work rows", async () => {
     await renderAt(ROUTE_PATHS.work);
     const main = within(screen.getByRole("main"));
-    expect(
-      main.queryByText(/^(new|soon)$/i),
-    ).toBeNull();
+    expect(main.queryByText(/^(new|soon)$/i)).toBeNull();
     expect(main.getByText("Case study")).toBeInTheDocument();
   });
 
@@ -438,7 +491,7 @@ describe("app routes", () => {
     expect(within(main).queryByText("Tradeoffs")).toBeNull();
     expect(within(main).queryByText("In hindsight")).toBeNull();
     expect(
-      main.querySelectorAll("figure .aspect-video.bg-case-image"),
+      within(main).getAllByRole("button", { name: /^Expand media: / }),
     ).toHaveLength(5);
     expect(main.querySelector("figcaption")).toBeNull();
   });

@@ -8,6 +8,7 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
   const [ready, setReady] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState(16 / 9);
 
   useEffect(() => {
     const canvas = previewRef.current;
@@ -16,7 +17,9 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
 
     const render = () => {
       if (!image.naturalWidth) return;
-      drawDither(canvas, image, 93, 52);
+      const ratio = image.naturalWidth / image.naturalHeight;
+      setAspectRatio(ratio);
+      drawDither(canvas, image, 93, Math.max(1, Math.round(93 / ratio)));
       setReady(true);
     };
 
@@ -28,7 +31,8 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
   return (
     <button
       type="button"
-      className="dither-image relative mb-link block aspect-video w-full cursor-pointer bg-line"
+      className="dither-image relative mb-link block w-full cursor-pointer bg-line"
+      style={{ aspectRatio }}
       aria-label={`${SITE_LABELS.showOriginal}${label}`}
       aria-pressed={revealed}
       data-ready={ready}
@@ -44,7 +48,7 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
         src={src}
         alt=""
         loading="lazy"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain"
       />
       <canvas
         ref={previewRef}

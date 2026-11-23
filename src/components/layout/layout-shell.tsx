@@ -9,11 +9,11 @@ export function RouteEffects({
 }: {
   mainRef: RefObject<HTMLElement | null>;
 }) {
-  const { pathname, hash, state } = useLocation();
+  const { pathname, hash, state, key } = useLocation();
   const returnToId =
     typeof state?.returnToId === "string" ? state.returnToId : undefined;
   const { setLabel } = useCursor();
-  const previousLocation = useRef(pathname);
+  const previousLocation = useRef({ pathname, hash: "", key });
 
   useLayoutEffect(() => {
     const { title, description } = resolveDocumentMetadata(pathname);
@@ -27,14 +27,39 @@ export function RouteEffects({
       document.head.append(meta);
     }
     meta.content = description;
+    for (const [property, content] of [
+      ["og:title", title],
+      ["og:description", description],
+    ]) {
+      let tag = document.querySelector<HTMLMetaElement>(
+        `meta[property="${property}"]`,
+      );
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("property", property);
+        document.head.append(tag);
+      }
+      tag.content = content;
+    }
     setLabel(null);
 
-    if (previousLocation.current !== pathname + hash) {
-      const fragment = hash ? document.getElementById(hash.slice(1)) : null;
+    const previous = previousLocation.current;
+    if (
+      previous.pathname !== pathname ||
+      previous.hash !== hash ||
+      previous.key !== key
+    ) {
+      let fragmentId = hash.slice(1);
+      try {
+        fragmentId = decodeURIComponent(fragmentId);
+      } catch {
+        // A malformed escape may still be a literal element ID.
+      }
+      const fragment = hash ? document.getElementById(fragmentId) : null;
       if (fragment && mainRef.current?.contains(fragment)) {
         fragment.scrollIntoView?.({ block: "start", behavior: "auto" });
         fragment.focus({ preventScroll: true });
-        previousLocation.current = pathname + hash;
+        previousLocation.current = { pathname, hash, key };
         return;
       }
       const target = returnToId ? document.getElementById(returnToId) : null;
@@ -48,9 +73,9 @@ export function RouteEffects({
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
         mainRef.current?.focus({ preventScroll: true });
       }
-      previousLocation.current = pathname + hash;
+      previousLocation.current = { pathname, hash, key };
     }
-  }, [hash, mainRef, pathname, returnToId, setLabel]);
+  }, [hash, key, mainRef, pathname, returnToId, setLabel]);
 
   return null;
 }

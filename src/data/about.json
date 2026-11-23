@@ -1,7 +1,8 @@
 {
   "label": "About",
   "story": [
-    "I’m a product designer in Hyderabad. I studied chemical engineering at NIT Nagpur and started at Tata Consulting Engineers, designing plants for mining and metallurgy projects, and began exploring design on the side. A mentor helped me prepare for a design masters, I took a short UX workshop, and then I left to find a way in. After a few interviews with no offers, the same mentor offered me an internship at Univ.AI.",
+    "I’m a product designer in Hyderabad. I studied chemical engineering at NIT Nagpur and started at Tata Consulting Engineers, designing plants for mining and metallurgy projects, and began exploring design on the side.",
+    "A mentor helped me prepare for a design masters, I took a short UX workshop, and then I left to find a way in. After a few interviews with no offers, the same mentor offered me an internship at Univ.AI.",
     "Since then I’ve worked on AI and enterprise products at early-stage teams, often as the only designer on the project: a legal workspace for lawyers, and now a platform for high-stakes engineering decisions. I’ve built design systems from scratch and ship small UI fixes to production with AI coding tools.",
     "In 2025 I did the NextLeap PM Fellowship to learn how product managers frame problems, set metrics and prioritise."
   ],
@@ -45,10 +46,13 @@
   ],
   "contact": [
     {
-      "text": "Find me on "
+      "text": "Want to talk about a project or working together? Reach out on "
     },
     {
       "link": "linkedin"
+    },
+    {
+      "text": "."
     }
   ],
   "placeholder": true

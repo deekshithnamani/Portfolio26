@@ -89,6 +89,9 @@
     "skip": "Skip to content",
     "primaryNav": "Primary navigation",
     "projectNav": "Case study sections",
+    "expandMedia": "Expand media: ",
+    "closeMedia": "Close media viewer",
+    "mediaPlaceholder": "Image placeholder",
     "showOriginal": "Show original image: ",
     "back": "Back to "
   },

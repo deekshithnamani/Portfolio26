@@ -1,6 +1,7 @@
 import { PageContainer } from "@/components/ui";
 import { InlineCopy } from "@/components/ui/inline-copy";
 import { ABOUT_CONTENT } from "@/data/about-content";
+import { ProjectMedia } from "@/components/projects/project-media";
 
 export default function About() {
   const { label, story, sections, contact } = ABOUT_CONTENT;
@@ -11,6 +12,7 @@ export default function About() {
   return (
     <PageContainer>
       <h1 className="page-title">{label}</h1>
+      <ProjectMedia placeholderLabel="About photo" />
       <div className="mt-gutter space-y-gutter">
         {story
           .filter((paragraph) => paragraph.trim())

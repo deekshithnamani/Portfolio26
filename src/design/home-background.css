@@ -1,0 +1,35 @@
+.home-dither {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+  opacity: var(--dither-opacity);
+}
+
+.home-dither-surface {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.home-dither canvas {
+  image-rendering: pixelated;
+}
+
+.home-dither[data-effect="ripples"] .home-dither-surface {
+  mask-image: radial-gradient(
+    ellipse 70vw 100vh at 100% 100%,
+    black 0% 55%,
+    transparent 100%
+  );
+}
+
+@media (width < 768px) {
+  .home-dither {
+    --dither-cell: 3px;
+  }
+}

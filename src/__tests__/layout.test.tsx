@@ -194,4 +194,28 @@ describe("layout shell", () => {
       "Selected work by Deekshith Namani, with the decisions behind it.",
     );
   });
+
+  it("updates Open Graph metadata after navigating", async () => {
+    const user = userEvent.setup();
+    const tags = ["og:title", "og:description"].map((property) => {
+      const tag =
+        document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`) ??
+        document.createElement("meta");
+      tag.setAttribute("property", property);
+      tag.content = "Previous page";
+      document.head.append(tag);
+      return tag;
+    });
+    try {
+      renderLayout();
+      await user.click(screen.getByRole("link", { name: "Go to work" }));
+      expect(tags[0]).toHaveAttribute("content", "Deekshith Namani · Work");
+      expect(tags[1]).toHaveAttribute(
+        "content",
+        "Selected work by Deekshith Namani, with the decisions behind it.",
+      );
+    } finally {
+      tags.forEach((tag) => tag.remove());
+    }
+  });
 });

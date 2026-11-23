@@ -1,3 +1,4 @@
+import { ProjectMedia } from "@/components/projects/project-media";
 import { BackLink } from "@/components/ui/back-link";
 import { Link, useParams } from "react-router";
 import { PageContainer } from "@/components/ui";
@@ -80,20 +81,19 @@ export function BeyondWorkSeriesPage() {
       </div>
       {photos.length > 0 && (
         <div className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
-          {photos.map(({ id, file, alt, caption }) => (
-            <figure key={id}>
-              <img
-                src={file}
-                alt={alt}
-                loading="lazy"
-                className="aspect-video w-full object-cover"
-              />
-              {caption?.trim() && (
-                <figcaption className="mt-link text-small text-text-2">
-                  {caption}
-                </figcaption>
-              )}
-            </figure>
+          {photos.map(({ id, file, alt, caption }, index) => (
+            <ProjectMedia
+              key={id}
+              image={{ src: file, alt }}
+              caption={caption}
+              naturalAspect
+              galleryIndex={index}
+              gallery={photos.map((photo) => ({
+                src: photo.file,
+                alt: photo.alt,
+                caption: photo.caption,
+              }))}
+            />
           ))}
         </div>
       )}

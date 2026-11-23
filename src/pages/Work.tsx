@@ -65,5 +65,25 @@ export function WorkDetail() {
   const project = slug
     ? PROJECT_PAGES[buildWorkDetailPath(slug.toLowerCase())]
     : undefined;
-  return project ? <CaseStudyPage project={project} /> : <NotFound />;
+  const projects = WORK_CONTENT.entries.filter(
+    ({ href }) => href && PROJECT_PAGES[href],
+  );
+  const current = projects.findIndex(
+    ({ href }) =>
+      href === (slug ? buildWorkDetailPath(slug.toLowerCase()) : undefined),
+  );
+  const next =
+    current >= 0 && projects.length > 1
+      ? projects[(current + 1) % projects.length]
+      : undefined;
+  return project ? (
+    <CaseStudyPage
+      project={project}
+      nextProject={
+        next?.href ? { title: next.title, href: next.href } : undefined
+      }
+    />
+  ) : (
+    <NotFound />
+  );
 }

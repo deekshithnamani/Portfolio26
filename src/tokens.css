@@ -5,7 +5,15 @@
   --text-2: #62625e;
   --line: #e3e3dd;
   --dither: #cfcfc7;
+  --ink-color: #c47575;
+  --dither-paper: var(--bg);
+  --dither-ink: var(--ink-color);
+  --dither-soft: color-mix(in srgb, var(--dither-ink) 45%, var(--dither-paper));
+  --dither-mid: color-mix(in srgb, var(--dither-ink) 80%, var(--dither-paper));
+  --dither-opacity: 0.4;
+  --dither-cell: 2px;
   --case-image: #efefea;
+  --media-backdrop: rgb(0 0 0 / 80%);
   --column-width: 640px;
   --gutter: 24px;
   --body-size: 15px;
@@ -18,6 +26,8 @@
   --home-project-space: 40px;
   --footer-space: 96px;
   --tap-height: 44px;
+  --media-control-size: 32px;
+  --media-control-icon: 16px;
   --nav-size: 14px;
   --title-size: 20px;
   --section-size: 18px;
@@ -27,9 +37,6 @@
   --motion-page: 200ms;
   --motion-image: 240ms;
   --motion-link: 140ms;
-  --motion-grain: 7s;
-  --motion-grain-front: 10s;
-  --motion-parallax: 420ms;
   --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
