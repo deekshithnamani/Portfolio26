@@ -63,21 +63,22 @@ describe("layout shell", () => {
     expect(isActivePath("/workflow", ROUTE_PATHS.work)).toBe(false);
   });
 
-  it("loads the single light color scheme from the stylesheet", () => {
+  it("initializes the saved or system theme before rendering", () => {
     const tokens = readFileSync(resolve("src/tokens.css"), "utf8");
     expect(tokens).toContain("color-scheme: light");
-    expect(readFileSync(resolve("index.html"), "utf8")).not.toContain(
-      "data-theme",
-    );
+    expect(tokens).toContain("color-scheme: dark");
+    const html = readFileSync(resolve("index.html"), "utf8");
+    expect(html).toContain("portfolio.theme");
+    expect(html).toContain("prefers-color-scheme: dark");
   });
 
-  it("renders no theme switch even when a dark preference is stored", () => {
+  it("renders the theme switch and restores a stored dark preference", () => {
     localStorage.setItem("portfolio.theme", "dark");
     renderLayout();
     expect(
-      screen.queryByRole("button", { name: /theme/i }),
-    ).not.toBeInTheDocument();
-    expect(document.documentElement).not.toHaveAttribute("data-theme");
+      screen.getByRole("button", { name: "Switch to light mode" }),
+    ).toBeInTheDocument();
+    expect(document.documentElement).toHaveAttribute("data-theme", "dark");
   });
 
   it("exposes the header links in keyboard order at all widths", async () => {
@@ -88,6 +89,10 @@ describe("layout shell", () => {
     await user.tab();
     expect(
       screen.getByRole("link", { name: "Deekshith Namani" }),
+    ).toHaveFocus();
+    await user.tab();
+    expect(
+      screen.getByRole("button", { name: /Switch to (light|dark) mode/ }),
     ).toHaveFocus();
     await user.tab();
     expect(
@@ -199,8 +204,9 @@ describe("layout shell", () => {
     const user = userEvent.setup();
     const tags = ["og:title", "og:description"].map((property) => {
       const tag =
-        document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`) ??
-        document.createElement("meta");
+        document.querySelector<HTMLMetaElement>(
+          `meta[property="${property}"]`,
+        ) ?? document.createElement("meta");
       tag.setAttribute("property", property);
       tag.content = "Previous page";
       document.head.append(tag);

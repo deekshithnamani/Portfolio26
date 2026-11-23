@@ -37,6 +37,17 @@ function getLinkByHref(href: string) {
 }
 
 describe("app routes", () => {
+  it("switches theme without replacing the selected Home effect", async () => {
+    const user = userEvent.setup();
+    const { container } = await renderAt("/");
+    const background = container.querySelector(".home-dither");
+    const effect = background?.getAttribute("data-effect");
+    await user.click(
+      screen.getByRole("button", { name: /Switch to (light|dark) mode/ }),
+    );
+    expect(container.querySelector(".home-dither")).toBe(background);
+    expect(background).toHaveAttribute("data-effect", effect);
+  });
   it("opens the next project from the end of a case study", async () => {
     const user = userEvent.setup();
     await renderAt(SITE_LINKS.legalProof.href);

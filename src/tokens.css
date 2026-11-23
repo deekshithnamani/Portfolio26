@@ -32,12 +32,25 @@
   --title-size: 20px;
   --section-size: 18px;
   --item-size: 16px;
+  --brand-size: 20px;
   --link-underline: #85857e;
   --link-underline-width: 1px;
   --motion-page: 200ms;
   --motion-image: 240ms;
   --motion-link: 140ms;
   --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #18191a;
+  --text: #eeeee9;
+  --text-2: #c9c7c0;
+  --line: #363839;
+  --dither: #505354;
+  --ink-color: #8fafd1;
+  --case-image: #252729;
+  --link-underline: #898b87;
 }
 
 @media (width < 480px) {
@@ -55,7 +68,8 @@
   --color-case-image: var(--case-image);
   --font-sans: "Inter", sans-serif;
   --font-mono: "Inter", sans-serif;
-  --font-brand: "Inter", sans-serif;
+  --font-brand: "Fraunces Brand", Georgia, serif;
+  --text-brand: var(--brand-size);
   --text-body: var(--body-size);
   --text-body--line-height: var(--body-leading);
   --text-small: var(--small-size);

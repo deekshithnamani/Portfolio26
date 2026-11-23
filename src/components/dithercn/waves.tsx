@@ -64,10 +64,10 @@ float field(vec2 uv, vec2 res, float t) {
         float crest = base + amp * wavesHeight(x, fi, k, t);
         float depth = (crest - uv.y) * res.y;
         if (depth > 0.0) {
-          float body = mix(0.2, 0.03, k) + 0.16 * glint * (1.0 - k);
+          float body = mix(0.08, 0.015, k) + 0.08 * glint * (1.0 - k);
           tone = body * (0.4 + 0.6 * exp(-depth * mix(0.5, 0.06, k)));
-          if (depth < 1.6) {
-            tone = mix(0.95, 0.55, k) * (0.75 + 0.25 * glint);
+          if (depth < 0.85) {
+            tone = mix(0.65, 0.4, k) * (0.75 + 0.25 * glint);
           }
         }
       }
@@ -83,7 +83,7 @@ float field(vec2 uv, vec2 res, float t) {
       float k = fi / max(wavesLayers - 1.0, 1.0);
       float y = 0.5 + envelope * wavesAmplitude * mix(0.3, 0.08, k) * wavesHeight(x * 0.8, fi, k, t * 1.4);
       float dist = abs(uv.y - y) * res.y;
-      float line = 1.0 - smoothstep(0.4, 1.4, dist);
+      float line = 1.0 - smoothstep(0.2, 0.85, dist);
       float glow = wavesGlow * exp(-dist * 0.18) * 0.22;
       tone = max(tone, max(line * mix(1.0, 0.45, k), glow * (1.0 - k * 0.6)));
     }
@@ -124,8 +124,10 @@ function WavesFallback({
             d={`M -20 ${y} C 180 ${y - swell}, 300 ${y + swell}, 500 ${y} S 820 ${y - swell}, 1020 ${y + swell / 2}`}
             fill="none"
             stroke={ink}
-            strokeWidth={18 + i * 8}
-            opacity={0.35 - i * 0.025}
+            strokeWidth={1.5 + i * 0.5}
+            vectorEffect="non-scaling-stroke"
+            strokeLinecap="round"
+            opacity={0.65 - i * 0.05}
           />
         );
       })}

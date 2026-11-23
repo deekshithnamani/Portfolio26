@@ -3,6 +3,14 @@
 @import "./tokens.css";
 @import "./design/home-background.css";
 
+@font-face {
+  font-family: "Fraunces Brand";
+  src: url("/fonts/fraunces-latin-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   /* Existing pages use these names until their layout is updated. */
   --surface-bg: var(--bg);
@@ -70,6 +78,90 @@ body {
   white-space: nowrap;
 }
 
+@media (width < 480px) {
+  .site-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap-height);
+  height: var(--tap-height);
+  flex-shrink: 0;
+  color: var(--text-2);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--line);
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--ink-color) 8%, var(--bg));
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 180ms ease,
+    transform 280ms var(--motion-ease-out);
+}
+
+.theme-toggle:is(:hover, :focus-visible) {
+  color: var(--ink-color);
+}
+
+.theme-toggle:is(:hover, :focus-visible)::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.theme-toggle-icon {
+  position: relative;
+  transition: transform 250ms var(--motion-ease-out);
+}
+
+.theme-toggle:active .theme-toggle-icon {
+  transform: scale(0.85);
+}
+
+.theme-toggle-sun,
+.theme-toggle-moon,
+.theme-toggle-rays {
+  transform-origin: 12px 12px;
+  transition:
+    transform 550ms var(--motion-ease-out),
+    opacity 300ms ease;
+}
+
+.theme-toggle-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle-moon {
+  opacity: 0;
+  transform: rotate(-70deg) scale(0.5);
+}
+
+.theme-toggle[data-mode="dark"] .theme-toggle-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.4);
+}
+
+.theme-toggle[data-mode="dark"] .theme-toggle-rays {
+  transform: rotate(45deg);
+}
+
+.theme-toggle[data-mode="dark"] .theme-toggle-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
 .row-divider {
   border-bottom: 1px solid var(--line);
 }
@@ -108,10 +200,6 @@ body {
       color var(--motion-link) ease-out,
       text-decoration-color var(--motion-link) ease-out;
   }
-
-  .link-arrow::after {
-    transition: border-bottom-color var(--motion-link) ease-out;
-  }
 }
 
 @keyframes page-enter {
@@ -139,22 +227,10 @@ body {
 }
 
 .link-arrow {
+  display: inline-block;
   margin-inline-start: 0.25em;
-  position: relative;
   white-space: nowrap;
-}
-
-a:not(.no-underline) .link-arrow::after,
-a:hover .link-arrow::after {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  border-bottom: var(--link-underline-width) solid var(--link-underline);
-  content: "";
-}
-
-a:hover .link-arrow::after {
-  border-bottom-color: var(--text-2);
+  text-decoration: none;
 }
 
 @media (width >= 1101px) {
@@ -331,7 +407,7 @@ a:hover .link-arrow::after {
   margin: 0;
   padding: var(--gutter);
   border: 0;
-  background: var(--media-backdrop);
+  background: var(--bg);
   color: var(--text);
 }
 

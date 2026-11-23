@@ -66,7 +66,7 @@ describe("light theme tokens", () => {
     expect(contrastRatio(color("text"), color("bg"))).toBeGreaterThanOrEqual(3);
   });
 
-  it("uses a single light scheme and exposes tokens to Tailwind", () => {
+  it("exposes the default light scheme and tokens to Tailwind", () => {
     expect(css).toContain("color-scheme: light");
     expect(css).toContain("@theme inline");
     expect(css).toContain("--color-bg: var(--bg)");
@@ -97,6 +97,40 @@ describe("light theme tokens", () => {
   it("omits retired New-mark and year-first row tokens", () => {
     expect(css).not.toContain("--pen:");
     expect(css).not.toContain("--row-height:");
+  });
+});
+
+describe("dark theme contrast", () => {
+  const css = readFileSync("src/tokens.css", "utf8");
+  const dark = css.split(':root[data-theme="dark"]')[1].split("}")[0];
+  const color = (name: string) =>
+    dark.match(new RegExp(`--${name}: (#[A-Fa-f0-9]{6});`))![1];
+  it("keeps body and secondary text readable on dark paper and blue dither", () => {
+    const channels = (hex: string) =>
+      hex
+        .slice(1)
+        .match(/.{2}/g)!
+        .map((part) => parseInt(part, 16));
+    const paper = channels(color("bg"));
+    const ink = channels(color("ink-color"));
+    const background =
+      "#" +
+      paper
+        .map((value, index) =>
+          Math.round(value * 0.6 + ink[index] * 0.4)
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("");
+    for (const name of ["text", "text-2"]) {
+      expect(contrastRatio(color(name), color("bg"))).toBeGreaterThanOrEqual(
+        4.5,
+      );
+      expect(contrastRatio(color(name), background)).toBeGreaterThanOrEqual(
+        4.5,
+      );
+    }
+    expect(dark).toContain("color-scheme: dark");
   });
 });
 

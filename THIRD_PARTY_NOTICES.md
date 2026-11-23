@@ -1,3 +1,10 @@
+# Fraunces
+
+The header name uses a self-hosted Latin subset of Fraunces Regular, instantiated
+at weight 400 and optical size 32 from the official Google Fonts source. It is
+licensed under the SIL Open Font License 1.1; the complete license and copyright
+notice are included in `public/fonts/Fraunces-OFL.txt`.
+
 # dithercn
 
 The shader engine under `src/lib/dither/` and examples under

@@ -1,6 +1,7 @@
 import { SITE_LABELS } from "@/data/site-links";
 import { useEffect, useRef, useState } from "react";
 import { drawDither } from "./dither";
+import { subscribeToTheme } from "@/lib/dither/color";
 
 export function DitherImage({
   src,
@@ -36,8 +37,12 @@ export function DitherImage({
     };
 
     image.addEventListener("load", render);
+    const unsubscribe = subscribeToTheme(render);
     if (image.complete) render();
-    return () => image.removeEventListener("load", render);
+    return () => {
+      image.removeEventListener("load", render);
+      unsubscribe();
+    };
   }, [src]);
 
   return (

@@ -1,6 +1,31 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <style id="theme-shell">
+      html {
+        background: #f8f8f6;
+        color-scheme: light;
+      }
+      html[data-theme="dark"] {
+        background: #18191a;
+        color-scheme: dark;
+      }
+    </style>
+    <script>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("portfolio.theme");
+        } catch {}
+        document.documentElement.dataset.theme =
+          theme === "light" || theme === "dark"
+            ? theme
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      })();
+    </script>
     <script>
       const redirect = sessionStorage.redirect;
       if (redirect) {
@@ -8,8 +33,14 @@
         history.replaceState(null, "", redirect);
       }
     </script>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="/fonts/fraunces-latin-regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
     <meta
       name="description"
       content="Deekshith Namani is a product designer in Hyderabad working on AI and enterprise products."

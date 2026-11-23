@@ -31,6 +31,10 @@ describe("ambient shader backgrounds", () => {
     const paths = container.querySelectorAll("path");
     expect(paths).toHaveLength(3);
     paths.forEach((path) => expect(path.getAttribute("d")).toContain(" C "));
+    paths.forEach((path) => {
+      expect(Number(path.getAttribute("stroke-width"))).toBeLessThanOrEqual(2.5);
+      expect(path).toHaveAttribute("vector-effect", "non-scaling-stroke");
+    });
   });
   it("keeps one thin-ring ripple with a larger reach", () => {
     render(<BackgroundEffect effect="ripples" />);

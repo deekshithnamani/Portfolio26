@@ -12,7 +12,8 @@ their code and direct query previews remain available. Set their flags to true
 to restore them to the rotation. `HOME_EFFECTS` retains all seven implemented names,
 while `ACTIVE_HOME_EFFECTS` contains only the visible ones.
 Flow Field, Tunnel, and Horizon remain as source references but are not
-imported into the app bundle. All effects use muted light red (#c47575) over warm paper,
+imported into the app bundle. All effects use muted light red (#c47575) over warm paper in light mode,
+and slate blue (#8fafd1) over charcoal in dark mode,
 at a uniform 40% opacity across desktop and mobile. There is no glow, reading-column
 mask, or footer backing. Transparent paper cells leave low-density areas open.
 Fire, Smoke, and Plasma use reduced intensity or density to avoid heavy solid areas.
@@ -61,4 +62,5 @@ single-source narrow ripples, lower-third waves without glow,
 ambient-only input, grid coverage, cell budget, and fractional display scales. jsdom cannot run WebGL;
 those tests mock the low-level renderer. Actual shader compilation, appearance,
 frame rate and phone layouts need a real-browser review of the seven
-query URLs. Keep the site in its existing single light theme.
+query URLs in both themes. The header toggle refreshes the palette in place; see
+`docs/dark-mode.md`.
