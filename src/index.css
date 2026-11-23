@@ -189,6 +189,31 @@ a:hover .link-arrow::after {
   overflow-wrap: anywhere;
 }
 
+@media (width < 480px) {
+  .work-list-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--row-gap-small);
+  }
+
+  .work-list-metadata {
+    text-align: start;
+  }
+}
+
+.page-shell :is(h1, h2, p, figcaption) {
+  overflow-wrap: anywhere;
+}
+
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-height);
+}
+
+.creative-gallery > figure {
+  margin-top: 0;
+}
+
 .company-work-group {
   display: grid;
   gap: var(--link-gap);

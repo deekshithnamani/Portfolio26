@@ -2,12 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import type { ProjectVideo } from "@/data/work-content";
 import { SITE_LABELS } from "@/data/site-links";
 
+type MediaImage = {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  caption?: string;
+};
+
 type Props = {
-  image?: { src: string; alt: string };
+  image?: MediaImage;
   video?: ProjectVideo;
   caption?: string;
   placeholderLabel?: string;
-  gallery?: { src: string; alt: string; caption?: string }[];
+  gallery?: MediaImage[];
   galleryIndex?: number;
   naturalAspect?: boolean;
 };
@@ -87,6 +95,9 @@ export function ProjectMedia({
       <img
         src={visible!.src}
         alt={visible!.alt}
+        width={visible && "width" in visible ? visible.width : undefined}
+        height={visible && "height" in visible ? visible.height : undefined}
+        decoding="async"
         loading={inViewer ? "eager" : "lazy"}
         className={inViewer ? "project-media-full" : "project-media-inline"}
       />

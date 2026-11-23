@@ -2,13 +2,25 @@ import { SITE_LABELS } from "@/data/site-links";
 import { useEffect, useRef, useState } from "react";
 import { drawDither } from "./dither";
 
-export function DitherImage({ src, label }: { src: string; label: string }) {
+export function DitherImage({
+  src,
+  label,
+  width,
+  height,
+}: {
+  src: string;
+  label: string;
+  width?: number;
+  height?: number;
+}) {
   const previewRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [ready, setReady] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [aspectRatio, setAspectRatio] = useState(16 / 9);
+  const [aspectRatio, setAspectRatio] = useState(
+    width && height ? width / height : 16 / 9,
+  );
 
   useEffect(() => {
     const canvas = previewRef.current;
@@ -31,7 +43,7 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
   return (
     <button
       type="button"
-      className="dither-image relative mb-link block w-full cursor-pointer bg-line"
+      className="dither-image focus-ring relative mb-link block w-full cursor-pointer bg-line"
       style={{ aspectRatio }}
       aria-label={`${SITE_LABELS.showOriginal}${label}`}
       aria-pressed={revealed}
@@ -48,6 +60,9 @@ export function DitherImage({ src, label }: { src: string; label: string }) {
         src={src}
         alt=""
         loading="lazy"
+        width={width}
+        height={height}
+        decoding="async"
         className="h-full w-full object-contain"
       />
       <canvas

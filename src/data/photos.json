@@ -7,7 +7,9 @@
       "place": "Hyderabad",
       "date": "",
       "placeholder": true,
-      "alt": "Sun low over a dark ridge and layered clouds"
+      "alt": "Sun low over a dark ridge and layered clouds",
+      "width": 1000,
+      "height": 625
     },
     {
       "id": "signage",
@@ -16,7 +18,9 @@
       "place": "",
       "date": "",
       "placeholder": true,
-      "alt": "Geometric shop sign mounted on a brick wall"
+      "alt": "Geometric shop sign mounted on a brick wall",
+      "width": 1000,
+      "height": 625
     },
     {
       "id": "skyline",
@@ -25,7 +29,9 @@
       "place": "",
       "date": "",
       "placeholder": true,
-      "alt": "Building silhouettes and lit windows at dusk"
+      "alt": "Building silhouettes and lit windows at dusk",
+      "width": 1000,
+      "height": 625
     },
     {
       "id": "wall",
@@ -34,7 +40,9 @@
       "place": "",
       "date": "",
       "placeholder": true,
-      "alt": "Line drawing on a concrete wall"
+      "alt": "Line drawing on a concrete wall",
+      "width": 1000,
+      "height": 625
     },
     {
       "id": "street",
@@ -43,7 +51,9 @@
       "place": "",
       "date": "",
       "placeholder": true,
-      "alt": "Street with converging buildings and road markings"
+      "alt": "Street with converging buildings and road markings",
+      "width": 1000,
+      "height": 625
     }
   ],
   "placeholder": true

@@ -47,7 +47,13 @@ describe("project media", () => {
   it("browses an uncropped photo gallery with buttons and arrow keys", async () => {
     const user = userEvent.setup();
     const gallery = [
-      { src: "/one.webp", alt: "First photo", caption: "First caption" },
+      {
+        src: "/one.webp",
+        alt: "First photo",
+        caption: "First caption",
+        width: 1000,
+        height: 625,
+      },
       { src: "/two.webp", alt: "Second photo", caption: "Second caption" },
     ];
     render(
@@ -66,6 +72,8 @@ describe("project media", () => {
     expect(within(dialog).getByRole("img")).toHaveAttribute("src", "/two.webp");
     fireEvent.keyDown(dialog, { key: "ArrowRight" });
     expect(within(dialog).getByRole("img")).toHaveAttribute("src", "/one.webp");
+    expect(within(dialog).getByRole("img")).toHaveAttribute("width", "1000");
+    expect(within(dialog).getByRole("img")).toHaveAttribute("height", "625");
     expect(within(dialog).getByText("First caption")).toBeInTheDocument();
     await user.click(within(dialog).getByRole("button", { name: /Previous/ }));
     expect(within(dialog).getByRole("img")).toHaveAttribute("src", "/two.webp");

@@ -34,7 +34,14 @@ export default function BeyondWorkIndex() {
             return (
               <li key={slug} className="min-w-0">
                 <figure>
-                  {cover && <DitherImage src={cover.file} label={title} />}
+                  {cover && (
+                    <DitherImage
+                      src={cover.file}
+                      label={title}
+                      width={cover.width}
+                      height={cover.height}
+                    />
+                  )}
                   <figcaption className="space-y-heading-gap">
                     <h2 className="text-body leading-snug font-medium text-text">
                       <Link
@@ -80,11 +87,11 @@ export function BeyondWorkSeriesPage() {
         <p className="text-nav text-text-2">{series.description}</p>
       </div>
       {photos.length > 0 && (
-        <div className="mt-gutter grid gap-gutter min-[480px]:grid-cols-2">
-          {photos.map(({ id, file, alt, caption }, index) => (
+        <div className="creative-gallery mt-gutter grid items-start gap-gutter min-[480px]:grid-cols-2">
+          {photos.map(({ id, file, alt, caption, width, height }, index) => (
             <ProjectMedia
               key={id}
-              image={{ src: file, alt }}
+              image={{ src: file, alt, width, height }}
               caption={caption}
               naturalAspect
               galleryIndex={index}
@@ -92,6 +99,8 @@ export function BeyondWorkSeriesPage() {
                 src: photo.file,
                 alt: photo.alt,
                 caption: photo.caption,
+                width: photo.width,
+                height: photo.height,
               }))}
             />
           ))}

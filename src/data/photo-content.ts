@@ -5,6 +5,8 @@ export const PHOTO_CONTENT: {
     id: string;
     file: string;
     alt: string;
+    width: number;
+    height: number;
     caption?: string;
     place: string;
     date: string;

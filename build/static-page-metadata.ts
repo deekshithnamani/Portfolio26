@@ -12,7 +12,25 @@ function escapeHtml(value: string) {
   return value.replace(/[&<>"]/g, (character) => htmlEntities[character]);
 }
 
-export function staticPageMetadata(): Plugin {
+export function sharingImageTags(siteUrl?: string) {
+  if (!siteUrl?.trim()) return "";
+  const base = new URL(siteUrl);
+  if (!["http:", "https:"].includes(base.protocol)) {
+    throw new Error("VITE_SITE_URL must be an HTTP or HTTPS URL");
+  }
+  const image = escapeHtml(
+    new URL("social-preview.png", `${base.href.replace(/\/$/, "")}/`).href,
+  );
+  return `<meta property="og:type" content="website" />
+    <meta property="og:image" content="${image}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Deekshith Namani, product designer working on AI and enterprise products" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="${image}" />`;
+}
+
+export function staticPageMetadata(siteUrl?: string): Plugin {
   return {
     name: "portfolio-static-page-metadata",
     apply: "build",
@@ -23,7 +41,10 @@ export function staticPageMetadata(): Plugin {
         if (index?.type !== "asset" || typeof index.source !== "string") {
           this.error("Expected a built index.html for route metadata");
         }
-        const template = index.source;
+        const template = index.source.replace(
+          "</head>",
+          `${sharingImageTags(siteUrl)}\n  </head>`,
+        );
         for (const { path, title, description } of PAGE_METADATA) {
           const output = template
             .replace(

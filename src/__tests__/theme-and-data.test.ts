@@ -36,6 +36,29 @@ describe("light theme tokens", () => {
     }
   });
 
+  it("keeps secondary text readable over the darkest 40% red dither", () => {
+    const channels = (hex: string) =>
+      hex
+        .slice(1)
+        .match(/.{2}/g)!
+        .map((part) => parseInt(part, 16));
+    const paper = channels(color("bg"));
+    const ink = channels(color("ink-color"));
+    const opacity = Number(css.match(/--dither-opacity: ([\d.]+);/)![1]);
+    const background =
+      "#" +
+      paper
+        .map((value, index) =>
+          Math.round(value * (1 - opacity) + ink[index] * opacity)
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("");
+    expect(contrastRatio(color("text-2"), background)).toBeGreaterThanOrEqual(
+      4.5,
+    );
+  });
+
   it("keeps the keyboard focus outline at WCAG non-text contrast", () => {
     expect(readFileSync("src/index.css", "utf8")).toContain(
       "outline: 2px solid var(--text)",
@@ -63,7 +86,7 @@ describe("light theme tokens", () => {
     ).toEqual([
       "#F8F8F6",
       "#252525",
-      "#62625E",
+      "#555551",
       "#E3E3DD",
       "#CFCFC7",
       "#EFEFEA",
